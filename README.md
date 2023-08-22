@@ -8,7 +8,7 @@
 
 |                                                                  |                                              |                                  |                                    |                                    |
 | ---------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | ---------------------------------- | ---------------------------------- |
-|  **Karen Botelho**, Gerente do Projeto e desenvolvedor principal |  **Gustavo Mendel**, Vice Gerente do Projeto | **Elis Marcela, desenvolvedor** |  **Victor Andrade**, desenvolvedor |  **Glauber**, desenvolvedor        |
+|  **Karen Botelho**, Gerente do Projeto e desenvolvedor principal |  **Gustavo Mendel**, Vice Gerente do Projeto | **Elis Marcela**, desenvolvedor |  **Victor Andrade**, desenvolvedor |  **Glauber**, desenvolvedor        |
 |  **Igor Dantas**, desenvolvedor                                  |  **Samuel**, desenvolvedor                   |  **Judai Abdon**, desenvolvedor  |  **Lávio**, desenvolvedor          |  **Vitor de Jesus**, desenvolvedor |
 
   
