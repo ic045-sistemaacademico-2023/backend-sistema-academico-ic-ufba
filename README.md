@@ -13,5 +13,5 @@
 #### Samuel
 #### Judai Abdon
 #### Lávio
-
+#### Vitor de Jesus
 Repositório do Backend
