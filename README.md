@@ -29,8 +29,6 @@
 | Vitor de Jesus | Desenvolvedor                           |
 | Lucas Natanael | Desenvolvedor                           |
 
-Repositório do Backend
-
 ## Setup
 
 1. Crie um arquivo `.env.properties` na raiz do projeto
