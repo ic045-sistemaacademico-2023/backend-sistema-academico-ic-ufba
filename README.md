@@ -32,4 +32,6 @@ Repositório do Backend
    1. DATABASE_URL
    2. DATABASE_USERNAME
    3. DATABASE_PASSWORD
-3. Rode a migration Database.sql para criação do banco de dados
+3. Rode a migration `Database.sql` para criação do banco de dados
+  1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL
+  2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
