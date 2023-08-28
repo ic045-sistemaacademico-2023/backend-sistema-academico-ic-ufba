@@ -17,10 +17,17 @@
 
 ## Time de Desenvolvimento
 
-|                                                                  |                                              |                                  |                                    |                                    |
-| ---------------------------------------------------------------- | -------------------------------------------- | -------------------------------- | ---------------------------------- | ---------------------------------- |
-|  **Karen Botelho**, Gerente do Projeto e desenvolvedor    |  **Gustavo Mendel**, Vice Gerente do Projeto | **Elis Marcela**, desenvolvedor |  **Victor Andrade**, desenvolvedor |  **Glauber**, desenvolvedor        |
-|  **Igor Dantas**, desenvolvedor                                  |  **Samuel**, desenvolvedor                   |  **Judai Abdon**, desenvolvedor  |  **Lávio**, desenvolvedor          |  **Vitor de Jesus**, desenvolvedor |
+| Nome           | Cargo                                   |
+| -------------- | --------------------------------------- |
+| Karen Botelho  | Gerente do Projeto e desenvolvedor      |
+| Gustavo Mendel | Vice Gerente do Projeto e desenvolvedor |
+| Elis Marcela   | Desenvolvedor                           |
+| Victor Andrade | Desenvolvedor                           |
+| Glauber        | Desenvolvedor                           |
+| Igor Dantas    | Desenvolvedor                           |
+| Lávio          | Desenvolvedor                           |
+| Vitor de Jesus | Desenvolvedor                           |
+| Lucas Natanael | Desenvolvedor                           |
 
 Repositório do Backend
 
