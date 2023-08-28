@@ -8,7 +8,7 @@
 
 ## [Modelagem do banco de dados](https://drawsql.app/teams/grupo2-3/diagrams/sistema-academico)
 
-## [Protótipo](https://docs.google.com/document/d/1wK5GjQg-D7RmzVUL4DWulFPB6uAa7GnDpn7zJ90VuR4/edit?usp=sharing)
+## [Protótipo](https://www.figma.com/file/wP6PIRd9qBeLcVg6oAhmXa/IC045-%E2%80%93-Sistema-Acad%C3%AAmico?type=design&node-id=0%3A1&mode=design&t=Q2H3Z0lLVXlxUGJa-1)
 
 ## Tecnologias
 1. Java
