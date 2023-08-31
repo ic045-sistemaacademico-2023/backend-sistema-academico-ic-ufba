@@ -8,7 +8,7 @@
 
 ## [Requisitos](https://docs.google.com/document/d/1Dzjv17Old3uu1rwtQg_xaMUMJ1OL9CvtbSKM_gnplww/edit?usp=drive_link)
 
-## [Modelagem do banco de dados](https://drawsql.app/teams/grupo2-3/diagrams/sistema-academico)
+## [Modelagem do banco de dados](https://dbdesigner.page.link/28BjhNgupwdhX9Tp8)
 
 ## [Protótipo](https://www.figma.com/file/43HvdK6cT0hJ4XjSFZDL04/SIGA---IC045?type=design&mode=design&t=ogiUXiYnDVzzZ5J4-1)
 
