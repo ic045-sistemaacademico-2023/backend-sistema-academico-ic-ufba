@@ -11,6 +11,7 @@
 ## [Modelagem do banco de dados](https://dbdesigner.page.link/28BjhNgupwdhX9Tp8)
 
 ## [Protótipo](https://www.figma.com/file/43HvdK6cT0hJ4XjSFZDL04/SIGA---IC045?type=design&mode=design&t=ogiUXiYnDVzzZ5J4-1)
+## [Documento de Arquitetura de Software](https://docs.google.com/document/d/1b8DwGg7oZ-APcK7_UBkhEQnsvwaKZnzY/edit?usp=sharing&ouid=114509522047919530579&rtpof=true&sd=true)
 
 ## Tecnologias
 1. Java
