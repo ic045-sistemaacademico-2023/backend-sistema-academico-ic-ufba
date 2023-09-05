@@ -18,4 +18,5 @@ target/
 # Others
 .env
 .env.properties
-
+docker-compose.yml
+application.properties
