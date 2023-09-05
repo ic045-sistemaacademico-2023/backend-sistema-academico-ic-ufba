@@ -9,12 +9,13 @@ import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.services.UsuarioService;
 
 @RestController
+@RequestMapping("/user")
 public class UsuarioController {
     @Autowired
     private UsuarioService service;
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable String id) {
+    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
         Usuario usuario = service.findById(id);
 
         return usuario != null ? ResponseEntity.ok(usuario): ResponseEntity.notFound().build();
