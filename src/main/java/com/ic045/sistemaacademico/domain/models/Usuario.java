@@ -12,6 +12,8 @@ import jakarta.persistence.Table;
 @Table(name = "usuario")
 public class Usuario {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "cpf")
@@ -33,7 +35,9 @@ public class Usuario {
     @Column(name = "status")
     private String status;
 
-    /*Extra*/
+    /*Extra
+    * as outras tabelas devem buscar o usuario
+    * */
 //    @OneToOne(mappedBy = "usuario")
 //    private Aluno aluno;
 //
