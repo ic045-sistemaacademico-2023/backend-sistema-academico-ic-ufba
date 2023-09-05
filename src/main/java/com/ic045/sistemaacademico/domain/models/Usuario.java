@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 @Table(name = "usuario")
 public class Usuario {
     @Id
-    private String id;
+    private Long id;
 
     @Column(name = "cpf")
     private String cpf;
@@ -33,12 +33,13 @@ public class Usuario {
     @Column(name = "status")
     private String status;
 
-    @OneToOne(mappedBy = "usuario")
-    private Aluno aluno;
-
-    @OneToOne(mappedBy = "usuario")
-    private Professor professor;
-
-    @OneToOne(mappedBy = "usuario")
-    private CoordenadorDeCurso coordenadorDeCurso;
+    /*Extra*/
+//    @OneToOne(mappedBy = "usuario")
+//    private Aluno aluno;
+//
+//    @OneToOne(mappedBy = "usuario")
+//    private Professor professor;
+//
+//    @OneToOne(mappedBy = "usuario")
+//    private CoordenadorDeCurso coordenadorDeCurso;
 }
