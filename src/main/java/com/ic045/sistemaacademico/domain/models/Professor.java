@@ -17,7 +17,7 @@ public class Professor {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario",referencedColumnName = "id")
     private Usuario usuario;
 
     private String nome;

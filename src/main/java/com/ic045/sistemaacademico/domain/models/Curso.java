@@ -17,7 +17,7 @@ public class Curso {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_coordenador")
+    @JoinColumn(name = "id_coordenador",referencedColumnName = "id")
     private CoordenadorDeCurso coordenadorDeCurso;
 
     private String nome;

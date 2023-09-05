@@ -17,11 +17,11 @@ public class Turma {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_disciplina")
+    @JoinColumn(name = "id_disciplina",referencedColumnName = "id")
     private Disciplina disciplina;
 
     @ManyToOne
-    @JoinColumn(name = "id_professor")
+    @JoinColumn(name = "id_professor",referencedColumnName = "id")
     private Professor professor;
 
     private String dias;

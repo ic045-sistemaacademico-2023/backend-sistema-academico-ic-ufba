@@ -17,7 +17,7 @@ public class Disciplina {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_curso")
+    @JoinColumn(name = "id_curso",referencedColumnName = "id")
     private Curso curso;
 
     private String nome;

@@ -17,11 +17,11 @@ public class Nota {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_aluno")
+    @JoinColumn(name = "id_aluno",referencedColumnName = "id")
     private Aluno aluno;
 
     @ManyToOne
-    @JoinColumn(name = "id_turma")
+    @JoinColumn(name = "id_turma",referencedColumnName = "id")
     private Turma turma;
 
     private double nota;
