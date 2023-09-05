@@ -1,16 +1,9 @@
 package com.ic045.sistemaacademico.domain.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "aluno", schema = "aluno")
+@Table(name = "aluno")
 public class Aluno {
 
     @Id
@@ -18,8 +11,16 @@ public class Aluno {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @JoinColumn(name = "id_usuario",referencedColumnName = "id")
     private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_turma",referencedColumnName = "id")
+    private Turma turma;
+
+    @ManyToOne
+    @JoinColumn(name = "id_curso",referencedColumnName = "id")
+    private Curso curso;
 
     @Column(name = "nome")
     private String nome;
