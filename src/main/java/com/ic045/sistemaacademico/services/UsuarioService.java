@@ -14,7 +14,7 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository repository;
 
-    public Usuario findById(String id) {
+    public Usuario findById(Long id) {
         try {
             return repository.findById(id).get() ;
         }catch (NoSuchElementException e){
