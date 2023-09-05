@@ -1,13 +1,12 @@
 package com.ic045.sistemaacademico.domain.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -16,16 +15,16 @@ public class Usuario {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "cpf")
+    @Column(name = "cpf",unique = true,nullable = false)
     private String cpf;
 
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true,nullable = false)
     private String email;
 
-    @Column(name = "senha")
+    @Column(name = "senha",nullable = false)
     private String senha;
 
     @Enumerated(EnumType.STRING)
