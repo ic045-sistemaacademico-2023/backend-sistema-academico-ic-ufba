@@ -1,15 +1,8 @@
 package com.ic045.sistemaacademico.domain.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-@Entity
+@Entity(name = "administrador")
 @Table(name = "administrador")
 public class Administrador {
 
@@ -17,8 +10,8 @@ public class Administrador {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_usuario")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_usuario",referencedColumnName = "id")
     private Usuario usuario;
 
     private String nome;
