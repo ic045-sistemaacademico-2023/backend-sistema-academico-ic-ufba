@@ -20,3 +20,4 @@ target/
 .env.properties
 docker-compose.yml
 application.properties
+resources/
