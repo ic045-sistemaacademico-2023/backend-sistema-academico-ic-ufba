@@ -34,6 +34,14 @@
 
 ## Setup
 
+#### Primeiros passos
+1. Instale [Git](https://gitforwindows.org/)
+2. Instale [Eclipse](https://www.eclipse.org/downloads/)
+3. Clone o repositório da nuvem para a sua máquina local
+4. Importe o projeto Maven no Eclipse pela opção "Existing Maven Project"
+5. Aguarde o Eclipse realizar os downloads necessários para a importação
+
+#### Segundo passo 
 1. Crie um arquivo `.env.properties` na raiz do projeto
 2. Configure as seguintes variáveis que serão utilizadas no application.properties para configuração com o MySQL:
    1. DATABASE_URL
