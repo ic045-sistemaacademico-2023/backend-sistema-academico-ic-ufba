@@ -42,7 +42,7 @@ CREATE TABLE `disciplina`
     `ementa`         varchar(255) NOT NULL,
     `pre_requisitos` varchar(255) NOT NULL,
     `nivel`          VARCHAR(255),
-    `area`           varchar,
+    `area`           varchar(255),
     `observacao`     VARCHAR(255),
     `ch`             INT          NOT NULL,
     PRIMARY KEY (`id`)
