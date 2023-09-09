@@ -47,17 +47,19 @@
 #### Segunda parte: Configuração do banco de dados
 1. Crie um arquivo `.env.properties` na raiz do projeto
 2. Configure as seguintes variáveis que serão utilizadas no application.properties para configuração com o MySQL:
-   1. DATABASE_URL
+   1. DATABASE_URL=`jdbc:mysql://localhost:3306/sistemaacademico?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true=America/Bahia`
    2. DATABASE_USERNAME
    3. DATABASE_PASSWORD
 3. Rode a migration `Database.sql` para criação do banco de dados
   1. Abra o MySQL Shell do Workbench e rode `\sql` para converter alinguagem do shell de JS para SQL
   2. Rode `\connect root@localhost` no MySQL Shell do Workbench pra conectar ao banco, então coloque a senha do root e pressione enter pra concluir
   3. Localize o caminho do `Database.sql` e rode o comando `\source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
-     1. Provavelmente o caminho será algo como ${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\Database.sql
+     1. Provavelmente o caminho será algo como `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\Database.sql`
 
      Ou siga
  1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL
  2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
 
-    
+#### Terceira parte: Rodar o projeto
+1. Cliqye em "Run As" então em "Java Application" da classe "SistemaAcademicoApplication" em `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico`
+2. Acesse a api através de
