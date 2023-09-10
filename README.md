@@ -57,8 +57,8 @@
      1. Provavelmente o caminho será algo como `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\Database.sql`
 
      Ou siga
- 1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL
- 2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
+  1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL
+  2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
 
 #### Terceira parte: Rodar o projeto
 1. Cliqye em "Run As" então em "Java Application" da classe "SistemaAcademicoApplication" em `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico`
