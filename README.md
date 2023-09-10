@@ -62,4 +62,4 @@
 
 #### Terceira parte: Rodar o projeto
 1. Cliqye em "Run As" então em "Java Application" da classe "SistemaAcademicoApplication" em `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico`
-2. Acesse a api através de
+2. Acesse a API através de URL como a seguinte `http://localhost:8080/sistemaacademico/disciplina/1`
