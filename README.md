@@ -32,22 +32,34 @@
 | Vitor de Jesus | Desenvolvedor                           |
 | Lucas Natanael | Desenvolvedor                           |
 
-## Setup
+## Set up
 
-#### Primeiros passos
+#### Primeira parte: Instalação geral do projeto
 1. Instale [Git](https://gitforwindows.org/)
 2. Instale [Eclipse](https://www.eclipse.org/downloads/)
 3. Clone o repositório da nuvem para a sua máquina local
 4. Importe o projeto Maven no Eclipse pela opção "Existing Maven Project"
 5. Aguarde o Eclipse terminar de realizar os downloads necessários para a importação
-6. 
+6. Instale [MySQL Workbench](https://dev.mysql.com/downloads/windows/installer/8.0.html)
+7. Adicione uma conexão no MySQL Workbench e configure as credenciais de acesso
+8. Reinicie seu computador ou siga os passos dessa [thread](https://stackoverflow.com/questions/41818827/mysql-error-1045-access-denied-for-user-rootlocalhost-using-password) para concluir com sucesso a segunda parte do set up
 
-#### Segunda parte 
+#### Segunda parte: Configuração do banco de dados
 1. Crie um arquivo `.env.properties` na raiz do projeto
 2. Configure as seguintes variáveis que serão utilizadas no application.properties para configuração com o MySQL:
-   1. DATABASE_URL
+   1. DATABASE_URL=`jdbc:mysql://localhost:3306/sistemaacademico?useSSL=false&allowPublicKeyRetrieval=true&useTimezone=true=America/Bahia`
    2. DATABASE_USERNAME
    3. DATABASE_PASSWORD
 3. Rode a migration `Database.sql` para criação do banco de dados
-  1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL
-  2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
+  1. Abra o MySQL Shell do Workbench e rode `\sql` para converter alinguagem do shell de JS para SQL
+  2. Rode `\connect root@localhost` no MySQL Shell do Workbench pra conectar ao banco, então coloque a senha do root e pressione enter pra concluir
+  3. Localize o caminho do `Database.sql` e rode o comando `\source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
+     1. Provavelmente o caminho será algo como `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\Database.sql`
+
+     Ou siga
+ 1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL
+ 2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
+
+#### Terceira parte: Rodar o projeto
+1. Cliqye em "Run As" então em "Java Application" da classe "SistemaAcademicoApplication" em `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico`
+2. Acesse a api através de
