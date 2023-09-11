@@ -29,6 +29,7 @@ public class Disciplina {
     private String codigo;
 
     private String ementa;
+
     @Column(name = "pre_requisitos")
     private String preRequisitos;
 

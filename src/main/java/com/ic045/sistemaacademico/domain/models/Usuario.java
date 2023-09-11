@@ -15,16 +15,16 @@ public class Usuario {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "cpf",unique = true,nullable = false)
+    @Column(name = "cpf")
     private String cpf;
 
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "email",unique = true,nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "senha",nullable = false)
+    @Column(name = "senha")
     private String senha;
 
     @Enumerated(EnumType.STRING)
