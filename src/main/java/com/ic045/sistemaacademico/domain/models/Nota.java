@@ -33,7 +33,4 @@ public class Nota {
     private Turma turma;
 
     private double nota;
-
-    private String semestre;
-
 }
