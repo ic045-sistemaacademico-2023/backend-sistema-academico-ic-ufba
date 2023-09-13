@@ -64,7 +64,6 @@ CREATE TABLE `nota`
     `id_aluno` int            NOT NULL,
     `id_turma` int            NOT NULL,
     `nota`     DECIMAL(10, 2) NOT NULL,
-    `semestre` int            NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -85,6 +84,8 @@ CREATE TABLE `turma`
     `id_professor`  int          NOT NULL,
     `dias`          varchar(255) NOT NULL,
     `horario`       varchar(255) NOT NULL,
+    `local`         varchar(255) NOT NULL,
+    `semestre` int            NOT NULL,
     PRIMARY KEY (`id`)
 );
 
