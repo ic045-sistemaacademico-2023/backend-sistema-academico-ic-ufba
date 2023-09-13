@@ -1,7 +1,9 @@
 package com.ic045.sistemaacademico.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.domain.dtos.TurmaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,9 @@ public class ProfessorService {
         }catch (NoSuchElementException e){
             return null;
         }
+    }
+
+    public List<TurmaDTO> findAllByProfessorId(Long id) {
+        return repository.findAllTurmasByProfessorId(id);
     }
 }
