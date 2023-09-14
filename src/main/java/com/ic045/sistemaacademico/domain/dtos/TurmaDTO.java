@@ -1,30 +1,24 @@
 package com.ic045.sistemaacademico.domain.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
+@RequiredArgsConstructor
+@Data/*Data devia puxar o RequiredArgs, mas não ta indo*/
 public class TurmaDTO {
+    @NonNull
     private Long id;
+    @NonNull
     private String dias;
+    @NonNull
     private String horario;
     private String local;
     private String semestre;
+    @NonNull
     private String disciplinaNome;
-
-    public TurmaDTO(Long id, String disciplinaNome, String dias, String horario) {
-        this.id = id;
-        this.disciplinaNome = disciplinaNome;
-        this.dias = dias;
-        this.horario = horario;
-    }
 
     @ToString.Exclude
     private DisciplinaDTO disciplina;
