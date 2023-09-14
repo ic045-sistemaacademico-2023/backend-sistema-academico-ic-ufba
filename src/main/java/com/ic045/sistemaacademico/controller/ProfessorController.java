@@ -2,7 +2,6 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
-import com.ic045.sistemaacademico.domain.dtos.TurmaDTO;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.ProfessorService;

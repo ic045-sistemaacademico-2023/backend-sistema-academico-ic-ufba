@@ -1,15 +1,11 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ic045.sistemaacademico.domain.dtos.DisciplinaDTO;
-import com.ic045.sistemaacademico.domain.dtos.ProfessorDTO;
-import com.ic045.sistemaacademico.domain.dtos.TurmaDTO;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.repositories.ProfessorRepository;
