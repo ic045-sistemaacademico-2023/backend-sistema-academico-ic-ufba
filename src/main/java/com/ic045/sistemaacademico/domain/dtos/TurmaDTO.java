@@ -6,19 +6,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@RequiredArgsConstructor
-@Data/*Data devia puxar o RequiredArgs, mas não ta indo*/
+@Data
 public class TurmaDTO {
-    @NonNull
     private Long id;
-    @NonNull
     private String dias;
-    @NonNull
     private String horario;
     private String local;
     private String semestre;
-    @NonNull
-    private String disciplinaNome;
 
     @ToString.Exclude
     private DisciplinaDTO disciplina;

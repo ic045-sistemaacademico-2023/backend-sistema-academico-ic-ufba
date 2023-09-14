@@ -2,8 +2,9 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
-import com.ic045.sistemaacademico.domain.dtos.TurmaDTO;
 import com.ic045.sistemaacademico.domain.models.Professor;
+import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.domain.projections.TurmaProjection;
 import com.ic045.sistemaacademico.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class ProfessorController {
     }
 
     @GetMapping("/{id}/turmas")
-    public ResponseEntity<List<TurmaDTO>> findAllTurmasByProfessorId(@PathVariable Long id) {
-        List<TurmaDTO> turmas = service.findAllByProfessorId(id);
+    public ResponseEntity<List<TurmaProjection>> findAllTurmasByProfessorId(@PathVariable Long id) {
+        List<TurmaProjection> turmas = service.findAllByProfessorId(id);
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
