@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class DisciplinaDTO {
 
-    private int idCurso;
+    private Long id;
     private String nome;
     private String codigo;
     private String ementa;
