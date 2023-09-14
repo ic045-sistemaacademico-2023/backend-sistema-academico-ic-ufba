@@ -30,4 +30,8 @@ public class Turma {
 
     private String horario;
 
+    private String local;
+
+    private String semestre;
+
 }
