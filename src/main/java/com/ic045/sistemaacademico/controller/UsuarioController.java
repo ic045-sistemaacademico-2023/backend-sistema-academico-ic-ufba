@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +32,11 @@ public class UsuarioController {
 		return new ResponseEntity<Usuario>(service.findByCpf(cpf), HttpStatus.OK);
 	}
 	/// sistemaacademico/user/cpf?cpf=123456789012
+
+	@GetMapping("/all")
+	public ResponseEntity<List<Usuario>> findAll() {
+		List<Usuario> usuarios = service.findAll();
+
+		return usuarios != null ? ResponseEntity.ok(usuarios) : ResponseEntity.notFound().build();
+	}
 }

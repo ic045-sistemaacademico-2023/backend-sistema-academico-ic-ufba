@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ public class UsuarioService {
 	public Usuario findByCpf(String cpf) {
 		try {
 			return repository.findByCpf(cpf);
+		} catch (NoSuchElementException e) {
+			return null;
+		}
+	}
+
+	public List<Usuario> findAll() {
+		try {
+			List<Usuario> usuarios = repository.findAll();
+			return usuarios;
 		} catch (NoSuchElementException e) {
 			return null;
 		}

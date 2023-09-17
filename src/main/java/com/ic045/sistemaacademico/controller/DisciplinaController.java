@@ -22,7 +22,4 @@ public class DisciplinaController {
 
 		return disciplina != null ? ResponseEntity.ok(disciplina) : ResponseEntity.notFound().build();
 	}
-
-	// TODO Create the endpoints to get by user
-	// http://localhost:8080/sistemaacademico/disciplina/1
 }
