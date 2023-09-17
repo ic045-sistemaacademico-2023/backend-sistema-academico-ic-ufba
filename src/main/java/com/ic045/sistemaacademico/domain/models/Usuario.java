@@ -32,17 +32,8 @@ public class Usuario {
     private Role role;
 
     @Column(name = "status")
-    private String status;
+    private Status status;
 
-    /*Extra
-    * as outras tabelas devem buscar o usuario
-    * */
-//    @OneToOne(mappedBy = "usuario")
-//    private Aluno aluno;
-//
-//    @OneToOne(mappedBy = "usuario")
-//    private Professor professor;
-//
-//    @OneToOne(mappedBy = "usuario")
-//    private CoordenadorDeCurso coordenadorDeCurso;
+    public Usuario(final String cpf, final String nome, final String email, final String senha, final Role role, final Status status) {
+    }
 }

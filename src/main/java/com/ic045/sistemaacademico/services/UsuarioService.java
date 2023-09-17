@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
+import com.ic045.sistemaacademico.utils.helpers.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,12 @@ public class UsuarioService {
         }catch (NoSuchElementException e){
             return  null;
         }
+    }
+
+    public Usuario insertUsuario(InsertUsuarioRequest request) {
+        Usuario usuario = UsuarioMapper.mapInsertUsuarioRequestToUsuario(request);
+
+        return repository.save(usuario);
     }
 }
 
