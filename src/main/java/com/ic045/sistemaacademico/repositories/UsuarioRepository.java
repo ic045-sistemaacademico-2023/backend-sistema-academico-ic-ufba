@@ -9,6 +9,6 @@ import com.ic045.sistemaacademico.domain.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-	@Query("SELECT t FROM Usuario t WHERE t.usuario.cpf = :usuarioCpf")
+	@Query("SELECT * FROM Usuario u WHERE u.cpf = :usuarioCpf")
 	Usuario findByCpf(@Param("usuarioCpf") String usuarioCpf);
 }
