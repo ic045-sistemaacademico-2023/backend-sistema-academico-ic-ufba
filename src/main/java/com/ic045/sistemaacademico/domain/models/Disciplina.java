@@ -1,6 +1,5 @@
 package com.ic045.sistemaacademico.domain.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

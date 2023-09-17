@@ -1,6 +1,9 @@
 package com.ic045.sistemaacademico.controller;
 
+import java.util.List;
+
 import com.ic045.sistemaacademico.domain.models.Professor;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,5 +23,12 @@ public class ProfessorController {
         Professor professor = service.findById(id);
 
         return professor != null ? ResponseEntity.ok(professor): ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/turmas")
+    public ResponseEntity<List<Turma>> findAllTurmasByProfessorId(@PathVariable Long id) {
+        List<Turma> turmas = service.findAllByProfessorId(id);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
 }
