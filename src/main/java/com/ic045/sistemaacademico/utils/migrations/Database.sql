@@ -102,8 +102,8 @@ CREATE TABLE `usuario`
 );
 
 CREATE TABLE `aluno_turma` (
-    `id_aluno` int DEFAULT NULL,
-    `id_turma` int DEFAULT NULL,
+    `id_aluno` INT NOT NULL,
+    `id_turma` INT NOT NULL,
     PRIMARY KEY (`id_aluno`, `id_turma`),
     KEY `id_aluno_fk` (`id_aluno`),
     KEY `id_turma_fk` (`id_turma`)
