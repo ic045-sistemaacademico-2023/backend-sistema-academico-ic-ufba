@@ -1,6 +1,5 @@
 package com.ic045.sistemaacademico.controller;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.services.UsuarioService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/usuario")
 public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
