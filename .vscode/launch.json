@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SistemaAcademicoApplication<sistema-academico>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ic045.sistemaacademico.SistemaAcademicoApplication",
+            "projectName": "sistema-academico",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
