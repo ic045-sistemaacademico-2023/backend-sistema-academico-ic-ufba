@@ -29,12 +29,12 @@ public class Usuario {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private Role role;
+    private Role.Type role;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private Role.Status status;
 
-    public Usuario(final String cpf, final String nome, final String email, final String senha, final Role role, final Status status) {
+    public Usuario(final String cpf, final String nome, final String email, final String senha, final Role.Type role, final Role.Status status) {
     }
 }
