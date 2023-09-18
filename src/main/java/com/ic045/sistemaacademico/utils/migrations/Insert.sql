@@ -1,14 +1,14 @@
 -- Create a user named `admin` with password `123456` and role `ADMIN`
-INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('123456789012', '123456', 'admin@gmail.com', 'ADMIN', 'ACTIVE', 'Admin');
+INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('123456789012', '123456', 'admin@gmail.com', 'ADMIN', 'WAITING_EMAIL_VERIFICATION', 'Admin');
 
 -- Create a coordinator named `coordenador` with password `123456` and role `COORDENADOR_DE_CURSO`
-INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('987654321098', '123456', 'coordenador@gmail.com', 'COORDENADOR_DE_CURSO', 'ACTIVE', 'Coordenador');
+INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('987654321098', '123456', 'coordenador@gmail.com', 'COORDENADOR_DE_CURSO', 'WAITING_EMAIL_VERIFICATION', 'Coordenador');
 
 -- Create a professor named `professor` with password `123456` and email `professor@gmail.com`
-INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('765432109876', '123456', 'professor@gmail.com', 'PROFESSOR', 'ACTIVE', 'Professor');
+INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('765432109876', '123456', 'professor@gmail.com', 'PROFESSOR', 'WAITING_EMAIL_VERIFICATION', 'Professor');
 
 -- Create a student named `aluno` with password `123456` and email `aluno@gmail.com`
-INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('654321098765', '123456', 'aluno@gmail.com', 'ALUNO', 'ACTIVE', 'Aluno');
+INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('654321098765', '123456', 'aluno@gmail.com', 'ALUNO', 'WAITING_EMAIL_VERIFICATION', 'Aluno');
 
 -- Inserts a row into the coordenadordecurso table
 INSERT INTO `coordenadordecurso` (id_usuario, nome, email, senha)
