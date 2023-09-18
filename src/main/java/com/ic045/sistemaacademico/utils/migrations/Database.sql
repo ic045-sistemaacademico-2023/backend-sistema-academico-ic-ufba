@@ -101,6 +101,14 @@ CREATE TABLE `usuario`
     PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `aluno_turma` (
+    `id_aluno` int DEFAULT NULL,
+    `id_turma` int DEFAULT NULL,
+    PRIMARY KEY (`id_aluno`, `id_turma`),
+    KEY `id_aluno_fk` (`id_aluno`),
+    KEY `id_turma_fk` (`id_turma`)
+);
+
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk0` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
 
@@ -136,3 +144,9 @@ ALTER TABLE `turma`
 
 ALTER TABLE `turma`
     ADD CONSTRAINT `turma_fk1` FOREIGN KEY (`id_professor`) REFERENCES `professor` (`id`);
+
+ALTER TABLE `aluno_turma`
+    ADD CONSTRAINT `id_aluno_fk` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`);
+
+ALTER TABLE `aluno_turma`
+    ADD CONSTRAINT `id_turma_fk` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
