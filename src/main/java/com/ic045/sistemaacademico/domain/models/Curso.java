@@ -1,15 +1,13 @@
 package com.ic045.sistemaacademico.domain.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "curso")
 public class Curso {
@@ -17,15 +15,15 @@ public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "id_coordenador",referencedColumnName = "id")
     private CoordenadorDeCurso coordenadorDeCurso;
-
+    @NonNull
     private String nome;
-
+    @NonNull
     private int semestre;
-
-    private String turno;
+    @NonNull
+    private Role.Shift turno;
 
 }
