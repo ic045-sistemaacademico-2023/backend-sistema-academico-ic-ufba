@@ -23,8 +23,8 @@ public class UsuarioController {
 	private UsuarioService service;
 
     @PostMapping(path = "/")
-    public ResponseEntity<Usuario> insertUsuario(@RequestBody InsertUsuarioRequest request) {
-        Usuario usuario = service.insertUsuario(request);
+    public ResponseEntity<Usuario> insertUsuario(@RequestBody Usuario usuario) {
+        service.insertUsuario(usuario);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
     }
