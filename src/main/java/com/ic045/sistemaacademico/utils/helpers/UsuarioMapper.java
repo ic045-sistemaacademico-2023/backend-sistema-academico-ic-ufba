@@ -12,7 +12,7 @@ public abstract class UsuarioMapper {
                 request.email(),
                 request.senha(),
                 request.role(),
-                Status.WAITING_EMAIL_VERIFICATION
+                Status.EMAIL_CHECK
         );
     }
 }
