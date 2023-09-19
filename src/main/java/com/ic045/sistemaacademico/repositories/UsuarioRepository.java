@@ -7,4 +7,6 @@ import com.ic045.sistemaacademico.domain.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+
+	Usuario findByCpf(String usuarioCpf);
 }
