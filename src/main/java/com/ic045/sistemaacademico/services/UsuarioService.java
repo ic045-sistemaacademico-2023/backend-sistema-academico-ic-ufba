@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ic045.sistemaacademico.domain.models.Status;
 import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.repositories.UsuarioRepository;
 
@@ -37,5 +38,11 @@ public class UsuarioService {
 		} catch (NoSuchElementException e) {
 			return null;
 		}
+	}
+
+	public Usuario insertUsuario(Usuario request) {
+		request.setStatus(Status.EMAIL_CHECK);
+
+		return repository.save(request);
 	}
 }
