@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,6 +27,9 @@ public class Turma {
     @ManyToOne
     @JoinColumn(name = "id_professor",referencedColumnName = "id")
     private Professor professor;
+
+    @OneToMany(mappedBy = "turma")
+    private Set<Aluno> alunos;
 
     private String dias;
 
