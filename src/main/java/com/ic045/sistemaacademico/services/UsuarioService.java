@@ -3,7 +3,10 @@ package com.ic045.sistemaacademico.services;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
 import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.Status;
+import com.ic045.sistemaacademico.utils.helpers.UsuarioMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +35,7 @@ public class UsuarioService {
 		}
 	}
 
-    public Usuario insertUsuario(Usuario request) {
+	public Usuario insertUsuario(Usuario request) {
 		request.setStatus(Role.Status.EMAIL_CHECK);
 
         return repository.save(request);

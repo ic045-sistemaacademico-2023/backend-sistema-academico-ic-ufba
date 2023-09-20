@@ -27,14 +27,15 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Role.Type role;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role")
+	private Role.Type role;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private Role.Status status;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status")
+	private Role.Status status;
 
-    public Usuario(final String cpf, final String nome, final String email, final String senha, final Role.Type role, final Role.Status status) {
-    }
+	public Usuario(final String cpf, final String nome, final String email, final String senha, final Role.Type role,
+			final Role.Status status) {
+	}
 }

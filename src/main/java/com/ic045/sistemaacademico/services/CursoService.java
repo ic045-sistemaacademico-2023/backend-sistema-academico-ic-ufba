@@ -2,6 +2,8 @@ package com.ic045.sistemaacademico.services;
 
 import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -26,11 +28,9 @@ public class CursoService {
 
     }
     public Curso findById(Long id) {
-        try {
-            return repository.findById(id).get() ;
-        }catch (NoSuchElementException e){
-            return null;
-        }
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Curso", id)));
     }
 
 }
