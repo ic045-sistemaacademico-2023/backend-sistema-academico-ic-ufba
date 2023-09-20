@@ -21,7 +21,7 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "/add")
     public ResponseEntity<Usuario> insertUsuario(@RequestBody Usuario usuario) {
         service.insertUsuario(usuario);
 
