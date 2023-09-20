@@ -19,7 +19,7 @@ public class CursoController {
 
         return curso != null ? ResponseEntity.ok(curso): ResponseEntity.notFound().build();
     }
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<?> InsertCurso(@RequestBody InsertCursoRequest ICS){
         CoordenadorDeCurso CC = new CoordenadorDeCurso();
         CC.setId(ICS.coordenador());
