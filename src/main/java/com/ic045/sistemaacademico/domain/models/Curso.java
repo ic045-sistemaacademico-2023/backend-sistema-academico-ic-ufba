@@ -23,6 +23,7 @@ public class Curso {
     private String nome;
     @NonNull
     private int semestre;
+    @Enumerated(EnumType.STRING)
     @NonNull
     private Role.Shift turno;
 
