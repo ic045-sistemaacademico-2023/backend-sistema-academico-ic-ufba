@@ -1,6 +1,5 @@
 package com.ic045.sistemaacademico.controller;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
