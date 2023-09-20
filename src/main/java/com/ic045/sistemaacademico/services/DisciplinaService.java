@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.services;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,9 @@ public class DisciplinaService {
         }catch (NoSuchElementException e){
             return null;
         }
+    }
+
+    public List<Disciplina> findAllByCursoId(Long id) {
+        return repository.findAllByCursoId(id);
     }
 }
