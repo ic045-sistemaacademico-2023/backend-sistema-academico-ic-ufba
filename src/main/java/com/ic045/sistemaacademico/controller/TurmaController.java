@@ -27,7 +27,7 @@ public class TurmaController {
     @GetMapping("/")
     public ResponseEntity<List<Turma>> findForSemestre(@RequestParam String period){
         List<Turma> turmas = service.findForSemestreData(period);
-        System.out.println(turmas);
+
         return !turmas.isEmpty() ? ResponseEntity.ok(turmas):ResponseEntity.notFound().build();
     }
 }
