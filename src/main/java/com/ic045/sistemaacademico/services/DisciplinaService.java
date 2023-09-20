@@ -3,6 +3,8 @@ package com.ic045.sistemaacademico.services;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,9 @@ public class DisciplinaService {
     private DisciplinaRepository repository;
 
     public Disciplina findById(Long id) {
-        try {
-            return repository.findById(id).get() ;
-        }catch (NoSuchElementException e){
-            return null;
-        }
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id)));
     }
 
     public List<Disciplina> findAllByCursoId(Long id) {
