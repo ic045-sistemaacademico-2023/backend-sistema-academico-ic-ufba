@@ -4,10 +4,9 @@ import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/turma")
@@ -24,5 +23,11 @@ public class TurmaController {
                 ResponseEntity
                         .notFound()
                         .build();
+    }
+    @GetMapping("/")
+    public ResponseEntity<List<Turma>> findForSemestre(@RequestParam String period){
+        List<Turma> turmas = service.findForSemestreData(period);
+        System.out.println(turmas);
+        return !turmas.isEmpty() ? ResponseEntity.ok(turmas):ResponseEntity.notFound().build();
     }
 }
