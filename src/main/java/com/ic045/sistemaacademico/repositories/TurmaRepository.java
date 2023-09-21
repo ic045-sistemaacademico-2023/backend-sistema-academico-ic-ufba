@@ -5,7 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import com.ic045.sistemaacademico.domain.models.Turma;
 
+import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface TurmaRepository extends JpaRepository<Turma, Long> {
-    
+
+
+    Optional<List<Turma>> findBysemestre(String periodo);
+
+
 }
