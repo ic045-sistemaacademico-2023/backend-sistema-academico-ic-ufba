@@ -5,12 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.services.UsuarioService;
@@ -33,6 +28,10 @@ public class UsuarioController {
 		Usuario usuario = service.findById(id);
 
 		return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
+	}
+	@GetMapping("/cpf")
+	public ResponseEntity<Usuario> getUserByCpf(@RequestParam String cpf) {
+		return ResponseEntity.ok(service.findByCpf(cpf));
 	}
 
 	@GetMapping("/all")
