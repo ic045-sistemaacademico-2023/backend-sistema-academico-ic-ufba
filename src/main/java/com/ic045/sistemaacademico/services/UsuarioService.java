@@ -2,10 +2,13 @@ package com.ic045.sistemaacademico.services;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 import com.ic045.sistemaacademico.domain.models.Role;
 
+import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +28,10 @@ public class UsuarioService {
 		}
 	}
 
+	public Optional<Usuario> findByCpf(String cpf) {
+		return repository
+				.findByCpf(cpf);
+	}
 	public List<Usuario> findAll() {
 		try {
 			List<Usuario> usuarios = repository.findAll();
