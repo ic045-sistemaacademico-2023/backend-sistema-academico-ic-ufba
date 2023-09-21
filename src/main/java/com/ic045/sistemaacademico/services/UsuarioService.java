@@ -28,9 +28,9 @@ public class UsuarioService {
 		}
 	}
 
-	public Optional<Usuario> findByCpf(String cpf) {
+	public Usuario findByCpf(String cpf) {
 		return repository
-				.findByCpf(cpf);
+				.findByCpf(cpf).get();
 	}
 	public List<Usuario> findAll() {
 		try {
