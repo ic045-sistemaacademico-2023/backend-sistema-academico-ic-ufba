@@ -6,7 +6,6 @@ CREATE TABLE `aluno`
 (
     `id`         int          NOT NULL AUTO_INCREMENT,
     `id_curso`   int          NOT NULL,
-    `id_turma`   INT          NOT NULL,
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `cr`         INT          NOT NULL,

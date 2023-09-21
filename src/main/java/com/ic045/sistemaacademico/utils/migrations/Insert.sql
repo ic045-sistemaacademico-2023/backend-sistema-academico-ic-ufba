@@ -29,4 +29,6 @@ VALUES (1, 'Programação Orientada a Objetos', 'POOA', 'Ementa da disciplina de
 INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, local, semestre) VALUES (1, 1, 'Segunda, Quarta', '10:00 - 12:00', 'Laboratório 1', 1);
 
 -- Create a record in the `aluno` table to associate the student `aluno` with the `Turma 1`
-INSERT INTO `aluno` (id_curso, id_turma, id_usuario, nome, cr) VALUES (1, 1, 4, 'Aluno', 0);
+INSERT INTO `aluno` (id_curso, id_usuario, nome, cr) VALUES (1, 4, 'Aluno', 0);
+
+INSERT INTO aluno_turma (id_aluno, id_turma) VALUES (1, 1);
