@@ -1,8 +1,9 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.NoSuchElementException;
 import java.util.Set;
 
+import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +16,9 @@ public class TurmaService {
     private TurmaRepository repository;
 
     public Turma findById(Long id) {
-        try {
-            return repository.findById(id).get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
+        return repository
+                .findById(id)
+                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
     }
 
     public Set<Turma> findAllByAluno(Long idAluno) {
