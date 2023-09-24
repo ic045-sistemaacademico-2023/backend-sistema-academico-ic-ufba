@@ -1,6 +1,6 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.Set;
+import java.util.List;
 
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
@@ -18,10 +18,15 @@ public class TurmaService {
     public Turma findById(Long id) {
         return repository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
+                .orElseThrow(
+                        () -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
     }
 
-    public Set<Turma> findAllByAluno(Long idAluno) {
+    public List<Turma> findForSemestreData(String period) {
+        return repository.findBysemestre(period).get();
+    }
+
+    public List<Turma> findAllByAluno(Long idAluno) {
         return repository.findAllByAluno(idAluno);
     }
 }
