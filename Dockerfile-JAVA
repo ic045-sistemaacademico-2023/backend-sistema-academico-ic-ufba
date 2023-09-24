@@ -1,0 +1,7 @@
+FROM openjdk:17-alpine
+LABEL authors="vitor"
+WORKDIR /usr/src/sistemaacademico
+RUN  apk add git
+RUN  git clone -b feature/DOCKER https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba.git
+WORKDIR /usr/src/sistemaacademico/backend-sistema-academico-ic-ufba
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
