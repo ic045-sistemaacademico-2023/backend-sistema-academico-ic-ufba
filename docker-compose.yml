@@ -1,0 +1,31 @@
+
+services:
+  db:
+    image: mysql:8.1
+    container_name: "Banco_de_Dados_Mysql"
+    restart: on-failure
+    environment:
+      #Não altere
+      MYSQL_DATABASE: sistemaacademico
+      MYSQL_USER: master
+      MYSQL_PASSWORD: master
+      MYSQL_ROOT_PASSWORD: master
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - ./projeto/database:/docker-entrypoint-initdb.d/
+  server:
+    container_name: "Servidor_Java"
+    restart: on-failure
+    build:
+      dockerfile: "Dockerfile-JAVA"
+    ports:
+      - '80:8080'
+
+
+
+
+
+
