@@ -17,3 +17,6 @@ $ cd backend-sistema-academico-ic-ufba
 ```bash
 $ docker-compose up
 ```
+
+### Endpoints
+Não é nescessario utilização de porta ex: localhost/sistemaacademico
