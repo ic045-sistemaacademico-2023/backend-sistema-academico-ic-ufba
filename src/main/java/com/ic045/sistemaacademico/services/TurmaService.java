@@ -25,4 +25,8 @@ public class TurmaService {
     public List<Turma> findForSemestreData(String period) {
         return repository.findBysemestre(period).get();
     }
+
+    public List<Turma> findAllByAluno(Long idAluno) {
+        return repository.findAllByAluno(idAluno);
+    }
 }
