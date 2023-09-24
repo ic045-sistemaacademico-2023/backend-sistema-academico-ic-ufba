@@ -17,6 +17,5 @@ target/
 
 # Others
 .env
-.env.properties
-application.properties
+projeto/resource/application.properties
 resources/

@@ -15,7 +15,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - ./projeto/database:/docker-entrypoint-initdb.d/
+      - ./projeto/database/MYSQL:/docker-entrypoint-initdb.d/
   server:
     container_name: "Servidor_Java"
     restart: on-failure
@@ -23,6 +23,8 @@ services:
       dockerfile: "Dockerfile-JAVA"
     ports:
       - '80:8080'
+    volumes:
+      - ./projeto/database/JAVA/resource:/usr/src/sistemaacademico/backend-sistema-academico-ic-ufba/src/main/resources
 
 
 
