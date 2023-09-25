@@ -1,10 +1,7 @@
 package com.ic045.sistemaacademico.domain.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
@@ -12,14 +9,15 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "aluno")
 public class Aluno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
+    @NonNull
+    @OneToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id")
     private Usuario usuario;
 
@@ -29,14 +27,13 @@ public class Aluno {
         joinColumns = @JoinColumn(name = "id_aluno"),
         inverseJoinColumns = @JoinColumn(name = "id_turma"))
     private Set<Turma> turmas;
-
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "id_curso", referencedColumnName = "id")
     private Curso curso;
-
+    @NonNull
     @Column(name = "nome")
     private String nome;
-
     @Column(name = "cr")
     private int cr;
 }
