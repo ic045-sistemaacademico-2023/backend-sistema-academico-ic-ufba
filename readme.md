@@ -19,4 +19,4 @@ $ docker-compose up
 ```
 
 ### Endpoints
-Não é nescessario utilização de porta ex: localhost/sistemaacademico
+Em progresso
