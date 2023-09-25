@@ -110,10 +110,6 @@ CREATE TABLE `aluno_turma` (
 
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk0` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
-
-ALTER TABLE `aluno`
-    ADD CONSTRAINT `aluno_fk1` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
-
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
 
