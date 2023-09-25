@@ -5,6 +5,7 @@ import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Curso;
 import com.ic045.sistemaacademico.services.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 @RestController
@@ -25,7 +26,7 @@ public class CursoController {
         CC.setId(ICS.coordenador());
      return service.InsertCursoData(new Curso(CC,ICS.nome()
              ,Integer.parseInt(ICS.semestre()),ICS.turno()))?
-             ResponseEntity.ok().build():ResponseEntity.badRequest().build();
+             ResponseEntity.status(HttpStatus.CREATED).build():ResponseEntity.badRequest().build();
 
     }
 }
