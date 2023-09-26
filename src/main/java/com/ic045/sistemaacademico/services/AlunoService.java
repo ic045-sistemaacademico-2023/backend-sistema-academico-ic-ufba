@@ -27,10 +27,10 @@ public class AlunoService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Aluno", id)));
     }
 
-    public Boolean InsertAlunoData(Aluno insertAluno) {
+    public Boolean InsertAlunoData(Aluno insertAluno)  {
        try {
 
-           if (repository.exists(Example.of(insertAluno))) {
+           if (repository.existsByusuarioId(insertAluno.getUsuario().getId())) {
                 throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
            }
             repository.save(insertAluno);
@@ -40,6 +40,5 @@ public class AlunoService {
        }catch (OptimisticLockingFailureException e){
            throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
        }
-
     }
 }
