@@ -4,6 +4,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.NoSuchElementException;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +29,16 @@ public class AlunoService {
 
     public Boolean InsertAlunoData(Aluno insertAluno) {
        try {
-           System.out.println(insertAluno.toString());
+
            if (repository.exists(Example.of(insertAluno))) {
-            return false;
+                throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
            }
             repository.save(insertAluno);
             return true;
-       }catch (IllegalArgumentException | OptimisticLockingFailureException e){
-           return false;
+       }catch (IllegalArgumentException e){
+           throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+       }catch (OptimisticLockingFailureException e){
+           throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
        }
 
     }
