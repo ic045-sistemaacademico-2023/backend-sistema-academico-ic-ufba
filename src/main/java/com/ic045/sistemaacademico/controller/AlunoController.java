@@ -2,7 +2,9 @@ package com.ic045.sistemaacademico.controller;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
 import com.ic045.sistemaacademico.domain.models.*;
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +36,10 @@ public class AlunoController {
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
     @PostMapping("/")
-    public ResponseEntity<Boolean> InsertAluno(@RequestBody  InsertAlunoRequest InsertAluno){
+    public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
         Usuario user = new Usuario();
         Curso curso = new Curso();
+        if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user,curso, InsertAluno.nome());
