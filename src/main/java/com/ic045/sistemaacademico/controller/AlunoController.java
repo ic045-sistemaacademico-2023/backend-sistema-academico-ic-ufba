@@ -34,14 +34,16 @@ public class AlunoController {
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
     @PostMapping("/")
-    public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
+    public ResponseEntity<Boolean> InsertAluno(@RequestBody  InsertAlunoRequest InsertAluno){
         Usuario user = new Usuario();
         Curso curso = new Curso();
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user,curso, InsertAluno.nome());
-        return service.InsertAlunoData(aluno)?
-                ResponseEntity.status(HttpStatus.CREATED).build():ResponseEntity.badRequest().build();
+        return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
+
+
+
     }
 
 }
