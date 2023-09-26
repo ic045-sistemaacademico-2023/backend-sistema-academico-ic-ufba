@@ -7,5 +7,6 @@ import com.ic045.sistemaacademico.domain.models.Aluno;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
-    
+
+    boolean existsByusuarioId(Long id);
 }
