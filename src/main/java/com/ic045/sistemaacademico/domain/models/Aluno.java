@@ -18,7 +18,7 @@ public class Aluno {
     private Long id;
     @NonNull
     @OneToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id",unique = true)
     private Usuario usuario;
 
     @ManyToMany
