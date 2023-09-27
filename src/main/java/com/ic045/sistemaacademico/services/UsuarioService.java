@@ -21,11 +21,8 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 
 	public Usuario findById(Long id) {
-		try {
-			return repository.findById(id).get();
-		} catch (NoSuchElementException e) {
-			return null;
-		}
+		return repository.findById(id)
+						 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
 	}
 
 	public Usuario findByCpf(String cpf) {
