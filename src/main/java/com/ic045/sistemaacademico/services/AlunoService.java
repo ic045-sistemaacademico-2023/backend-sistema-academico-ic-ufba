@@ -1,7 +1,9 @@
 package com.ic045.sistemaacademico.services;
+import java.util.List;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.NoSuchElementException;
+//import java.util.NoSuchElementException;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
@@ -41,4 +43,11 @@ public class AlunoService {
            throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
        }
     }
+
+    public List<Turma> findAllByAlunoId(Long alunoId) {
+        List<Turma> turmas = repository.findAllTurmasByAlunoId(alunoId);
+
+        return turmas;
+    }
+
 }

@@ -1,14 +1,15 @@
 package com.ic045.sistemaacademico.controller;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
-import com.ic045.sistemaacademico.domain.models.*;
-import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
+import com.ic045.sistemaacademico.domain.models.Aluno;
+import com.ic045.sistemaacademico.domain.models.Disciplina;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.AlunoService;
-import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class AlunoController {
     public ResponseEntity<Aluno> findById(@PathVariable Long id) {
         Aluno aluno = service.findById(id);
 
-        return ResponseEntity.ok(aluno);
+        return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/disciplinas/ativas")
@@ -35,6 +36,14 @@ public class AlunoController {
 
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/{id}/turmas")
+    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@PathVariable Long id) {
+        List<Turma> turmas = service.findAllByAlunoId(id);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+
     @PostMapping("/")
     public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
         Usuario user = new Usuario();
