@@ -1,5 +1,5 @@
 package com.ic045.sistemaacademico.controller;
-
+import java.util.List;
 import com.ic045.sistemaacademico.domain.models.Aluno;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Turma;
@@ -36,4 +36,12 @@ public class AlunoController {
 
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/{id}/turmas")
+    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@PathVariable Long id) {
+        List<Turma> turmas = service.findAllByAlunoId(id);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+
 }
