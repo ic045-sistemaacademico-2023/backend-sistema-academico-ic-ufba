@@ -1,11 +1,13 @@
 package com.ic045.sistemaacademico.services;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Disciplina;
