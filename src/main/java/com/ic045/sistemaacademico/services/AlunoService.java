@@ -1,11 +1,9 @@
 package com.ic045.sistemaacademico.services;
 import java.util.List;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.NoSuchElementException;
-//import java.util.NoSuchElementException;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
+
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
