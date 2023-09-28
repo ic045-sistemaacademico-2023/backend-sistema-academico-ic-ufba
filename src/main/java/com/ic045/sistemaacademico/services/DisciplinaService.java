@@ -25,4 +25,17 @@ public class DisciplinaService {
     public List<Disciplina> findAllByCursoId(Long id) {
         return repository.findAllByCursoId(id);
     }
+
+    public boolean InsertDisciplinaData(Disciplina disciplina) {
+       if (repository.exists(Example.of(disciplina))) throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        try {
+            repository.save(disciplina);
+            return true;
+        }catch (IllegalArgumentException e){
+            throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+        }
+        catch (OptimisticLockingFailureException e){
+            throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        }
+    }
 }
