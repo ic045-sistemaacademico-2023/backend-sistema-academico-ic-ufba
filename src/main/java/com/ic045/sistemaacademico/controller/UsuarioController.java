@@ -37,7 +37,6 @@ public class UsuarioController {
 	@GetMapping("/all")
 	public ResponseEntity<List<Usuario>> findAll() {
 		List<Usuario> usuarios = service.findAll();
-
 		return usuarios != null ? ResponseEntity.ok(usuarios) : ResponseEntity.notFound().build();
 	}
 }

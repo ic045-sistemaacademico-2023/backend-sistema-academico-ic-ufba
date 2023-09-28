@@ -6,9 +6,9 @@ CREATE TABLE `aluno`
 (
     `id`         int          NOT NULL AUTO_INCREMENT,
     `id_curso`   int          NOT NULL,
-    `id_usuario` INT          NOT NULL,
+    `id_usuario` INT          NOT NULL UNIQUE,
     `nome`       varchar(255) NOT NULL,
-    `cr`         INT          NOT NULL,
+    `cr`         DOUBLE          NOT NULL DEFAULT  0,
     PRIMARY KEY (`id`)
 );
 
@@ -110,9 +110,6 @@ CREATE TABLE `aluno_turma` (
 
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk0` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
-
-ALTER TABLE `aluno`
-    ADD CONSTRAINT `aluno_fk1` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
 
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
