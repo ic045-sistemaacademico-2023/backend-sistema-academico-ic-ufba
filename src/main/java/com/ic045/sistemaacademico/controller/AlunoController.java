@@ -1,17 +1,17 @@
 package com.ic045.sistemaacademico.controller;
 
-import com.ic045.sistemaacademico.domain.models.Aluno;
-import com.ic045.sistemaacademico.domain.models.Disciplina;
-import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
+import com.ic045.sistemaacademico.domain.models.*;
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
