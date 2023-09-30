@@ -12,8 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface TurmaRepository extends JpaRepository<Turma, Long> {
-    @Query("select t from Turma t where t.alunos = :alunoId")
-    List<Turma> findAllByAluno(@Param("alunoId") Long alunoId);
-
+//    @Query("select t from Turma t where t.alunos = :alunoId")
+//    List<Turma> findAllByAluno(@Param("alunoId") Long alunoId);
     Optional<List<Turma>> findBysemestre(String periodo);
 }
