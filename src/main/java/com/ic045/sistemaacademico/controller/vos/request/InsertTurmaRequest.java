@@ -1,9 +1,11 @@
 package com.ic045.sistemaacademico.controller.vos.request;
 
+import com.ic045.sistemaacademico.domain.models.Role;
+
 public record InsertTurmaRequest(
         Long disciplina,
         Long professor,
-        String dias,
+        Role.Date[] dias,
         String horario,
         String local,
         String semestre
