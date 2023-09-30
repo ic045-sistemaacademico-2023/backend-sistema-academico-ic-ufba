@@ -2,6 +2,7 @@ package com.ic045.sistemaacademico.services;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.domain.models.Role;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
@@ -29,8 +30,10 @@ public class DisciplinaService {
     }
 
     public boolean InsertDisciplinaData(Disciplina disciplina) {
-       if (repository.exists(Example.of(disciplina))) throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
-        try {
+        if (repository.exists(Example.of(disciplina))) throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        disciplina = CodeDisciplina(disciplina);
+       try {
+           System.out.println(disciplina.toString());
             repository.save(disciplina);
             return true;
         }catch (IllegalArgumentException e){
@@ -39,5 +42,13 @@ public class DisciplinaService {
         catch (OptimisticLockingFailureException e){
             throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
         }
+    }
+    public Disciplina CodeDisciplina(Disciplina disciplina){
+
+        String code = new StringBuilder(Role.Area.valueOf(disciplina.getArea()).getCode())
+                .insert(Role.Area.valueOf(disciplina.getArea()).getCode().length(),( repository.countByarea(disciplina.getArea()) + 1))
+                .toString();
+        disciplina.setCodigo(code);
+        return disciplina;
     }
 }
