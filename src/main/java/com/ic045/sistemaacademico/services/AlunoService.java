@@ -42,10 +42,10 @@ public class AlunoService {
        }
     }
 
-    public List<Turma> findAllByAlunoId(Long alunoId) {
-        List<Turma> turmas = repository.findAllTurmasByAlunoId(alunoId);
-
-        return turmas;
-    }
+//    public List<Turma> findAllByAlunoId(Long alunoId) {
+//        List<Turma> turmas = repository.findAllTurmasByAlunoId(alunoId);
+//
+//        return turmas;
+//    }
 
 }

@@ -29,9 +29,9 @@ public class TurmaService {
         return repository.findBysemestre(period).get();
     }
 
-    public List<Turma> findAllByAluno(Long idAluno) {
-        return repository.findAllByAluno(idAluno);
-    }
+//    public List<Turma> findAllByAluno(Long idAluno) {
+//        return repository.findAllByAluno(idAluno);
+//    }
 
     public Boolean InsertTurmaData(Turma turma) {
         try {
