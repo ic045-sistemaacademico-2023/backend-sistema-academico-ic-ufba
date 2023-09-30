@@ -24,14 +24,14 @@ public class Turma {
     @JoinColumn(name = "id_professor", referencedColumnName = "id")
     private Professor professor;
 
-    @ManyToMany
-    @JoinTable(
-        name = "aluno_turma",
-        joinColumns = @JoinColumn(name = "id_turma"),
-        inverseJoinColumns = @JoinColumn(name = "id_aluno"))
-    private Set<Aluno> alunos;
+//    @ManyToMany
+//    @JoinTable(
+//        name = "aluno_turma",
+//        joinColumns = @JoinColumn(name = "id_turma"),
+//        inverseJoinColumns = @JoinColumn(name = "id_aluno"))
+//    private Set<Aluno> alunos;
     @NonNull
-    private Role.Date dias[];
+    private String dias;
     @NonNull
     private String horario;
     @NonNull
