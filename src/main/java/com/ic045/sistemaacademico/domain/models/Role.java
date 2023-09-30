@@ -42,4 +42,25 @@ public class Role {
             return code;
         }
     }
+
+    public enum Date {
+        Segunda("SEG"),
+        Terca("TER"),
+        Quarta("QUA"),
+        Quinta("QUI"),
+        Sexta("SEX"),
+        Sabado("SAB"),
+        Domingo("DOM");
+
+        private String abreviacao;
+
+        Date(String abreviacao) {
+            this.abreviacao = abreviacao;
+        }
+
+        public String getCodeDate() {
+            return abreviacao;
+        }
+
+    }
 }
