@@ -35,8 +35,7 @@ public class TurmaService {
 
     public Boolean InsertTurmaData(Turma turma) {
         try {
-           if (repository.exists(Example.of(turma)))throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
-           repository.save(turma);
+            repository.save(turma);
             return true;
         }catch (IllegalArgumentException e){throw  new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());}
         catch (OptimisticLockingFailureException e){throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());}
