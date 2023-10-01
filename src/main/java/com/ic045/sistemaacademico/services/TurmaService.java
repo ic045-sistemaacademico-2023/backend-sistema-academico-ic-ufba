@@ -40,4 +40,11 @@ public class TurmaService {
         }catch (IllegalArgumentException e){throw  new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());}
         catch (OptimisticLockingFailureException e){throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());}
     }
+
+    public List<Turma> findTurmasByAlunoId(Long alunoId) {
+        List<Turma> turmas = repository.findAllByAlunosId(alunoId);
+
+        return turmas;
+    }
+
 }
