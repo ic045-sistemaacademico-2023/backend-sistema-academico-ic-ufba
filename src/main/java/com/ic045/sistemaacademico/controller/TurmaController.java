@@ -3,6 +3,7 @@ package com.ic045.sistemaacademico.controller;
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
+import com.ic045.sistemaacademico.domain.models.Role;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +11,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/turma")
 public class TurmaController {
     @Autowired
     private TurmaService service;
-    private Disciplina disciplina;
-    private Professor professor;
+
     @GetMapping("/{id}")
     public ResponseEntity<Turma> findById(@PathVariable Long id) {
         Turma turma = service.findById(id);
@@ -37,13 +39,18 @@ public class TurmaController {
     }
     @PostMapping("/")
     public ResponseEntity<Boolean> InsertTurma(@RequestBody InsertTurmaRequest InsertTurma){
-        disciplina.setId(InsertTurma.disciplina());
+        Disciplina disciplina = new Disciplina();
+        Professor professor = new Professor();
         Turma turma;
-        try {
+        disciplina.setId(InsertTurma.disciplina());
+        String data = Arrays.stream(InsertTurma.dias()).map(Role.Date::getCodeDate).collect(Collectors.joining(","));
+
+        if (InsertTurma.professor() != null) {
             professor.setId(InsertTurma.professor());
-             turma = new Turma(disciplina,professor,InsertTurma.dias(),InsertTurma.horario(), InsertTurma.local(), InsertTurma.semestre());
-        }catch (NullPointerException e){
-             turma = new Turma(disciplina,null,InsertTurma.dias(),InsertTurma.horario(), InsertTurma.local(), InsertTurma.semestre());
+            turma = new Turma(disciplina, professor, data, InsertTurma.horario(), InsertTurma.local(), InsertTurma.semestre());
+        }else {
+
+            turma = new Turma(disciplina,data, InsertTurma.horario(), InsertTurma.local(), InsertTurma.semestre());
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertTurmaData(turma));
     }
