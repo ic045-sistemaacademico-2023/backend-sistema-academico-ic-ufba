@@ -54,4 +54,11 @@ public class TurmaController {
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertTurmaData(turma));
     }
+    @GetMapping("/aluno")
+    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@RequestParam Long id) {
+        List<Turma> turmas = service.findTurmasByAlunoId(id);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+
 }
