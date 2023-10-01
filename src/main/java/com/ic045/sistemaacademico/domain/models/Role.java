@@ -44,22 +44,22 @@ public class Role {
     }
 
     public enum Date {
-        Segunda("SEG"),
-        Terca("TER"),
-        Quarta("QUA"),
-        Quinta("QUI"),
-        Sexta("SEX"),
-        Sabado("SAB"),
-        Domingo("DOM");
+        SEGUNDA("SEG"),
+        TERCA("TER"),
+        QUARTA("QUA"),
+        QUINTA("QUI"),
+        SEXTA("SEX"),
+        SABADO("SAB"),
+        DOMINGO("DOM");
 
-        private String abreviacao;
+        private String code;
 
         Date(String abreviacao) {
-            this.abreviacao = abreviacao;
+            this.code = abreviacao;
         }
 
         public String getCodeDate() {
-            return abreviacao;
+            return code;
         }
 
     }
