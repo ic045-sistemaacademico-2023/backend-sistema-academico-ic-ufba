@@ -25,7 +25,8 @@ services:
       - '8080:8080'
     volumes:
       - ./projeto/database/JAVA/resource:/usr/src/sistemaacademico/backend-sistema-academico-ic-ufba/src/main/resources
-
+    depends_on:
+      - db
 
 
 
