@@ -11,4 +11,8 @@ import com.ic045.sistemaacademico.domain.models.Disciplina;
 public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
     public List<Disciplina> findAllByCursoId(Long id);
 
+    Long countByarea(String area);
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,6 +8,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -20,12 +22,8 @@ public class Aluno {
     @OneToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id",unique = true)
     private Usuario usuario;
-
-    @ManyToMany
-    @JoinTable(
-        name = "aluno_turma",
-        joinColumns = @JoinColumn(name = "id_aluno"),
-        inverseJoinColumns = @JoinColumn(name = "id_turma"))
+    @JsonIgnore
+    @OneToMany(mappedBy = "alunos")
     private Set<Turma> turmas;
     @NonNull
     @ManyToOne

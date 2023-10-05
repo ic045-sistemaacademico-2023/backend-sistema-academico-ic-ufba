@@ -27,22 +27,18 @@ public class AlunoController {
         return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
     }
 
+
+    /*Qual é a função desse metodo*/
     @GetMapping("/{id}/disciplinas/ativas")
     public ResponseEntity<Set<Disciplina>> findDisciplinas(@PathVariable Long id) {
         Aluno aluno = service.findById(id);
         Set<Turma> turmas = aluno.getTurmas();
         Set<Disciplina> disciplinas = new HashSet<>();
         turmas.forEach(turma -> disciplinas.add(turma.getDisciplina()));
-
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{id}/turmas")
-    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@PathVariable Long id) {
-        List<Turma> turmas = service.findAllByAlunoId(id);
 
-        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
-    }
 
     @PostMapping("/")
     public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){

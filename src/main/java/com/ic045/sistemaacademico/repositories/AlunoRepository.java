@@ -14,7 +14,6 @@ import com.ic045.sistemaacademico.domain.models.Turma;
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
     boolean existsByusuarioId(Long id);
-    @Query("SELECT t FROM Turma t JOIN t.alunos a WHERE a.id = :alunoId")
-    List<Turma> findAllTurmasByAlunoId(@Param("alunoId") Long alunoId);
+
 
 }

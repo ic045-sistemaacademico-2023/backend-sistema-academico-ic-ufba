@@ -3,12 +3,10 @@ package com.ic045.sistemaacademico.domain.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-
-@Getter
-@Setter
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "disciplina")
 public class Disciplina {
