@@ -1,17 +1,15 @@
 # See https://docs.github.com/en/actions.
-name: Build
+name: Deploy
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
 jobs:
-  build:
-    name: Build
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     env:
       BACKEND_PATH: ${{ github.workspace }}/backend
