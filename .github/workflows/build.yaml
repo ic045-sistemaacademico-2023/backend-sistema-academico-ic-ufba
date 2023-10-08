@@ -1,0 +1,86 @@
+# See https://docs.github.com/en/actions.
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    env:
+      BACKEND_PATH: ${{ github.workspace }}/backend
+      FRONTEND_PATH: ${{ github.workspace }}/frontend
+
+    steps:
+      - name: Configura o JDK 17 x64
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          architecture: x64
+
+      - name: Verifica as ferramentas necessárias
+        run: |
+          mvn --version
+          npm --version
+          yarn --version
+
+      # See https://github.com/actions/checkout.
+      - name: Faz o checkout do backend
+        uses: actions/checkout@v4
+        with:
+          path: backend
+
+      - name: Faz o checkout do frontend
+        uses: actions/checkout@v4
+        with:
+          repository: ic045-sistemaacademico-2023/frontend-sistema-academico-ic-ufba
+          path: frontend
+
+      - name: Compila os arquivos do projeto frontend
+        run: |
+          cd ${{ env.FRONTEND_PATH }}
+          yarn
+          cp -r \
+            ./node_modules \
+            ./public \
+            ./src \
+            ${{ env.BACKEND_PATH }}/src/main/resources/static
+          cp \
+            ./index.html \
+            ./*.js \
+            ${{ env.BACKEND_PATH }}/src/main/resources/static
+
+      - name: Cria o pacote do projeto backend
+        run: |
+          cd ${{ env.BACKEND_PATH }}
+          rm ${{ env.BACKEND_PATH }}/src/main/resources/application.properties
+          mvn --batch-mode --update-snapshots package
+          cp \
+            ${{ env.BACKEND_PATH }}/target/*.jar \
+            ${{ env.BACKEND_PATH }}/.gcloud
+
+      - name: Salva o pacote do projeto backend
+        uses: actions/upload-artifact@v3
+        with:
+          name: sistema-academico-0.0.1-SNAPSHOT
+          path: ${{ env.BACKEND_PATH }}/.gcloud/*.jar
+          if-no-files-found: error
+
+      - id: auth
+        name: Autentica na GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+
+      - id: deploy
+        name: Instala a aplicação na GCP
+        uses: google-github-actions/deploy-appengine@v1
+        with:
+          working_directory: ${{ env.BACKEND_PATH }}/.gcloud
