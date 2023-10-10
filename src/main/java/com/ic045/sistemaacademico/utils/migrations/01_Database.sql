@@ -43,6 +43,7 @@ CREATE TABLE `disciplina`
     `area`           varchar(255),
     `observacao`     VARCHAR(255),
     `ch`             INT          NOT NULL,
+    `semestre`       INT          NOT NULL,
     PRIMARY KEY (`id`)
 );
 

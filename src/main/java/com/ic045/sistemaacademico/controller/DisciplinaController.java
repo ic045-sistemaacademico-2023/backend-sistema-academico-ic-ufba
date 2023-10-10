@@ -1,6 +1,8 @@
 package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
 import com.ic045.sistemaacademico.domain.models.Curso;
@@ -26,8 +28,10 @@ public class DisciplinaController {
 	}
 
 	@GetMapping("/curso/{id}")
-	public ResponseEntity<List<Disciplina>> findAllByCursoId(@PathVariable Long id) {
-		List<Disciplina> disciplinas = service.findAllByCursoId(id);
+	public ResponseEntity<Map<Integer, List<Disciplina>>> findAllByCursoId(@PathVariable Long id) {
+		Map<Integer, List<Disciplina>>  disciplinas = service.findAllByCursoId(id)
+																													.stream()
+																													.collect(Collectors.groupingBy(Disciplina::getSemestre));
 
 		return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
 	}
@@ -39,7 +43,7 @@ public class DisciplinaController {
 		Disciplina disciplina = new Disciplina(curso
 				,insertDisciplina.nome(),insertDisciplina.ementa()
 				,insertDisciplina.requisitos(),insertDisciplina.area().name()
-				,insertDisciplina.observacao(),insertDisciplina.ch());
+				,insertDisciplina.observacao(),insertDisciplina.ch(), insertDisciplina.semestre());
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertDisciplinaData(disciplina));
 	}
 }

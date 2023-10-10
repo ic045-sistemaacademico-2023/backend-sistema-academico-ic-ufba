@@ -10,7 +10,8 @@ public record InsertDisciplinaRequest(
         String requisitos,
         Role.Area area,
         String observacao,
-        int ch
+        int ch,
+        int semestre
 
 ){
 }

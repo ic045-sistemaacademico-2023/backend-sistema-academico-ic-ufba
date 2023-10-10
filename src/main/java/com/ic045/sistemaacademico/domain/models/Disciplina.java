@@ -33,5 +33,6 @@ public class Disciplina {
     private String observacao;
     @NonNull
     private int ch;
-
+    @NonNull
+    private int semestre;
 }
