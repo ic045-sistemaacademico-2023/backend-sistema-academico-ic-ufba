@@ -25,6 +25,10 @@ public class DisciplinaService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id)));
     }
 
+    public Disciplina findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo);
+    }
+
     public List<Disciplina> findAllByCursoId(Long id) {
         return repository.findAllByCursoId(id);
     }

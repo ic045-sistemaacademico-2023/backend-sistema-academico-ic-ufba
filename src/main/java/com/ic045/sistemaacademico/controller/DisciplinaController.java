@@ -27,6 +27,13 @@ public class DisciplinaController {
 		return disciplina != null ? ResponseEntity.ok(disciplina) : ResponseEntity.notFound().build();
 	}
 
+	@GetMapping("/codigo/{codigo}")
+	public ResponseEntity<Disciplina> findByCodigo(@PathVariable String codigo) {
+		Disciplina disciplina = service.findByCodigo(codigo);
+
+		return disciplina != null ? ResponseEntity.ok(disciplina) : ResponseEntity.notFound().build();
+	}
+
 	@GetMapping("/curso/{id}")
 	public ResponseEntity<Map<Integer, List<Disciplina>>> findAllByCursoId(@PathVariable Long id) {
 		Map<Integer, List<Disciplina>>  disciplinas = service.findAllByCursoId(id)
