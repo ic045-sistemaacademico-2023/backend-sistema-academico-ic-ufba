@@ -24,7 +24,6 @@ public class Disciplina {
     private String codigo;
     @NonNull
     private String ementa;
-    @NonNull
     @Column(name = "pre_requisitos")
     private String preRequisitos;
     @NonNull
@@ -34,5 +33,17 @@ public class Disciplina {
     @NonNull
     private int ch;
     @NonNull
+    @Column(name = "ch_pratica")
+    private int chPratica;
+    @NonNull
+    @Column(name = "ch_teorica")
+    private int chTeorica;
+    @NonNull
     private int semestre;
+
+    private String objetivos;
+
+    private String conteudo;
+
+    private String bibliografia;
 }

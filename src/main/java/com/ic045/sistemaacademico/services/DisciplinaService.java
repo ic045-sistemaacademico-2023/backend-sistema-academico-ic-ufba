@@ -33,6 +33,34 @@ public class DisciplinaService {
         return repository.findAllByCursoId(id);
     }
 
+    public Disciplina update(Long id, Disciplina disciplina) {
+        Disciplina disciplinaAtualizada = findById(id);
+
+        if (disciplinaAtualizada == null) throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id));
+
+        try {
+            disciplinaAtualizada.setNome(disciplina.getNome());
+            disciplinaAtualizada.setEmenta(disciplina.getEmenta());
+            disciplinaAtualizada.setArea(disciplina.getArea());
+            disciplinaAtualizada.setObservacao(disciplina.getObservacao());
+            disciplinaAtualizada.setCh(disciplina.getCh());
+            disciplinaAtualizada.setChPratica(disciplina.getChPratica());
+            disciplinaAtualizada.setChTeorica(disciplina.getChTeorica());
+            disciplinaAtualizada.setSemestre(disciplina.getSemestre());
+
+            if (disciplina.getObjetivos() != null) disciplinaAtualizada.setObjetivos(disciplina.getObjetivos());
+            if (disciplina.getBibliografia() != null) disciplinaAtualizada.setBibliografia(disciplina.getBibliografia());
+            if (disciplina.getConteudo() != null) disciplinaAtualizada.setConteudo(disciplina.getConteudo());
+            if (disciplina.getPreRequisitos() != null) disciplinaAtualizada.setPreRequisitos(disciplina.getPreRequisitos());
+
+            return repository.save(disciplinaAtualizada);
+        } catch (IllegalArgumentException e) {
+            throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+        } catch (OptimisticLockingFailureException e) {
+            throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        }
+    }
+
     public boolean InsertDisciplinaData(Disciplina disciplina) {
         if (repository.exists(Example.of(disciplina))) throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
         disciplina = CodeDisciplina(disciplina);

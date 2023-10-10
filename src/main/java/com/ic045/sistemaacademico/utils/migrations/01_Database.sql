@@ -4,87 +4,94 @@ USE sistemaacademico;
 
 CREATE TABLE `aluno`
 (
-    `id`         int          NOT NULL AUTO_INCREMENT,
-    `id_curso`   int          NOT NULL,
+    `id`         INT          NOT NULL AUTO_INCREMENT,
+    `id_curso`   INT          NOT NULL,
     `id_usuario` INT          NOT NULL UNIQUE,
-    `nome`       varchar(255) NOT NULL,
+    `nome`       VARCHAR(255) NOT NULL,
     `cr`         DOUBLE          NOT NULL DEFAULT  0,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `coordenadordecurso`
 (
-    `id`         int          NOT NULL AUTO_INCREMENT,
+    `id`         INT          NOT NULL AUTO_INCREMENT,
     `id_usuario` INT          NOT NULL,
-    `nome`       varchar(255) NOT NULL,
-    `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
+    `nome`       VARCHAR(255) NOT NULL,
+    `email`      VARCHAR(255) NOT NULL UNIQUE,
+    `senha`      VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `curso`
 (
-    `id`             int          NOT NULL AUTO_INCREMENT,
-    `id_coordenador` int          NOT NULL,
-    `nome`           varchar(255) NOT NULL,
-    `semestre`       int          NOT NULL,
-    `turno`          varchar(255) NOT NULL,
+    `id`             INT          NOT NULL AUTO_INCREMENT,
+    `id_coordenador` INT          NOT NULL,
+    `nome`           VARCHAR(255) NOT NULL,
+    `semestre`       INT          NOT NULL,
+    `turno`          VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `disciplina`
 (
-    `id`             int          NOT NULL AUTO_INCREMENT,
-    `id_curso`       int          NOT NULL,
-    `nome`           varchar(255) NOT NULL,
-    `codigo`         varchar(255) NOT NULL UNIQUE,
-    `ementa`         varchar(255) NOT NULL,
-    `pre_requisitos` varchar(255) NOT NULL,
-    `area`           varchar(255),
+    `id`             INT          NOT NULL AUTO_INCREMENT,
+    `id_curso`       INT          NOT NULL,
+    `nome`           VARCHAR(255) NOT NULL,
+    `codigo`         VARCHAR(255) NOT NULL UNIQUE,
+    `ementa`         VARCHAR(255) NOT NULL,
+    `pre_requisitos` VARCHAR(255),
+    `area`           VARCHAR(255),
     `observacao`     VARCHAR(255),
     `ch`             INT          NOT NULL,
+    `ch_teorica`     INT          NOT NULL,
+    `ch_pratica`     INT          NOT NULL,
     `semestre`       INT          NOT NULL,
+    `objetivos`      VARCHAR(255),
+    `conteudo`       VARCHAR(255),
+    `bibliografia`   VARCHAR(255),
+
+
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `administrador`
 (
-    `id`         int          NOT NULL AUTO_INCREMENT,
+    `id`         INT          NOT NULL AUTO_INCREMENT,
     `id_usuario` INT          NOT NULL,
-    `nome`       varchar(255) NOT NULL,
-    `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
+    `nome`       VARCHAR(255) NOT NULL,
+    `email`      VARCHAR(255) NOT NULL UNIQUE,
+    `senha`      VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `nota`
 (
-    `id`       int            NOT NULL AUTO_INCREMENT,
-    `id_aluno` int            NOT NULL,
-    `id_turma` int            NOT NULL,
+    `id`       INT            NOT NULL AUTO_INCREMENT,
+    `id_aluno` INT            NOT NULL,
+    `id_turma` INT            NOT NULL,
     `nota`     DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `professor`
 (
-    `id`         int          NOT NULL AUTO_INCREMENT,
+    `id`         INT          NOT NULL AUTO_INCREMENT,
     `id_usuario` INT          NOT NULL,
-    `nome`       varchar(255) NOT NULL,
-    `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
+    `nome`       VARCHAR(255) NOT NULL,
+    `email`      VARCHAR(255) NOT NULL UNIQUE,
+    `senha`      VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `turma`
 (
-    `id`            int          NOT NULL AUTO_INCREMENT,
-    `id_disciplina` int          NOT NULL,
-    `id_professor`  int          NOT NULL,
-    `dias`          varchar(255) NOT NULL,
-    `horario`       varchar(255) NOT NULL,
-    `local`         varchar(255) NOT NULL,
-    `semestre` int            NOT NULL,
+    `id`            INT          NOT NULL AUTO_INCREMENT,
+    `id_disciplina` INT          NOT NULL,
+    `id_professor`  INT          NOT NULL,
+    `dias`          VARCHAR(255) NOT NULL,
+    `horario`       VARCHAR(255) NOT NULL,
+    `local`         VARCHAR(255) NOT NULL,
+    `semestre` INT            NOT NULL,
     PRIMARY KEY (`id`)
 );
 

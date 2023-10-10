@@ -49,8 +49,15 @@ public class DisciplinaController {
 		curso.setId(insertDisciplina.curso());
 		Disciplina disciplina = new Disciplina(curso
 				,insertDisciplina.nome(),insertDisciplina.ementa()
-				,insertDisciplina.requisitos(),insertDisciplina.area().name()
-				,insertDisciplina.observacao(),insertDisciplina.ch(), insertDisciplina.semestre());
+				,insertDisciplina.area().name(),insertDisciplina.observacao(),insertDisciplina.ch()
+				,insertDisciplina.chPratica(),insertDisciplina.chTeorica(),insertDisciplina.semestre());
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertDisciplinaData(disciplina));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Disciplina> update(@PathVariable Long id, @RequestBody Disciplina disciplina) {
+		Disciplina disciplinaAtualizada = service.update(id, disciplina);
+
+		return disciplinaAtualizada != null ? ResponseEntity.ok(disciplinaAtualizada) : ResponseEntity.notFound().build();
 	}
 }
