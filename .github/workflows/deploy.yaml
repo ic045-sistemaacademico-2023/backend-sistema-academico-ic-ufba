@@ -84,6 +84,5 @@ jobs:
           working_directory: ${{ env.BACKEND_PATH }}/.gcloud
           env_vars: |-
             DATABASE_DRIVER_CLASS_NAME=${{ secrets.DATABASE_DRIVER_CLASS_NAME }}
-            DATABASE_URL=${{ secrets.DATABASE_URL }}
             DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
