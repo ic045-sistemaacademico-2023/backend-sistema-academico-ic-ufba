@@ -1,4 +1,4 @@
-# See https://docs.github.com/en/actions.
+# Consulte https://docs.github.com/en/actions.
 name: Deploy
 
 on:
@@ -29,7 +29,7 @@ jobs:
           npm --version
           yarn --version
 
-      # See https://github.com/actions/checkout.
+      # Consulte https://github.com/actions/checkout.
       - name: Faz o checkout do backend
         uses: actions/checkout@v4
         with:
