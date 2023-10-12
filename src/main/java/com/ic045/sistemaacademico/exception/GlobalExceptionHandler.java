@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.exception;
 
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,15 @@ public class GlobalExceptionHandler {
                 .status(HttpStatus.NOT_FOUND)
                 .body(buildErrorResponse(HttpStatus.NOT_FOUND, ex));
     }
+    @ExceptionHandler(value = {NotCreatedException.class})
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public ResponseEntity<Object> handleException(NotCreatedException ex){
+        return ResponseEntity
+                .status(HttpStatus.NOT_IMPLEMENTED)
+                .body(buildErrorResponse(HttpStatus.NOT_IMPLEMENTED,ex));
+    }
 
-    private static ErrorResponse buildErrorResponse(final HttpStatus status, final NotFoundException ex) {
+    private static ErrorResponse buildErrorResponse(final HttpStatus status, final RuntimeException ex) {
         return new ErrorResponse(status.value(), ex.getMessage());
     }
 }

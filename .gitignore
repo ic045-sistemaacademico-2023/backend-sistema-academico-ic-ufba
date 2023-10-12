@@ -16,7 +16,7 @@ log/
 target/
 
 # Others
-.env
+database/
 .env.properties
 docker-compose.yml
 application.properties

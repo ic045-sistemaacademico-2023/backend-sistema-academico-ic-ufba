@@ -1,15 +1,19 @@
 package com.ic045.sistemaacademico.services;
 import java.util.List;
 
-//import java.util.NoSuchElementException;
 
+
+import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.domain.Example;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Aluno;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.repositories.AlunoRepository;
 
 @Service
@@ -23,10 +27,19 @@ public class AlunoService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Aluno", id)));
     }
 
-    public List<Turma> findAllByAlunoId(Long alunoId) {
-        List<Turma> turmas = repository.findAllTurmasByAlunoId(alunoId);
+    public Boolean InsertAlunoData(Aluno insertAluno)  {
+       try {
 
-        return turmas;
+           if (repository.existsByusuarioId(insertAluno.getUsuario().getId())) {
+                throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+           }
+            repository.save(insertAluno);
+            return true;
+       }catch (IllegalArgumentException e){
+           throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+       }catch (OptimisticLockingFailureException e){
+           throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+       }
     }
 
 }

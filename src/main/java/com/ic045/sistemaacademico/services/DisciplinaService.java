@@ -1,11 +1,14 @@
 package com.ic045.sistemaacademico.services;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Disciplina;
@@ -24,5 +27,28 @@ public class DisciplinaService {
 
     public List<Disciplina> findAllByCursoId(Long id) {
         return repository.findAllByCursoId(id);
+    }
+
+    public boolean InsertDisciplinaData(Disciplina disciplina) {
+        if (repository.exists(Example.of(disciplina))) throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        disciplina = CodeDisciplina(disciplina);
+       try {
+           System.out.println(disciplina.toString());
+            repository.save(disciplina);
+            return true;
+        }catch (IllegalArgumentException e){
+            throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+        }
+        catch (OptimisticLockingFailureException e){
+            throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        }
+    }
+    public Disciplina CodeDisciplina(Disciplina disciplina){
+
+        String code = new StringBuilder(Role.Area.valueOf(disciplina.getArea()).getCode())
+                .insert(Role.Area.valueOf(disciplina.getArea()).getCode().length(),( repository.countByarea(disciplina.getArea()) + 1))
+                .toString();
+        disciplina.setCodigo(code);
+        return disciplina;
     }
 }

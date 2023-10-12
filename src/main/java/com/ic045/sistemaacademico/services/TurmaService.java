@@ -2,9 +2,11 @@ package com.ic045.sistemaacademico.services;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Turma;
@@ -26,7 +28,22 @@ public class TurmaService {
         return repository.findBysemestre(period).get();
     }
 
-    public List<Turma> findAllByAluno(Long idAluno) {
-        return repository.findAllByAluno(idAluno);
+//    public List<Turma> findAllByAluno(Long idAluno) {
+//        return repository.findAllByAluno(idAluno);
+//    }
+
+    public Boolean InsertTurmaData(Turma turma) {
+        try {
+            repository.save(turma);
+            return true;
+        }catch (IllegalArgumentException e){throw  new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());}
+        catch (OptimisticLockingFailureException e){throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());}
     }
+
+    public List<Turma> findTurmasByAlunoId(Long alunoId) {
+        List<Turma> turmas = repository.findAllByAlunosId(alunoId);
+
+        return turmas;
+    }
+
 }
