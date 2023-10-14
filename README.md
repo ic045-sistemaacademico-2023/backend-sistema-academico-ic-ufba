@@ -26,9 +26,9 @@
 
 [![Deploy][deploy-badge]][deploy-action]
 
-[deploy-action]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/Deploy.yaml
+[deploy-action]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/deploy.yaml
 
-[deploy-badge]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/Deploy.yaml/badge.svg?branch=main
+[deploy-badge]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/deploy.yaml/badge.svg?branch=main
 
 ## Tecnologias
 
