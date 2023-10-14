@@ -43,23 +43,26 @@
 | Karen Botelho  | Gerente do Projeto e desenvolvedor      |
 | Gustavo Mendel | Vice Gerente do Projeto e desenvolvedor |
 | Elis Marcela   | Desenvolvedor                           |
-| Victor Andrade | Desenvolvedor                           |
 | Glauber        | Desenvolvedor                           |
-| Igor Dantas    | Desenvolvedor                           |
 | Lávio          | Desenvolvedor                           |
 | Vitor de Jesus | Desenvolvedor                           |
 | Lucas Natanael | Desenvolvedor                           |
 | Adiel Cristo   | Desenvolvedor                           |
+| Cleiton Rocha  | Desenvolvedor                           |
+| Matheus        | Desenvolvedor                           |
 
 ## Desenvolvimento
 
-### Instalação do projeto
+### Instalação do projeto (em Windows)
 
 1. Instale o [Git](https://gitforwindows.org/)
 2. Instale o [Eclipse](https://www.eclipse.org/downloads/)
 3. Clone o repositório da nuvem para a sua máquina local
 4. Importe o projeto Maven no Eclipse pela opção "Existing Maven Project"
 5. Aguarde o Eclipse terminar de realizar os downloads necessários para a importação
+6. Instale [JDK 17](https://www.oracle.com/java/technologies/downloads/#java17) ou superior
+7. Instale [Lombok](https://repo1.maven.org/maven2/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar)
+	7.1. Siga os [passos](https://dicasdeprogramacao.com.br/como-configurar-o-lombok-no-eclipse/#:~:text=Como%20configurar%20o%20lombok%20no%20Eclipse%201%201.,...%207%207.%20Rebuild%20do%20seu%20projeto.%20)
 
 ### Configuração do banco de dados
 
@@ -85,12 +88,12 @@
 1. Abra o MySQL Shell do Workbench e rode `\sql` para converter alinguagem do shell de JS para SQL.
 2. Rode `\connect root@localhost` no MySQL Shell do Workbench pra conectar ao banco, então coloque a senha do root e
    pressione enter pra concluir.
-3. Localize o caminho do `Database.sql` e rode o comando `\source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
+3. Localize o caminho do `01_Database.sql` e rode o comando `\source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
     1. Provavelmente o caminho será algo como
-       `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\Database.sql`
+       `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\01_Database.sql`
    Ou siga
 1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL.
-2. Localize o caminho do `Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL.
+2. Localize o caminho do `01_Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL.
 
 ### Execução da aplicação
 

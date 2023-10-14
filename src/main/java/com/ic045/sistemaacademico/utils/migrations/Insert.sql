@@ -22,7 +22,7 @@ VALUES (3, 'Professor', 'professor1@gmail.com', '123456');
 INSERT INTO `curso` (id_coordenador, nome, semestre, turno) VALUES (1, 'Engenharia de Software', 1, 'MATUTINO');
 
 -- Create a discipline named `Programação Orientada a Objetos` with code `POOA` and belongs to the `Engenharia de Software` course
-INSERT INTO `disciplina` (id_curso, nome, codigo, ementa, pre_requisitos,  area, observacao, ch)
+INSERT INTO `disciplina` (id_curso, nome, codigo, ementa, pre_requisitos, area, observacao, ch)
 VALUES (1, 'Programação Orientada a Objetos', 'POOA', 'Ementa da disciplina de Programação Orientada a Objetos', 'Nenhum', 'Técnica', '', 40);
 
 -- Create a turma named `Turma 1` with discipline `Programação Orientada a Objetos` and professor `professor`
