@@ -20,7 +20,7 @@
 
 | Aplicação | Link                                                                           |
 |-----------|--------------------------------------------------------------------------------|
-| Frontend  | https://ic045-siag.netlify.app                                                         |
+| Frontend  | https://ic045-siag.netlify.app                                                 |
 | Backend   | https://learning-ufba-sistemaacademico.ue.r.appspot.com/api/v1                 |
 | Swagger   | https://learning-ufba-sistemaacademico.ue.r.appspot.com/api/v1/swagger-ui.html |
 
@@ -67,7 +67,7 @@
 ### Configuração do banco de dados
 
 1. Copie o arquivo `.env.properties.dist` para `.env.properties`.
-2. Descomente a seção correspondente ao banco de dados que será usado.
+2. Descomente a seção correspondente ao banco de dados que será usado (H2 ou MySQL).
 
 #### H2
 
