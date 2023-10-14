@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.controller;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
@@ -31,34 +32,38 @@ public class TurmaController {
                         .notFound()
                         .build();
     }
+
     @GetMapping("/")
     public ResponseEntity<List<Turma>> findForSemestre(@RequestParam String period){
         List<Turma> turmas = service.findForSemestreData(period);
 
         return !turmas.isEmpty() ? ResponseEntity.ok(turmas):ResponseEntity.notFound().build();
     }
+
     @PostMapping("/")
-    public ResponseEntity<Boolean> InsertTurma(@RequestBody InsertTurmaRequest InsertTurma){
-        Disciplina disciplina = new Disciplina();
-        Professor professor = new Professor();
-        Turma turma;
-        disciplina.setId(InsertTurma.disciplina());
-        String data = Arrays.stream(InsertTurma.dias()).map(Role.Date::getCodeDate).collect(Collectors.joining(","));
-
-        if (InsertTurma.professor() != null) {
-            professor.setId(InsertTurma.professor());
-            turma = new Turma(disciplina, professor, data, InsertTurma.horario(), InsertTurma.local(), InsertTurma.semestre());
-        }else {
-
-            turma = new Turma(disciplina,data, InsertTurma.horario(), InsertTurma.local(), InsertTurma.semestre());
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertTurmaData(turma));
+    public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.insertTurmaData(insertTurmaRequest));
     }
+
     @GetMapping("/aluno")
     public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@RequestParam Long id) {
         List<Turma> turmas = service.findTurmasByAlunoId(id);
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTurma(@PathVariable Long id) {
+        service.deleteTurma(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Turma> updateTurma(@PathVariable Long id, @RequestBody UpdateTurmaRequest request) {
+        Turma turma = service.updateTurma(id, request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(turma);
     }
 
 }
