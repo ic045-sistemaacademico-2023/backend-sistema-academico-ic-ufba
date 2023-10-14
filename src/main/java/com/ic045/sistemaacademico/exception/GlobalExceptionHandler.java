@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.exception;
 
+import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_IMPLEMENTED)
                 .body(buildErrorResponse(HttpStatus.NOT_IMPLEMENTED,ex));
+    }
+
+    @ExceptionHandler(value = { BadRequestException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object> handleBadRequestException(NotCreatedException ex){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(buildErrorResponse(HttpStatus.BAD_REQUEST, ex));
     }
 
     private static ErrorResponse buildErrorResponse(final HttpStatus status, final RuntimeException ex) {
