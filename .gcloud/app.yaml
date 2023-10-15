@@ -2,12 +2,20 @@ runtime: java17
 
 instance_class: F1
 
-entrypoint: java -Xmx64m -noverify -jar sistema-academico-0.0.1-SNAPSHOT.jar -cp BOOT-INF/classes/:BOOT-INF/lib/* com.ic045.sistemaacademico.SistemaAcademicoApplication
+entrypoint: java -Xmx64m -jar sistema-academico-0.0.1-SNAPSHOT.jar -cp BOOT-INF/classes/:BOOT-INF/lib/* com.ic045.sistemaacademico.SistemaAcademicoApplication
 
 # Consulte https://cloud.google.com/appengine/docs/standard/serving-static-files?tab=java.
 # Consulte https://www.googlecloudcommunity.com/gc/Serverless/Serving-springboot-app-static-resources-from-AppEngine/m-p/178426.
 handlers:
-  - url: /(.*\.(gif|png|jpg|svg|ico|css|js|jsx|html))$
+  - url: /(.*\.jsx)$
+    static_files: BOOT-INF/classes/static/\1
+    mime_type: text/javascript
+    upload: BOOT-INF/classes/static/.*\.jsx$
+    secure: always
+    redirect_http_response_code: 301
+    require_matching_file: true
+
+  - url: /(.*\.(gif|png|jpg|svg|ico|css|js|html))$
     static_files: BOOT-INF/classes/static/\1
     upload: BOOT-INF/classes/static/.*\.(gif|png|jpg|svg|ico|css|js|jsx|html)$
     secure: always

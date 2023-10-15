@@ -20,15 +20,15 @@
 
 | Aplicação | Link                                                                           |
 |-----------|--------------------------------------------------------------------------------|
-| Frontend  | https://ic045-siag.netlify.app                                                         |
+| Frontend  | https://ic045-siag.netlify.app                                                 |
 | Backend   | https://learning-ufba-sistemaacademico.ue.r.appspot.com/api/v1                 |
 | Swagger   | https://learning-ufba-sistemaacademico.ue.r.appspot.com/api/v1/swagger-ui.html |
 
 [![Deploy][deploy-badge]][deploy-action]
 
-[deploy-action]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/Deploy.yaml
+[deploy-action]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/deploy.yaml
 
-[deploy-badge]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/Deploy.yaml/badge.svg?branch=main
+[deploy-badge]: https://github.com/ic045-sistemaacademico-2023/backend-sistema-academico-ic-ufba/actions/workflows/deploy.yaml/badge.svg?branch=main
 
 ## Tecnologias
 
@@ -67,12 +67,12 @@
 ### Configuração do banco de dados
 
 1. Copie o arquivo `.env.properties.dist` para `.env.properties`.
-2. Descomente a seção correspondente ao banco de dados que será usado.
+2. Descomente a seção correspondente ao banco de dados que será usado (H2 ou MySQL).
 
 #### H2
 
-1. Ao rodar a aplicação o banco de dados será carregado em memória usando os arquivos `src/main/resources/schema.sql` e
-   `src/main/resources/data.sql`.
+1. Altere a propriedade `spring.sql.init.mode` para `always` para executar os scripts `src/main/resources/schema.sql`
+   e `src/main/resources/data.sql` sempre que iniciar a aplicação.
 2. Para habilitar o console e acessar o banco de dados, altere a propriedade `spring.h2.console.enabled` para `true`
    no arquivo `src/main/resources/application.properties`.
 3. Acesse o console no endereço http://localhost:8080/api/v1/h2-console.
