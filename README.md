@@ -71,8 +71,8 @@
 
 #### H2
 
-1. Ao rodar a aplicação o banco de dados será carregado em memória usando os arquivos `src/main/resources/schema.sql` e
-   `src/main/resources/data.sql`.
+1. Altere a propriedade `spring.sql.init.mode` para `always` para executar os scripts `src/main/resources/schema.sql`
+   e `src/main/resources/data.sql` sempre que iniciar a aplicação.
 2. Para habilitar o console e acessar o banco de dados, altere a propriedade `spring.h2.console.enabled` para `true`
    no arquivo `src/main/resources/application.properties`.
 3. Acesse o console no endereço http://localhost:8080/api/v1/h2-console.
