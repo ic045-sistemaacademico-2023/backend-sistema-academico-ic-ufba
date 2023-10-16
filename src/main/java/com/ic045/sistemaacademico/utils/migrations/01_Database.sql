@@ -42,7 +42,10 @@ CREATE TABLE `disciplina`
     `pre_requisitos` varchar(255) NOT NULL,
     `area`           varchar(255),
     `observacao`     VARCHAR(255),
-    `ch`             INT          NOT NULL,
+    `ch_total`       INT          NOT NULL,
+    `ch_teorica`     INT          NOT NULL,
+    `ch_pratica`     INT          NOT NULL,
+    `bibliografia`   varchar(255),
     PRIMARY KEY (`id`)
 );
 
