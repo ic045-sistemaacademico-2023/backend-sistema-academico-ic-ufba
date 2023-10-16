@@ -7,6 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateUsuarioRequest;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.services.UsuarioService;
 
@@ -39,4 +43,20 @@ public class UsuarioController {
 		List<Usuario> usuarios = service.findAll();
 		return usuarios != null ? ResponseEntity.ok(usuarios) : ResponseEntity.notFound().build();
 	}
+
+	@DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+        service.deleteUsuario(id);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody UpdateUsuarioRequest request) {
+        Usuario usuario = service.updateUsuario(id, request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+    }
+
+
 }
