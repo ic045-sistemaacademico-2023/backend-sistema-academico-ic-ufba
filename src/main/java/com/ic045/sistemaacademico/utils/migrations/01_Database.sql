@@ -40,6 +40,7 @@ CREATE TABLE `disciplina`
     `codigo`         varchar(255) NOT NULL UNIQUE,
     `ementa`         varchar(255) NOT NULL,
     `pre_requisitos` varchar(255) NOT NULL,
+    `nivel`          VARCHAR(255),
     `area`           varchar(255),
     `observacao`     VARCHAR(255),
     `ch`             INT          NOT NULL,
