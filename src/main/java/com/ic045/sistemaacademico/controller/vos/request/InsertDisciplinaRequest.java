@@ -4,13 +4,6 @@ import com.ic045.sistemaacademico.domain.models.Role;
 
 public record InsertDisciplinaRequest(
 
-        Long curso,
-        String nome,
-        String ementa,
-        String requisitos,
-        Role.Area area,
-        String observacao,
-        int ch
-
-){
+		Long curso, String nome, String ementa, String requisitos, Role.Area area, String observacao, int chTotal,
+		int chTeorica, int chPratica, String bibliografia) {
 }
