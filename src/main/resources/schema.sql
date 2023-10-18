@@ -40,10 +40,12 @@ CREATE TABLE `disciplina`
     `codigo`         varchar(255) NOT NULL UNIQUE,
     `ementa`         varchar(255) NOT NULL,
     `pre_requisitos` varchar(255) NOT NULL,
-    `nivel`          VARCHAR(255),
     `area`           varchar(255),
     `observacao`     VARCHAR(255),
-    `ch`             INT          NOT NULL,
+    `ch_total`       INT          NOT NULL,
+    `ch_teorica`     INT          NOT NULL,
+    `ch_pratica`     INT          NOT NULL,
+    `bibliografia`   varchar(255),
     PRIMARY KEY (`id`)
 );
 

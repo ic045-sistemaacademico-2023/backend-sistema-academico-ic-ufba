@@ -1,4 +1,4 @@
-# See https://docs.github.com/en/actions.
+# Consulte https://docs.github.com/en/actions.
 name: Deploy
 
 on:
@@ -29,7 +29,7 @@ jobs:
           npm --version
           yarn --version
 
-      # See https://github.com/actions/checkout.
+      # Consulte https://github.com/actions/checkout.
       - name: Faz o checkout do backend
         uses: actions/checkout@v4
         with:
@@ -83,7 +83,9 @@ jobs:
         with:
           working_directory: ${{ env.BACKEND_PATH }}/.gcloud
           env_vars: |-
-            DATABASE_DRIVER_CLASS_NAME=${{ secrets.DATABASE_DRIVER_CLASS_NAME }}
+            DATABASE_DRIVER_CLASS_NAME=${{ vars.DATABASE_DRIVER_CLASS_NAME }}
+            DATABASE_DIALECT=${{ vars.DATABASE_DIALECT }}
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            SPRING_PROFILES_ACTIVE=${{ vars.SPRING_PROFILES_ACTIVE }}

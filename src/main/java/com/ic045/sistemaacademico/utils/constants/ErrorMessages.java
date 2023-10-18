@@ -6,7 +6,9 @@ public enum ErrorMessages {
     USUARIO_CPF_NOT_FOUND("The Usuario with cpf: %s – Couldn't be found"),
     INVALID_INPUT("Invalid input."),
     NOT_CREATED("Existing data"),
-    DATA_NULL("Null data found");
+    DATA_NULL("Null data found"),
+    COULD_NOT_UPDATE("The %s with id %s - Couldn't be updated"),
+    OBJECT_NOT_FOUND_GENERIC_PROP("The %s with %s: %s – Couldn't be found");
     private final String message;
 
     ErrorMessages(String message) {
