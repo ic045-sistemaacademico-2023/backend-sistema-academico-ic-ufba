@@ -11,12 +11,12 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateUsuarioRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
-
 import com.ic045.sistemaacademico.domain.models.Turma;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
+import org.springframework.stereotype.Service;
+import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.repositories.UsuarioRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
