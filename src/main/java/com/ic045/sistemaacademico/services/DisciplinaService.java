@@ -42,12 +42,12 @@ public class DisciplinaService {
             disciplinaAtualizada.setNome(disciplina.getNome());
             disciplinaAtualizada.setEmenta(disciplina.getEmenta());
             disciplinaAtualizada.setArea(disciplina.getArea());
-            disciplinaAtualizada.setObservacao(disciplina.getObservacao());
-            disciplinaAtualizada.setCh(disciplina.getCh());
             disciplinaAtualizada.setChPratica(disciplina.getChPratica());
             disciplinaAtualizada.setChTeorica(disciplina.getChTeorica());
+            disciplinaAtualizada.setChTotal(disciplina.getChTotal());
             disciplinaAtualizada.setSemestre(disciplina.getSemestre());
 
+            if (disciplina.getObservacao() != null) disciplinaAtualizada.setObservacao(disciplina.getObservacao());
             if (disciplina.getObjetivos() != null) disciplinaAtualizada.setObjetivos(disciplina.getObjetivos());
             if (disciplina.getBibliografia() != null) disciplinaAtualizada.setBibliografia(disciplina.getBibliografia());
             if (disciplina.getConteudo() != null) disciplinaAtualizada.setConteudo(disciplina.getConteudo());

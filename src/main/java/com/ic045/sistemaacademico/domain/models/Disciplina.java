@@ -24,9 +24,17 @@ public class Disciplina {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+		private Long id;
+
+		@NonNull
+		@ManyToOne
+		@JoinColumn(name = "id_curso", referencedColumnName = "id")
+		private Curso curso;
 
     private String codigo;
+
+		@NonNull
+		private String nome;
 
     @NonNull
     private String ementa;
@@ -37,11 +45,7 @@ public class Disciplina {
     @NonNull
     private String area;
 
-    @NonNull
     private String observacao;
-
-    @NonNull
-    private int ch;
 
     @NonNull
     @Column(name = "ch_pratica")
@@ -50,7 +54,11 @@ public class Disciplina {
     @NonNull
     @Column(name = "ch_teorica")
     private int chTeorica;
-		
+
+		@NonNull
+		@Column(name = "ch_total")
+		private int chTotal;
+
     @NonNull
     private int semestre;
 

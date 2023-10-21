@@ -7,12 +7,9 @@ public record InsertDisciplinaRequest(
         String nome,
         String ementa,
         Role.Area area,
-        String observacao,
-        int ch,
         int chPratica,
         int chTeorica,
         int chTotal,
-        int semestre,
-        String bibliografia
+        int semestre
 ){
 }
