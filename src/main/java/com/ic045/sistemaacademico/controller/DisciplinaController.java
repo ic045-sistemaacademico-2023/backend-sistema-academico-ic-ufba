@@ -9,8 +9,15 @@ import com.ic045.sistemaacademico.domain.models.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
+import com.ic045.sistemaacademico.domain.models.Curso;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.services.DisciplinaService;
 
@@ -44,13 +51,14 @@ public class DisciplinaController {
 	}
 
 	@PostMapping("/")
-	public ResponseEntity<Boolean> InsertDisciplina(@RequestBody InsertDisciplinaRequest insertDisciplina){
+	public ResponseEntity<Boolean> InsertDisciplina(@RequestBody InsertDisciplinaRequest insertDisciplina) {
 		Curso curso = new Curso();
 		curso.setId(insertDisciplina.curso());
 		Disciplina disciplina = new Disciplina(curso
 				,insertDisciplina.nome(),insertDisciplina.ementa()
 				,insertDisciplina.area().name(),insertDisciplina.observacao(),insertDisciplina.ch()
-				,insertDisciplina.chPratica(),insertDisciplina.chTeorica(),insertDisciplina.semestre());
+				,insertDisciplina.chPratica(),insertDisciplina.chTeorica(),insertDisciplina.chTotal()
+				,insertDisciplina.semestre(),insertDisciplina.bibliografia());
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertDisciplinaData(disciplina));
 	}
 
