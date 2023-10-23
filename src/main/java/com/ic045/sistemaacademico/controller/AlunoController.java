@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,14 +45,14 @@ public class AlunoController {
     public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
         Usuario user = new Usuario();
         Curso curso = new Curso();
+        LocalDateTime now = LocalDateTime.now();
         if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user,curso, InsertAluno.nome());
+        aluno.setCr(0);
+        aluno.setPeriodo_ingresso(now.getYear() + "." + now.getMonthValue());
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
-
-
-
     }
 
 }

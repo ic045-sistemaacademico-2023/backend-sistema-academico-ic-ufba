@@ -34,4 +34,6 @@ public class Aluno {
     private String nome;
     @Column(name = "cr")
     private int cr;
+    @Column(name = "periodo_ingresso")
+    private String periodo_ingresso;
 }

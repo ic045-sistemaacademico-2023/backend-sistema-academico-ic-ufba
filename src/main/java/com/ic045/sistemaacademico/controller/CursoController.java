@@ -34,7 +34,10 @@ public class CursoController {
 	public ResponseEntity<?> InsertCurso(@RequestBody InsertCursoRequest ICS) {
 		CoordenadorDeCurso CC = new CoordenadorDeCurso();
 		CC.setId(ICS.coordenador());
-		return service.InsertCursoData(new Curso(CC, ICS.nome(), Integer.parseInt(ICS.semestre()), ICS.turno()))
+		Curso curso = new Curso(CC, ICS.nome(),Integer.parseInt(ICS.semestre()), ICS.turno());
+		curso.setPeriodo_curriculo("2023.2");
+
+		return service.InsertCursoData(curso)
 				? ResponseEntity.status(HttpStatus.CREATED).build()
 				: ResponseEntity.badRequest().build();
 	}
