@@ -17,7 +17,6 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateCursoRequest;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Curso;
 import com.ic045.sistemaacademico.services.CursoService;
-
 @RestController
 @RequestMapping("/curso")
 public class CursoController {

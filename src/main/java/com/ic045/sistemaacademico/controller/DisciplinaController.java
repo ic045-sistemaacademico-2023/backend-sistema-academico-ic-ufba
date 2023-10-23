@@ -2,6 +2,8 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
+import com.ic045.sistemaacademico.domain.models.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
