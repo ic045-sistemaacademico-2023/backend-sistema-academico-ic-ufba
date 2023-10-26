@@ -25,8 +25,40 @@ public class DisciplinaService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id)));
     }
 
+    public Disciplina findByCodigo(String codigo) {
+        return repository.findByCodigo(codigo);
+    }
+
     public List<Disciplina> findAllByCursoId(Long id) {
         return repository.findAllByCursoId(id);
+    }
+
+    public Disciplina update(Long id, Disciplina disciplina) {
+        Disciplina disciplinaAtualizada = findById(id);
+
+        if (disciplinaAtualizada == null) throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id));
+
+        try {
+            disciplinaAtualizada.setNome(disciplina.getNome());
+            disciplinaAtualizada.setEmenta(disciplina.getEmenta());
+            disciplinaAtualizada.setArea(disciplina.getArea());
+            disciplinaAtualizada.setChPratica(disciplina.getChPratica());
+            disciplinaAtualizada.setChTeorica(disciplina.getChTeorica());
+            disciplinaAtualizada.setChTotal(disciplina.getChTotal());
+            disciplinaAtualizada.setSemestre(disciplina.getSemestre());
+
+            if (disciplina.getObservacao() != null) disciplinaAtualizada.setObservacao(disciplina.getObservacao());
+            if (disciplina.getObjetivos() != null) disciplinaAtualizada.setObjetivos(disciplina.getObjetivos());
+            if (disciplina.getBibliografia() != null) disciplinaAtualizada.setBibliografia(disciplina.getBibliografia());
+            if (disciplina.getConteudo() != null) disciplinaAtualizada.setConteudo(disciplina.getConteudo());
+            if (disciplina.getPreRequisitos() != null) disciplinaAtualizada.setPreRequisitos(disciplina.getPreRequisitos());
+
+            return repository.save(disciplinaAtualizada);
+        } catch (IllegalArgumentException e) {
+            throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+        } catch (OptimisticLockingFailureException e) {
+            throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
+        }
     }
 
     public boolean InsertDisciplinaData(Disciplina disciplina) {

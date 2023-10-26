@@ -24,43 +24,47 @@ public class Disciplina {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+		private Long id;
 
-	@NonNull
-	@ManyToOne
-	@JoinColumn(name = "id_curso", referencedColumnName = "id")
-	private Curso curso;
+		@NonNull
+		@ManyToOne
+		@JoinColumn(name = "id_curso", referencedColumnName = "id")
+		private Curso curso;
 
-	@NonNull
-	private String nome;
+    private String codigo;
 
-	private String codigo;
+		@NonNull
+		private String nome;
 
-	@NonNull
-	private String ementa;
+    @NonNull
+    private String ementa;
 
-	@NonNull
-	@Column(name = "pre_requisitos")
-	private String preRequisitos;
+    @Column(name = "pre_requisitos")
+    private String preRequisitos;
 
-	@NonNull
-	private String area;
+    @NonNull
+    private String area;
 
-	@NonNull
-	private String observacao;
+    private String observacao;
 
-	@NonNull
-	@Column(name = "ch_total")
-	private int chTotal;
+    @NonNull
+    @Column(name = "ch_pratica")
+    private int chPratica;
 
-	@NonNull
-	@Column(name = "ch_teorica")
-	private int chTeorica;
+    @NonNull
+    @Column(name = "ch_teorica")
+    private int chTeorica;
 
-	@NonNull
-	@Column(name = "ch_pratica")
-	private int chPratica;
+		@NonNull
+		@Column(name = "ch_total")
+		private int chTotal;
 
-	private String bibliografia;
+    @NonNull
+    private int semestre;
 
+    private String objetivos;
+
+    private String conteudo;
+
+    private String bibliografia;
 }

@@ -1,6 +1,8 @@
 package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
 import com.ic045.sistemaacademico.domain.models.Curso;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,9 +35,18 @@ public class DisciplinaController {
 		return disciplina != null ? ResponseEntity.ok(disciplina) : ResponseEntity.notFound().build();
 	}
 
+	@GetMapping("/codigo/{codigo}")
+	public ResponseEntity<Disciplina> findByCodigo(@PathVariable String codigo) {
+		Disciplina disciplina = service.findByCodigo(codigo);
+
+		return disciplina != null ? ResponseEntity.ok(disciplina) : ResponseEntity.notFound().build();
+	}
+
 	@GetMapping("/curso/{id}")
-	public ResponseEntity<List<Disciplina>> findAllByCursoId(@PathVariable Long id) {
-		List<Disciplina> disciplinas = service.findAllByCursoId(id);
+	public ResponseEntity<Map<Integer, List<Disciplina>>> findAllByCursoId(@PathVariable Long id) {
+		Map<Integer, List<Disciplina>>  disciplinas = service.findAllByCursoId(id)
+																													.stream()
+																													.collect(Collectors.groupingBy(Disciplina::getSemestre));
 
 		return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
 	}
@@ -43,11 +55,18 @@ public class DisciplinaController {
 	public ResponseEntity<Boolean> InsertDisciplina(@RequestBody InsertDisciplinaRequest insertDisciplina) {
 		Curso curso = new Curso();
 		curso.setId(insertDisciplina.curso());
-		Disciplina disciplina = new Disciplina(insertDisciplina.curso(), curso, insertDisciplina.nome(),
-				insertDisciplina.ementa(), insertDisciplina.requisitos(), insertDisciplina.area().name(),
-				insertDisciplina.observacao(), null, insertDisciplina.chPratica(), insertDisciplina.chTeorica(),
-				insertDisciplina.chTotal(), insertDisciplina.bibliografia());
-
+		Disciplina disciplina = new Disciplina(curso
+				,insertDisciplina.nome(),insertDisciplina.ementa()
+				,insertDisciplina.area().name()
+				,insertDisciplina.chPratica(),insertDisciplina.chTeorica(),insertDisciplina.chTotal()
+				,insertDisciplina.semestre());
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertDisciplinaData(disciplina));
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Disciplina> update(@PathVariable Long id, @RequestBody Disciplina disciplina) {
+		Disciplina disciplinaAtualizada = service.update(id, disciplina);
+
+		return disciplinaAtualizada != null ? ResponseEntity.ok(disciplinaAtualizada) : ResponseEntity.notFound().build();
 	}
 }
