@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS sistemaacademico;
+CREATE SCHEMA IF NOT EXISTS sistemaacademico;
 
 USE sistemaacademico;
 
