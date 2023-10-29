@@ -13,6 +13,5 @@ public interface DisciplinaRepository extends JpaRepository<Disciplina, Long> {
 
     Long countByarea(String area);
 
-
-
+    List<Disciplina> findAll();
 }
