@@ -16,7 +16,7 @@
 
 ## [Plano de Teste](https://docs.google.com/document/d/14-j3w0bYvJGLhpsmsXG_i86Z4zQMQpVhaE_vOw9HVgU/edit?usp=sharing)
 
-## [Documento de Implantação/Instalação]([https://docs.google.com/document/d/14-j3w0bYvJGLhpsmsXG_i86Z4zQMQpVhaE_vOw9HVgU/edit?usp=sharing](https://docs.google.com/document/d/1AfUttj2DfImhIPl24RdDgZtM6SBJ3-jEPB4A_ky386s/edit?usp=sharing))
+## [Documento de Implantação/Instalação](https://docs.google.com/document/d/1AfUttj2DfImhIPl24RdDgZtM6SBJ3-jEPB4A_ky386s/edit?usp=sharing)
 
 
 ## Aplicação
