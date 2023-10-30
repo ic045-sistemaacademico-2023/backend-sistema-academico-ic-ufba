@@ -5,6 +5,8 @@ import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+import com.ic045.sistemaacademico.utils.helpers.DateConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,13 +47,12 @@ public class AlunoController {
     public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
         Usuario user = new Usuario();
         Curso curso = new Curso();
-        LocalDateTime now = LocalDateTime.now();
         if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user,curso, InsertAluno.nome());
         aluno.setCr(0);
-        aluno.setPeriodo_ingresso(now.getYear() + "." + now.getMonthValue());
+        aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
     }
 
