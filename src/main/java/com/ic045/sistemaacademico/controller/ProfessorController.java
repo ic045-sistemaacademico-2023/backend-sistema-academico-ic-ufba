@@ -32,5 +32,13 @@ public class ProfessorController {
 
 		return turmas != null ? ResponseEntity.ok(turmas) : ResponseEntity.notFound().build();
 	}
-	/// sistemaacademico/professor/1/turmas
+
+	@GetMapping("/all")
+	public ResponseEntity<List<Professor>> findAllProfessors() {
+    List<Professor> professors = service.findAllProfessors();
+
+    return professors != null && !professors.isEmpty()
+            ? ResponseEntity.ok(professors)
+            : ResponseEntity.notFound().build();
+	}
 }

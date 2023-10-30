@@ -28,4 +28,8 @@ public class ProfessorService {
 
         return turmas;
     }
+
+    public List<Professor> findAllProfessors() {
+        return repository.findAll();
+    }
 }

@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.controller;
 
+import java.util.List;
+
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.services.CoordenadorDeCursoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +22,14 @@ public class CoordenadorDeCursoController {
         CoordenadorDeCurso coordenadorDeCurso= service.findById(id);
 
          return coordenadorDeCurso != null ? ResponseEntity.ok(coordenadorDeCurso): ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CoordenadorDeCurso>> getAllCoordenadoresDeCurso() {
+        List<CoordenadorDeCurso> coordenadores = service.findAll();
+
+        return coordenadores.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(coordenadores);
     }
 }

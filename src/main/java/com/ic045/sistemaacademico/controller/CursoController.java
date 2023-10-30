@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,7 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateCursoRequest;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Curso;
 import com.ic045.sistemaacademico.services.CursoService;
+
 @RestController
 @RequestMapping("/curso")
 public class CursoController {
@@ -52,4 +55,13 @@ public class CursoController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(curso);
 	}
+
+	@GetMapping("/all")
+    public ResponseEntity<List<Curso>> getAllCursos() {
+        List<Curso> cursos = service.getAllCursos();
+
+        return cursos.isEmpty()
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(cursos);
+    }
 }

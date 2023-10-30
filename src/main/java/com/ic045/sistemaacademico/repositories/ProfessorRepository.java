@@ -14,4 +14,6 @@ import com.ic045.sistemaacademico.domain.models.Turma;
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     @Query("SELECT t FROM Turma t WHERE t.professor.id = :professorId")
     List<Turma> findAllTurmasByProfessorId(@Param("professorId") Long professorId);
+
+    List<Professor> findAll();
 }

@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
 import java.util.NoSuchElementException;
+import java.util.List;
 
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
@@ -19,5 +20,9 @@ public class CoordenadorDeCursoService {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Coordenador de Curso", id)));
+    }
+
+    public List<CoordenadorDeCurso> findAll() {
+        return repository.findAll();
     }
 }

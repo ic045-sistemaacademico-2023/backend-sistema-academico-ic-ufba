@@ -43,6 +43,7 @@ public class DisciplinaService {
             throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
         }
     }
+
     public Disciplina CodeDisciplina(Disciplina disciplina){
 
         String code = new StringBuilder(Role.Area.valueOf(disciplina.getArea()).getCode())
@@ -50,5 +51,9 @@ public class DisciplinaService {
                 .toString();
         disciplina.setCodigo(code);
         return disciplina;
+    }
+
+    public List<Disciplina> findAllDisciplinas() {
+        return repository.findAll();
     }
 }
