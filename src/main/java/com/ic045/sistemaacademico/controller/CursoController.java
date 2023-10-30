@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateCursoRequest;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Curso;
 import com.ic045.sistemaacademico.services.CursoService;
+import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 
 @RestController
 @RequestMapping("/curso")
@@ -37,7 +39,10 @@ public class CursoController {
 	public ResponseEntity<?> InsertCurso(@RequestBody InsertCursoRequest ICS) {
 		CoordenadorDeCurso CC = new CoordenadorDeCurso();
 		CC.setId(ICS.coordenador());
-		return service.InsertCursoData(new Curso(CC, ICS.nome(), Integer.parseInt(ICS.semestre()), ICS.turno()))
+		Curso curso = new Curso(CC, ICS.nome(),Integer.parseInt(ICS.semestre()), ICS.turno());
+		curso.setPeriodo_curriculo(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
+
+		return service.InsertCursoData(curso)
 				? ResponseEntity.status(HttpStatus.CREATED).build()
 				: ResponseEntity.badRequest().build();
 	}

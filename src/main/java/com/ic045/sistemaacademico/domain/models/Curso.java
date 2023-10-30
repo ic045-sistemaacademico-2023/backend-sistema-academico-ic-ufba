@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,6 +26,8 @@ import lombok.Setter;
 @Table(name = "curso")
 public class Curso {
 
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -39,6 +42,9 @@ public class Curso {
 
 	@NonNull
 	private int semestre;
+
+	@Column(name = "periodo_curriculo")
+    private String periodo_curriculo;
 
 	@Enumerated(EnumType.STRING)
 	@NonNull

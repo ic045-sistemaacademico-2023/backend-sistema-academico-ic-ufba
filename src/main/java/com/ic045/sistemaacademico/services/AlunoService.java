@@ -1,16 +1,10 @@
 package com.ic045.sistemaacademico.services;
-import java.util.List;
 
-
-
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
-import org.springframework.data.domain.Example;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Aluno;
@@ -42,4 +36,8 @@ public class AlunoService {
        }
     }
 
+    
+    public String checkSemester(int month) {
+        return month >= 6 ? "2" : "1";
+    }
 }

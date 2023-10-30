@@ -5,11 +5,14 @@ import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+import com.ic045.sistemaacademico.utils.helpers.DateConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,10 +51,9 @@ public class AlunoController {
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user,curso, InsertAluno.nome());
+        aluno.setCr(0);
+        aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
-
-
-
     }
 
 }

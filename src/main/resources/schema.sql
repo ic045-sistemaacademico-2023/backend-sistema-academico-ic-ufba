@@ -9,6 +9,7 @@ CREATE TABLE `aluno`
     `id_usuario` INT          NOT NULL UNIQUE,
     `nome`       varchar(255) NOT NULL,
     `cr` DOUBLE NOT NULL DEFAULT 0,
+    `periodo_ingresso`       varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -28,6 +29,7 @@ CREATE TABLE `curso`
     `id_coordenador` int          NOT NULL,
     `nome`           varchar(255) NOT NULL,
     `semestre`       int          NOT NULL,
+    `periodo_curriculo`       varchar(255) NOT NULL,
     `turno`          varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
