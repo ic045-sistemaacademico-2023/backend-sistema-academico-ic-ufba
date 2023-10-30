@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import com.ic045.sistemaacademico.controller.vos.request.UpdateCursoRequest;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Curso;
@@ -59,5 +61,9 @@ public class CursoService {
 			throw new BadRequestException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Curso", id));
 		}
 	}
+
+	public List<Curso> getAllCursos() {
+        return repository.findAll();
+    }
 
 }

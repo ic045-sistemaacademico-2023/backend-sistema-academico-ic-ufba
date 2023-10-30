@@ -50,4 +50,11 @@ public class DisciplinaController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertDisciplinaData(disciplina));
 	}
+
+	@GetMapping("/all")
+	public ResponseEntity<List<Disciplina>> findAllDisciplinas() {
+	    List<Disciplina> disciplinas = service.findAllDisciplinas();
+
+	    return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
+	}
 }
