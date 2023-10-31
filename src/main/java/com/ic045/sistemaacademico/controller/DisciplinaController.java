@@ -46,7 +46,7 @@ public class DisciplinaController {
 		Curso curso = new Curso();
 		curso.setId(insertDisciplina.curso());
 		Disciplina disciplina = new Disciplina(null, curso, insertDisciplina.nome(),
-				insertDisciplina.codigo(), insertDisciplina.ementa(), insertDisciplina.preRequisitos(),
+				null, insertDisciplina.ementa(), insertDisciplina.preRequisitos(),
 				insertDisciplina.area().name(), insertDisciplina.observacao(), insertDisciplina.chTotal(), insertDisciplina.chTeorica(),
 				insertDisciplina.chPratica(), insertDisciplina.bibliografia());
 
@@ -55,8 +55,7 @@ public class DisciplinaController {
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Boolean> editDisciplina(@PathVariable Long id, @RequestBody InsertDisciplinaRequest updatedDisciplina) {
-			Disciplina updatedDisciplinaModel = new Disciplina(null, new Curso(), updatedDisciplina.nome(),
-							updatedDisciplina.codigo(), updatedDisciplina.ementa(), updatedDisciplina.preRequisitos(),
+			Disciplina updatedDisciplinaModel = new Disciplina(null, new Curso(), updatedDisciplina.nome(), null, updatedDisciplina.ementa(), updatedDisciplina.preRequisitos(),
 							updatedDisciplina.area().name(), updatedDisciplina.observacao(), updatedDisciplina.chTotal(),
 							updatedDisciplina.chTeorica(), updatedDisciplina.chPratica(), updatedDisciplina.bibliografia());
 

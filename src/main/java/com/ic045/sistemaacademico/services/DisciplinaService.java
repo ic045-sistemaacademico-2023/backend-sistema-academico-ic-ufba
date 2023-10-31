@@ -67,7 +67,6 @@ public class DisciplinaService {
 
         if (existingDisciplina != null) {
             existingDisciplina.setNome(updatedDisciplina.getNome());
-            existingDisciplina.setCodigo(updatedDisciplina.getCodigo());
             existingDisciplina.setEmenta(updatedDisciplina.getEmenta());
             existingDisciplina.setPreRequisitos(updatedDisciplina.getPreRequisitos());
             existingDisciplina.setArea(updatedDisciplina.getArea());
