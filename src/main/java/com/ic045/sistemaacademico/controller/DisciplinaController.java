@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
 import com.ic045.sistemaacademico.domain.models.Curso;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.DisciplinaService;
 
 @RestController
@@ -56,5 +57,12 @@ public class DisciplinaController {
 	    List<Disciplina> disciplinas = service.findAllDisciplinas();
 
 	    return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/{id}/turmas")
+	public ResponseEntity<List<Turma>> findAllTurmasByDisciplinaId(@PathVariable Long id) {
+	    List<Turma> turmas = service.findAllByDisciplinaId(id);
+
+	    return turmas != null ? ResponseEntity.ok(turmas) : ResponseEntity.notFound().build();
 	}
 }

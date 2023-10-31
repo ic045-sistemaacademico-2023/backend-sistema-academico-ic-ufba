@@ -12,6 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Disciplina;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.repositories.DisciplinaRepository;
 
 @Service
@@ -27,6 +28,10 @@ public class DisciplinaService {
 
     public List<Disciplina> findAllByCursoId(Long id) {
         return repository.findAllByCursoId(id);
+    }
+
+    public List<Turma> findAllByDisciplinaId(Long disciplinaId) {
+        return repository.findAllTurmasByDisciplinaId(disciplinaId);
     }
 
     public boolean InsertDisciplinaData(Disciplina disciplina) {
