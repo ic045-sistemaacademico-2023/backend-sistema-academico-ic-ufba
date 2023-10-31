@@ -7,6 +7,7 @@ import com.ic045.sistemaacademico.domain.models.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +58,7 @@ public class DisciplinaController {
 	public ResponseEntity<Boolean> editDisciplina(@PathVariable Long id, @RequestBody InsertDisciplinaRequest updatedDisciplina) {
 			Curso curso = new Curso();
 			curso.setId(updatedDisciplina.curso());
-			
+
 			Disciplina updatedDisciplinaModel = new Disciplina(null, curso, updatedDisciplina.nome(), null, updatedDisciplina.ementa(), updatedDisciplina.preRequisitos(),
 							updatedDisciplina.area().name(), updatedDisciplina.observacao(), updatedDisciplina.chTotal(),
 							updatedDisciplina.chTeorica(), updatedDisciplina.chPratica(), updatedDisciplina.bibliografia());
@@ -69,6 +70,13 @@ public class DisciplinaController {
 			} else {
 					return ResponseEntity.notFound().build();
 			}
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteDisciplina(@PathVariable Long id) {
+	    service.deleteDisciplina(id);
+
+	    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 	@GetMapping("/all")

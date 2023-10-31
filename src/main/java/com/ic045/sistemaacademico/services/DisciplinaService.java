@@ -83,4 +83,8 @@ public class DisciplinaService {
             return false;
         }
     }
+
+    public void deleteDisciplina(Long id) {
+        repository.deleteById(id);
+    }
 }
