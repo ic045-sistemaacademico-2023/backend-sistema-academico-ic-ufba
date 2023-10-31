@@ -3,7 +3,6 @@ package com.ic045.sistemaacademico.controller.vos.request;
 import com.ic045.sistemaacademico.domain.models.Role;
 
 public record InsertDisciplinaRequest(
-
-		Long curso, String nome, String ementa, String requisitos, Role.Area area, String observacao, int chTotal,
+		Long curso, String nome, String codigo, String ementa, String preRequisitos, Role.Area area, String observacao, int chTotal,
 		int chTeorica, int chPratica, String bibliografia) {
 }
