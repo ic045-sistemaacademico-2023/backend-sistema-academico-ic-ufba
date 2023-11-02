@@ -68,8 +68,6 @@ public class UsuarioService {
         usuarioToUpdate.setCpf(request.cpf());
         usuarioToUpdate.setSenha(request.senha());
         usuarioToUpdate.setEmail(request.email());
-        usuarioToUpdate.setRole(request.role());  
-		usuarioToUpdate.setStatus(request.status()); 
 		usuarioToUpdate.setNome(request.nome());
 
         return repository.save(usuarioToUpdate);

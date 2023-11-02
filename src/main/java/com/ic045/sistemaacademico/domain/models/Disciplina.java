@@ -46,19 +46,15 @@ public class Disciplina {
 	@NonNull
 	private String area;
 
-	@NonNull
 	private String observacao;
 
-	@NonNull
-	@Column(name = "ch_total")
+	@Column(name = "ch_total", nullable = false)
 	private int chTotal;
 
-	@NonNull
-	@Column(name = "ch_teorica")
+	@Column(name = "ch_teorica", nullable = false)
 	private int chTeorica;
 
-	@NonNull
-	@Column(name = "ch_pratica")
+	@Column(name = "ch_pratica", nullable = false)
 	private int chPratica;
 
 	private String bibliografia;

@@ -12,6 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.domain.models.Disciplina;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.repositories.DisciplinaRepository;
 
 @Service
@@ -27,6 +28,10 @@ public class DisciplinaService {
 
     public List<Disciplina> findAllByCursoId(Long id) {
         return repository.findAllByCursoId(id);
+    }
+
+    public List<Turma> findAllByDisciplinaId(Long disciplinaId) {
+        return repository.findAllTurmasByDisciplinaId(disciplinaId);
     }
 
     public boolean InsertDisciplinaData(Disciplina disciplina) {
@@ -55,5 +60,31 @@ public class DisciplinaService {
 
     public List<Disciplina> findAllDisciplinas() {
         return repository.findAll();
+    }
+
+    public boolean editDisciplina(Long id, Disciplina updatedDisciplina) {
+        Disciplina existingDisciplina = findById(id);
+
+        if (existingDisciplina != null) {
+            existingDisciplina.setNome(updatedDisciplina.getNome());
+            existingDisciplina.setEmenta(updatedDisciplina.getEmenta());
+            existingDisciplina.setPreRequisitos(updatedDisciplina.getPreRequisitos());
+            existingDisciplina.setArea(updatedDisciplina.getArea());
+            existingDisciplina.setObservacao(updatedDisciplina.getObservacao());
+            existingDisciplina.setChTotal(updatedDisciplina.getChTotal());
+            existingDisciplina.setChTeorica(updatedDisciplina.getChTeorica());
+            existingDisciplina.setChPratica(updatedDisciplina.getChPratica());
+            existingDisciplina.setBibliografia(updatedDisciplina.getBibliografia());
+
+            repository.save(existingDisciplina);
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void deleteDisciplina(Long id) {
+        repository.deleteById(id);
     }
 }
