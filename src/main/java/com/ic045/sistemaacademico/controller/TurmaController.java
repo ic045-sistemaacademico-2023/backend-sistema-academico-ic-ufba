@@ -33,23 +33,38 @@ public class TurmaController {
                         .build();
     }
 
-    @GetMapping("/")
+    @GetMapping("/period")
     public ResponseEntity<List<Turma>> findForSemestre(@RequestParam String period){
         List<Turma> turmas = service.findForSemestreData(period);
 
         return !turmas.isEmpty() ? ResponseEntity.ok(turmas):ResponseEntity.notFound().build();
     }
-
-    @PostMapping("/")
-    public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.insertTurmaData(insertTurmaRequest));
-    }
-
+    
     @GetMapping("/aluno")
     public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@RequestParam Long id) {
         List<Turma> turmas = service.findTurmasByAlunoId(id);
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/all")
+    public ResponseEntity<List<Turma>> findAllTurmas() {
+        List<Turma> turmas = service.findAll();
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/disciplina/{disciplinaid}")
+    public ResponseEntity<List<Turma>> findTurmasBydisciplinaId(@PathVariable Long disciplinaid) {
+        List<Turma> turmas = service.findByDisciplinaId(disciplinaid);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+
+    @PostMapping("/")
+    public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.insertTurmaData(insertTurmaRequest));
     }
 
     @DeleteMapping("/{id}")
