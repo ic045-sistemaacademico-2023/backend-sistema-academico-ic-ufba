@@ -1,25 +1,16 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
-import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateUsuarioRequest;
-import com.ic045.sistemaacademico.domain.models.Disciplina;
-import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
-import com.ic045.sistemaacademico.domain.models.Turma;
 
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.ic045.sistemaacademico.domain.models.Usuario;
-import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.repositories.UsuarioRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
