@@ -2,6 +2,7 @@ package com.ic045.sistemaacademico.services;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
@@ -36,6 +37,23 @@ public class TurmaService {
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
     }
+    
+    public List<Turma> findAll(){
+    	List<Turma> turmas = repository.findAll();
+        if (turmas.isEmpty()) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turmas"));
+        }
+        return turmas;
+    }
+    
+    public List<Turma> findByDisciplinaId(Long disciplinaId){
+    	List<Turma> turmas = repository.findAllByDisciplinaId(disciplinaId);
+    	if (turmas.isEmpty()) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", disciplinaId));
+        }
+        return turmas;
+    }
+    
 
     public List<Turma> findForSemestreData(String period) {
         return repository
