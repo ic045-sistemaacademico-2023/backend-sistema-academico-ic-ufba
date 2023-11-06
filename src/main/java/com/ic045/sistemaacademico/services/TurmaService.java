@@ -55,9 +55,12 @@ public class TurmaService {
     }
     
 
-    public List<Turma> findForSemestreData(String period) {
-        return repository
-                .findBysemestre(period).orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", "semester", period)));
+    public List<Turma> findForSemestreData(String nrsemestre) {
+    	List<Turma> turmas = repository.findAllBySemestre(nrsemestre);
+    	if(turmas.isEmpty()) {
+    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", nrsemestre));
+    	}
+        return turmas;
     }
 
     public Turma insertTurmaData(InsertTurmaRequest insertTurmaRequest) {

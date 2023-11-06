@@ -19,7 +19,7 @@ INSERT INTO `professor` (id_usuario, nome, email, senha)
 VALUES (3, 'Professor', 'professor1@gmail.com', '123456');
 
 -- Create a course named `Engenharia de Software` with semester 1 and turno `MATUTINO`
-INSERT INTO `curso` (id_coordenador, nome, semestre, turno) VALUES (1, 'Engenharia de Software', 1, 'MATUTINO');
+INSERT INTO `curso` (id_coordenador, nome, semestre, turno, periodo_curriculo) VALUES (1, 'Engenharia de Software', 1, 'MATUTINO', '2012.1');
 
 -- Create a discipline named `Programação Orientada a Objetos` with code `POOA` and belongs to the `Engenharia de Software` course
 INSERT INTO `disciplina` (id_curso, nome, codigo, ementa, pre_requisitos, area, observacao, ch_total, ch_teorica, ch_pratica, bibliografia)
@@ -29,6 +29,6 @@ VALUES (1, 'Programação Orientada a Objetos', 'POOA', 'Ementa da disciplina de
 INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, local, semestre) VALUES (1, 1, 'Segunda, Quarta', '10:00 - 12:00', 'Laboratório 1', 1);
 
 -- Create a record in the `aluno` table to associate the student `aluno` with the `Turma 1`
-INSERT INTO `aluno` (id_curso, id_usuario, nome, cr) VALUES (1, 4, 'Aluno', 0);
+INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES (1, 4, 'Aluno', 0, '2019.2');
 
 INSERT INTO aluno_turma (id_aluno, id_turma) VALUES (1, 1);
