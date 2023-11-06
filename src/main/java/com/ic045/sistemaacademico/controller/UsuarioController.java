@@ -7,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
-import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateUsuarioRequest;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.services.UsuarioService;
 
