@@ -88,4 +88,5 @@ jobs:
             DATABASE_URL=${{ secrets.DATABASE_URL }}
             DATABASE_USERNAME=${{ secrets.DATABASE_USERNAME }}
             DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+            JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }}
             SPRING_PROFILES_ACTIVE=${{ vars.SPRING_PROFILES_ACTIVE }}
