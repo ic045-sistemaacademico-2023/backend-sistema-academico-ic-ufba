@@ -17,5 +17,17 @@ public class OpMatriculaDisciplinaTurmaService {
 	public OpMatriculaDisciplinaTurma insertOpMatriculaDisciplinaTurmaData(OpMatriculaDisciplinaTurma opMatDiscTurma) {
 		return repository.save(opMatDiscTurma);
 	}
+	
+	public OpMatriculaDisciplinaTurma findByIdAndDisciplinaId(Long id, Long idDisciplina) {
+		return repository.findByIdAndDisciplinaId(id,idDisciplina);
+	}
+	
+	public OpMatriculaDisciplinaTurma findByIdAndTurmaId(Long id, Long idTurma) {
+		return repository.findByIdAndTurmaId(id,idTurma);
+	}
+	
+	public void deleteById(Long id) {
+		repository.deleteById(id);
+	}
 
 }

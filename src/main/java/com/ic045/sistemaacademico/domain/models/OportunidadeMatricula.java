@@ -2,7 +2,10 @@ package com.ic045.sistemaacademico.domain.models;
 
 import java.sql.Timestamp;
 
+import org.hibernate.type.NumericBooleanConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -40,5 +43,10 @@ public class OportunidadeMatricula {
 	@NonNull
 	@Column(name = "data_final")
 	private Timestamp dataFinal;
+	
+	@NonNull
+	@Column(name = "aberta", columnDefinition = "tinyint default 0")
+	@Convert(converter = NumericBooleanConverter.class)
+	private Boolean aberta;
 	
 }

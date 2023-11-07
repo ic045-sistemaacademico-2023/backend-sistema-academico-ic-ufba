@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @RequiredArgsConstructor
 @Entity
 @Table(name = "opmatricula_disciplina_turma", uniqueConstraints = {
-		@UniqueConstraint(columnNames = { "oportunidadeMatricula", "disciplina", "turma" }) })
+		@UniqueConstraint(columnNames = { "id_oportunidade_matricula", "id_disciplina", "id_turma" }) })
 public class OpMatriculaDisciplinaTurma {
 	
 	@Id
@@ -28,13 +29,13 @@ public class OpMatriculaDisciplinaTurma {
 	private Long id;
 	
 	@NonNull
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.REMOVE})
 	@JoinColumn(name = "id_oportunidade_matricula", referencedColumnName = "id")
 	private OportunidadeMatricula oportunidadeMatricula;
 	
 	@NonNull
 	@ManyToOne
-	@JoinColumn(name = "id_discplina", referencedColumnName = "id")
+	@JoinColumn(name = "id_disciplina", referencedColumnName = "id")
 	private Disciplina disciplina;
 	
 	@NonNull

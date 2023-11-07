@@ -9,13 +9,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ic045.sistemaacademico.controller.vos.request.DisciplinaTurmas;
 import com.ic045.sistemaacademico.controller.vos.request.InsertOportunidadeMatriculaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateOportunidadeMatriculaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.OpMatriculaDisciplinaTurma;
 import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
@@ -43,7 +48,6 @@ public class OportunidadeMatriculaController {
 	
 	@Autowired
 	private OpMatriculaDisciplinaTurmaService opMatriculaDisciplinaTurmaService;
-	
 	
 	@PostMapping("/")
 	public ResponseEntity<OportunidadeMatricula> InsertOportunidade(@RequestBody InsertOportunidadeMatriculaRequest request) {
@@ -73,7 +77,8 @@ public class OportunidadeMatriculaController {
 		
 		Timestamp dataInicial = Timestamp.valueOf(request.dataInicial());
 		Timestamp dataFinal = Timestamp.valueOf(request.dataFinal());
-		OportunidadeMatricula opMatricula = new OportunidadeMatricula(request.nome(), request.descricao(), dataInicial, dataFinal);
+		OportunidadeMatricula opMatricula = new OportunidadeMatricula(request.nome(), request.descricao(), dataInicial,
+				dataFinal, request.aberta());
 		
 		opMatricula = service.insertOportunidadeMatriculaData(opMatricula);
 		
@@ -87,6 +92,52 @@ public class OportunidadeMatriculaController {
 		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(opMatricula);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<OportunidadeMatricula> findById(@PathVariable Long id){
+		OportunidadeMatricula opMatricula = service.findById(id);
+		return opMatricula != null ? ResponseEntity.ok(opMatricula) : ResponseEntity.notFound().build();
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<OportunidadeMatricula> editOportunidadeMatricula(@PathVariable Long id,
+			@RequestBody UpdateOportunidadeMatriculaRequest request) {
+		OportunidadeMatricula opMat = service.updateOportuidadeMatricula(id,request);
+				return ResponseEntity.status(HttpStatus.OK).body(opMat);
+	}
+	
+	@PutMapping("/adddisciplinaturma/{id}")
+	public ResponseEntity<Boolean> addDisciplinaTurma(@PathVariable Long id,
+			@RequestBody DisciplinaTurmas request) {
+		OportunidadeMatricula opMatricula = service.findById(id);
+		Disciplina disc = disciplinaService.findById(request.disciplina());
+		for(Long turmaId : request.turmas()) {
+			Turma turma = turmaService.findById(turmaId);
+			OpMatriculaDisciplinaTurma opMatDiscTurma = new OpMatriculaDisciplinaTurma(opMatricula,disc,turma);
+			opMatriculaDisciplinaTurmaService.insertOpMatriculaDisciplinaTurmaData(opMatDiscTurma);
+		}
+		return ResponseEntity.ok(true);
+	}
+	
+	@PutMapping("/removedisciplina/{id}/{idDisciplina}")
+	public ResponseEntity<Void> removeDisciplina(@PathVariable Long id, @PathVariable Long idDisciplina){
+		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndDisciplinaId(id,idDisciplina);
+		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	@PutMapping("/removeturma/{id}/{idTurma}")
+	public ResponseEntity<Void> removeTurma(@PathVariable Long id, @PathVariable Long idTurma){
+		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndTurmaId(id,idTurma);
+		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteOportunidadeMatricula(@PathVariable Long id){
+		service.deleteOportunidadeMatricula(id);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 }
