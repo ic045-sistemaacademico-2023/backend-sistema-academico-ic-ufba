@@ -1,6 +1,5 @@
 package com.ic045.sistemaacademico.domain.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,7 +28,7 @@ public class OpMatriculaDisciplinaTurma {
 	private Long id;
 	
 	@NonNull
-	@ManyToOne(cascade = {CascadeType.REMOVE})
+	@ManyToOne
 	@JoinColumn(name = "id_oportunidade_matricula", referencedColumnName = "id")
 	private OportunidadeMatricula oportunidadeMatricula;
 	

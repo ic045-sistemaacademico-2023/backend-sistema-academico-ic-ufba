@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,10 @@ public class OpMatriculaDisciplinaTurmaService {
 	
 	public void deleteById(Long id) {
 		repository.deleteById(id);
+	}
+
+	public List<OpMatriculaDisciplinaTurma> findByOportunidadeMatriculaId(Long id) {
+		return repository.findByOportunidadeMatriculaId(id);
 	}
 
 }

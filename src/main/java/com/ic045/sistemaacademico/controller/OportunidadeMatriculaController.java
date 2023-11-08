@@ -120,22 +120,27 @@ public class OportunidadeMatriculaController {
 		return ResponseEntity.ok(true);
 	}
 	
-	@PutMapping("/removedisciplina/{id}/{idDisciplina}")
-	public ResponseEntity<Void> removeDisciplina(@PathVariable Long id, @PathVariable Long idDisciplina){
-		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndDisciplinaId(id,idDisciplina);
+	@PutMapping("/removedisciplina/{idOpMatDisTurma}/{idDisciplina}")
+	public ResponseEntity<Void> removeDisciplina(@PathVariable Long idOpMatDisTurma, @PathVariable Long idDisciplina){
+		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndDisciplinaId(idOpMatDisTurma,idDisciplina);
 		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
-	@PutMapping("/removeturma/{id}/{idTurma}")
-	public ResponseEntity<Void> removeTurma(@PathVariable Long id, @PathVariable Long idTurma){
-		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndTurmaId(id,idTurma);
+	@PutMapping("/removeturma/{idOpMatDisTurma}/{idTurma}")
+	public ResponseEntity<Void> removeTurma(@PathVariable Long idOpMatDisTurma, @PathVariable Long idTurma){
+		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndTurmaId(idOpMatDisTurma,idTurma);
 		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteOportunidadeMatricula(@PathVariable Long id){
+		List<OpMatriculaDisciplinaTurma> opMats = opMatriculaDisciplinaTurmaService.findByOportunidadeMatriculaId(id);
+		
+		for(OpMatriculaDisciplinaTurma omdt : opMats) 
+			opMatriculaDisciplinaTurmaService.deleteById(omdt.getId());
+		
 		service.deleteOportunidadeMatricula(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
