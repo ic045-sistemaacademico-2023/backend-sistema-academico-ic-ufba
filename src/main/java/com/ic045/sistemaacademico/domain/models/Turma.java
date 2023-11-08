@@ -16,6 +16,8 @@ public class Turma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NonNull
+    private String code;
+    @NonNull
     @ManyToOne
     @JoinColumn(name = "id_disciplina", referencedColumnName = "id")
     private Disciplina disciplina;
@@ -45,5 +47,8 @@ public class Turma {
         this.horario = horario;
         this.local = local;
         this.semestre = semestre;
+    }
+
+    public Turma(Disciplina disciplina, Professor professor, String data, String horario, String local, String semestre) {
     }
 }
