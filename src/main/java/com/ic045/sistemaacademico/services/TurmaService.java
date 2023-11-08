@@ -14,6 +14,8 @@ import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
@@ -99,9 +101,9 @@ public class TurmaService {
     }
 
     public Turma updateTurma(Long id, UpdateTurmaRequest request) {
-        Turma turmaToUpdate = findById(id);
-        Disciplina disciplina = disciplinaService.findById(request.disciplina());
-        Professor professor = professorService.findById(request.professor());
+    	Turma turmaToUpdate = findById(id);
+        Disciplina disciplina = disciplinaService.findById(request.disciplina().getId());
+        Professor professor = professorService.findById(request.professor().getId());
 
         turmaToUpdate.setDisciplina(disciplina);
         turmaToUpdate.setProfessor(professor);
