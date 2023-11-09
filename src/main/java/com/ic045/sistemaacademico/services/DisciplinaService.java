@@ -86,4 +86,10 @@ public class DisciplinaService {
     public void deleteDisciplina(Long id) {
         repository.deleteById(id);
     }
+    
+    public Disciplina findByCodigo(String cod) {
+    	return repository
+                .findByCodigo(cod)
+                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND_GENERIC_PROP.getMessage(), "Disciplina","codigo", cod)));
+    }
 }
