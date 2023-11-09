@@ -92,4 +92,10 @@ public class DisciplinaController {
 
 	    return turmas != null ? ResponseEntity.ok(turmas) : ResponseEntity.notFound().build();
 	}
+	
+	@GetMapping("/codigo/{cod}")
+	public ResponseEntity<Disciplina> findByCodigo(@PathVariable String cod){
+		Disciplina disciplina = service.findByCodigo(cod);
+		return disciplina != null ? ResponseEntity.ok(disciplina) : ResponseEntity.notFound().build();
+	}
 }
