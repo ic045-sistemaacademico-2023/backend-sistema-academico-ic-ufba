@@ -11,6 +11,8 @@ import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.TurmaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,9 +54,12 @@ public class TurmaService {
     }
     
 
-    public List<Turma> findForSemestreData(String period) {
-        return repository
-                .findBysemestre(period).orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", "semester", period)));
+    public List<Turma> findForSemestreData(String nrsemestre) {
+    	List<Turma> turmas = repository.findAllBySemestre(nrsemestre);
+    	if(turmas.isEmpty()) {
+    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", nrsemestre));
+    	}
+        return turmas;
     }
 
     public Turma insertTurmaData(InsertTurmaRequest insertTurmaRequest) {
@@ -93,9 +98,9 @@ public class TurmaService {
     }
 
     public Turma updateTurma(Long id, UpdateTurmaRequest request) {
-        Turma turmaToUpdate = findById(id);
-        Disciplina disciplina = disciplinaService.findById(request.disciplina());
-        Professor professor = professorService.findById(request.professor());
+    	Turma turmaToUpdate = findById(id);
+        Disciplina disciplina = disciplinaService.findById(request.disciplina().getId());
+        Professor professor = professorService.findById(request.professor().getId());
 
         turmaToUpdate.setDisciplina(disciplina);
         turmaToUpdate.setProfessor(professor);
