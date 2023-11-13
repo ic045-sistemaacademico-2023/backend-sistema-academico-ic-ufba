@@ -61,7 +61,7 @@
 1. Instale o [Git](https://gitforwindows.org/)
 2. Instale o [Eclipse](https://www.eclipse.org/downloads/)
 3. Clone o repositório da nuvem para a sua máquina local
-4. Importe o projeto Maven no Eclipse pela opção "Existing Maven Project"
+4. Importe o projeto Maven no Eclipse pela opção `Existing Maven Project`
 5. Aguarde o Eclipse terminar de realizar os downloads necessários para a importação
 6. Instale [JDK 17](https://www.oracle.com/java/technologies/downloads/#java17) ou superior
 7. Instale [Lombok](https://repo1.maven.org/maven2/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar)
@@ -82,24 +82,30 @@
 
 #### MySQL
 
-7. Instale o [MySQL Workbench](https://dev.mysql.com/downloads/windows/installer/8.0.html).
-7. Adicione uma conexão no MySQL Workbench e configure as credenciais de acesso.
-8. Reinicie seu computador ou siga os passos dessa
+1. Instale o [MySQL Workbench](https://dev.mysql.com/downloads/windows/installer/8.0.html).
+2. Adicione uma conexão no MySQL Workbench e configure as credenciais de acesso.
+3. Reinicie seu computador ou siga os passos dessa
    [thread](https://stackoverflow.com/questions/41818827/mysql-error-1045-access-denied-for-user-rootlocalhost-using-password)
    para concluir a configuração.
-3. Rode a migration `Database.sql` para criação do banco de dados.
-1. Abra o MySQL Shell do Workbench e rode `\sql` para converter alinguagem do shell de JS para SQL.
-2. Rode `\connect root@localhost` no MySQL Shell do Workbench pra conectar ao banco, então coloque a senha do root e
-   pressione enter pra concluir.
-3. Localize o caminho do `01_Database.sql` e rode o comando `\source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL
-    1. Provavelmente o caminho será algo como
-       `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico\utils\migrations\01_Database.sql`
-   Ou siga
-1. Rode o comando `mysql -u root -p` e digite a senha do seu MySQL.
-2. Localize o caminho do `01_Database.sql` e rode o comando `source <CAMINHO_DO_ARQUIVO>` dentro do terminal do MySQL.
+4. Execute os scripts `src/main/resources/schema.sql` e `src/main/resources/data.sql` para a criação do banco de dados
+   usando o Workbench ou o MySQL Client:
+   1. Workbench:
+      1. Abra o MySQL Shell do Workbench e execute `\sql` para converter a linguagem do shell de JS para SQL.
+      2. Execute `\connect root@localhost` no MySQL Shell do Workbench pra conectar ao banco, então coloque a senha do
+         root e pressione <enter> pra concluir.
+      3. Localize os scripts `src/main/resources/schema.sql` e `src/main/resources/data.sql` e execute o comando
+         `\source <caminho-do-arquivo>` no terminal do MySQL. Provavelmente os caminhos serão algo como
+         `<caminho-do-repositorio>\src\main\resources\schema.sql` e
+         `<caminho-do-repositorio>\src\main\resources\data.sql`
+   2. MySQL Client:
+      1. Execute o comando `mysql -u root -p` e digite a senha do seu MySQL.
+      2. Localize os scripts `src/main/resources/schema.sql` e `src/main/resources/data.sql` e execute o comando
+         `source <caminho-do-arquivo>` no terminal do MySQL. Provavelmente os caminhos serão algo como
+         `<caminho-do-repositorio>\src\main\resources\schema.sql` e
+         `<caminho-do-repositorio>\src\main\resources\data.sql`
 
 ### Execução da aplicação
 
-1. Clique em "Run As" então em "Java Application" da classe "SistemaAcademicoApplication"
-   em `${caminhoParaRepositório}\backend-sistema-academico-ic-ufba\src\main\java\com\ic045\sistemaacademico`
-2. Acesse a API através de URL como a seguinte `http://localhost:8080/api/v1/disciplina/1`
+1. Clique em `Run As`, e então em `Java Application` da classe `SistemaAcademicoApplication`
+   em `<caminho-do-repositorio>\src\main\java\com\ic045\sistemaacademico`
+2. Consulte os endpoints da API através da URL `http://localhost:8080/api/v1/swagger-ui/index.html`

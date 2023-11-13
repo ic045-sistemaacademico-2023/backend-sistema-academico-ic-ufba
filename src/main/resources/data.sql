@@ -31,4 +31,5 @@ INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, local, semestre
 -- Create a record in the `aluno` table to associate the student `aluno` with the `Turma 1`
 INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES (1, 4, 'Aluno', 0, '2019.2');
 
+
 INSERT INTO aluno_turma (id_aluno, id_turma) VALUES (1, 1);

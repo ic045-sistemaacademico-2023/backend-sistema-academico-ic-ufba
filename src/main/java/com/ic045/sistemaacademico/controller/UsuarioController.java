@@ -2,15 +2,13 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.controller.vos.response.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
-import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateUsuarioRequest;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.services.UsuarioService;
 
@@ -28,10 +26,11 @@ public class UsuarioController {
     }
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable Long id) {
+	public ResponseEntity<UsuarioResponse> findById(@PathVariable Long id) {
 		Usuario usuario = service.findById(id);
+		UsuarioResponse usuarioResponse = new UsuarioResponse(usuario.getId(), usuario.getCpf(), usuario.getEmail(), usuario.getRole().toString(), usuario.getStatus().toString(), usuario.getNome());
 
-		return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(usuarioResponse);
 	}
 	@GetMapping("/cpf")
 	public ResponseEntity<Usuario> getUserByCpf(@RequestParam String cpf) {

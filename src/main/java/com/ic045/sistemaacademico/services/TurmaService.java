@@ -1,27 +1,24 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.repositories.TurmaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
-import com.ic045.sistemaacademico.domain.models.Turma;
-import com.ic045.sistemaacademico.repositories.TurmaRepository;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TurmaService {
@@ -82,7 +79,7 @@ public class TurmaService {
         } else {
             turma = new Turma(disciplina, data, insertTurmaRequest.horario(), insertTurmaRequest.local(), insertTurmaRequest.semestre());
         }
-
+        turma.setCode(generationCode(turma));
         try {
             return repository.save(turma);
         } catch (Exception ex) {
@@ -117,6 +114,11 @@ public class TurmaService {
         } catch (Exception ex) {
             throw new BadRequestException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id));
         }
+    }
+
+    public String generationCode(Turma turma){
+     String code = new StringBuilder().append(turma.getDisciplina().getArea()).append(repository.findFirstByOrderByIdDesc().get().getId()+1).toString();
+      return  code;
     }
 
 }
