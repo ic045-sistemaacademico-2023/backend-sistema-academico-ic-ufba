@@ -47,7 +47,7 @@ public class DisciplinaController {
 		Curso curso = new Curso();
 		curso.setId(insertDisciplina.curso());
 		Disciplina disciplina = new Disciplina(null, curso, insertDisciplina.nome(),
-				null, insertDisciplina.ementa(), insertDisciplina.preRequisitos(),
+				"", insertDisciplina.ementa(), insertDisciplina.preRequisitos(),
 				insertDisciplina.area().name(), insertDisciplina.observacao(), insertDisciplina.chTotal(), insertDisciplina.chTeorica(),
 				insertDisciplina.chPratica(), insertDisciplina.bibliografia());
 
