@@ -41,14 +41,12 @@ public class Turma {
     @NonNull
     private String semestre;
 
-    public Turma(@NonNull Disciplina disciplina, @NonNull String dias, @NonNull String horario, @NonNull String local, @NonNull String semestre) {
-        this.disciplina = disciplina;
-        this.dias = dias;
+    public Turma(@NonNull Disciplina disciplina, @NonNull Professor professor, @NonNull String dias, @NonNull String horario, @NonNull String local, @NonNull String semestre) {
+    	this.disciplina = disciplina;
+    	this.professor = professor;
+    	this.dias = dias;
         this.horario = horario;
         this.local = local;
         this.semestre = semestre;
-    }
-
-    public Turma(Disciplina disciplina, Professor professor, String data, String horario, String local, String semestre) {
     }
 }

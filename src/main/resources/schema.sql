@@ -88,6 +88,7 @@ CREATE TABLE `turma`
     `dias`          varchar(255) NOT NULL,
     `horario`       varchar(255) NOT NULL,
     `local`         varchar(255) NOT NULL,
+    `code`          varchar(255) NOT NULL,
     `semestre`      int          NOT NULL,
     PRIMARY KEY (`id`)
 );
