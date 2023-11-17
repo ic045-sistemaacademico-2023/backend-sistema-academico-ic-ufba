@@ -40,8 +40,8 @@ public class TurmaController {
         return !turmas.isEmpty() ? ResponseEntity.ok(turmas):ResponseEntity.notFound().build();
     }
     
-    @GetMapping("/aluno")
-    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@RequestParam Long id) {
+    @GetMapping("/aluno/{id}")
+    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@PathVariable Long id) {
         List<Turma> turmas = service.findTurmasByAlunoId(id);
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();

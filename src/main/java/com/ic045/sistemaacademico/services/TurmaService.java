@@ -71,18 +71,17 @@ public class TurmaService {
                 .map(Role.Date::getCodeDate)
                 .collect(Collectors.joining(","));
 
-        disciplina.setId(insertTurmaRequest.disciplina());
-
-        if (insertTurmaRequest.professor() != null) {
-            professor.setId(insertTurmaRequest.professor());
-            turma = new Turma(disciplina, professor, data, insertTurmaRequest.horario(), insertTurmaRequest.local(), insertTurmaRequest.semestre());
-        } else {
-            turma = new Turma(disciplina, data, insertTurmaRequest.horario(), insertTurmaRequest.local(), insertTurmaRequest.semestre());
-        }
-        turma.setCode(generationCode(turma));
         try {
-            return repository.save(turma);
+        	disciplina = disciplinaService.findById(insertTurmaRequest.disciplina());
+			professor.setId(insertTurmaRequest.professor());
+			turma = new Turma(disciplina, professor, data, insertTurmaRequest.horario(), insertTurmaRequest.local(),
+					insertTurmaRequest.semestre());
+			turma.setCode(generationCode(turma));
+			return repository.save(turma);
         } catch (Exception ex) {
+        	if (insertTurmaRequest.professor() == null)
+				throw new NotCreatedException(
+						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", "null"));
             throw new NotCreatedException();
         }
     }
@@ -98,20 +97,26 @@ public class TurmaService {
     }
 
     public Turma updateTurma(Long id, UpdateTurmaRequest request) {
-    	Turma turmaToUpdate = findById(id);
-        Disciplina disciplina = disciplinaService.findById(request.disciplina().getId());
-        Professor professor = professorService.findById(request.professor().getId());
+    	try {
+	    	Turma turmaToUpdate = findById(id);
+	        Disciplina disciplina = disciplinaService.findById(request.disciplina());
+	        Professor professor = professorService.findById(request.professor());
+	
+	        turmaToUpdate.setDisciplina(disciplina);
+	        turmaToUpdate.setProfessor(professor);
+	        turmaToUpdate.setDias(request.dias());
+	        turmaToUpdate.setHorario(request.horario());
+	        turmaToUpdate.setLocal(request.local());
+	        turmaToUpdate.setSemestre(request.semestre());
 
-        turmaToUpdate.setDisciplina(disciplina);
-        turmaToUpdate.setProfessor(professor);
-        turmaToUpdate.setDias(request.dias());
-        turmaToUpdate.setHorario(request.horario());
-        turmaToUpdate.setLocal(request.local());
-        turmaToUpdate.setSemestre(request.semestre());
-
-        try {
             return repository.save(turmaToUpdate);
         } catch (Exception ex) {
+        	if(request.disciplina() == null) 
+				throw new NotCreatedException(
+						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", "null"));
+			if(request.professor() == null)
+				throw new NotCreatedException(
+						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", "null"));
             throw new BadRequestException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id));
         }
     }
