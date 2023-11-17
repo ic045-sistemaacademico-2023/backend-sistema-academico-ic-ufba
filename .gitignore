@@ -21,3 +21,4 @@ database/
 docker-compose.yml
 application.properties
 resources/
+/bin/

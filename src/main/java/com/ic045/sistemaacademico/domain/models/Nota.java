@@ -32,5 +32,5 @@ public class Nota {
     @JoinColumn(name = "id_turma",referencedColumnName = "id")
     private Turma turma;
 
-    private double nota;
+    private Double nota;
 }

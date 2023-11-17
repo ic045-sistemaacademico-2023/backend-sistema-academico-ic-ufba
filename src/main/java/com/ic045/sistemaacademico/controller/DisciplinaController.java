@@ -1,9 +1,13 @@
 package com.ic045.sistemaacademico.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
-import com.ic045.sistemaacademico.domain.models.Curso;
+import com.ic045.sistemaacademico.domain.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
 import com.ic045.sistemaacademico.domain.models.Curso;
-import com.ic045.sistemaacademico.domain.models.Disciplina;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.DisciplinaService;
 
 @RestController
@@ -41,6 +43,7 @@ public class DisciplinaController {
 
 		return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
 	}
+
 
 	@PostMapping("/")
 	public ResponseEntity<Boolean> InsertDisciplina(@RequestBody InsertDisciplinaRequest insertDisciplina) {
@@ -91,6 +94,16 @@ public class DisciplinaController {
 	    List<Turma> turmas = service.findAllByDisciplinaId(id);
 
 	    return turmas != null ? ResponseEntity.ok(turmas) : ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/{id}/turmas/alunos")
+	public ResponseEntity<List<Set<Aluno>>> findAllAlunosByDisciplinaId(@PathVariable Long id){
+		List<Turma> turmas = service.findAllByDisciplinaId(id);
+		List<Set<Aluno>> alunos = new ArrayList<>();
+		for (Turma turma : turmas) {
+			alunos.add(turma.getAlunos());
+		}
+		return alunos != null ? ResponseEntity.ok(alunos) : ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/codigo/{cod}")
