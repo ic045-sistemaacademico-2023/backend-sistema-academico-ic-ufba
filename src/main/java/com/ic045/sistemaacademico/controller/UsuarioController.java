@@ -2,16 +2,16 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.controller.vos.response.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
-import com.ic045.sistemaacademico.controller.vos.request.InsertUsuarioRequest;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateUsuarioRequest;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.domain.models.Usuario;
+import com.ic045.sistemaacademico.security.JwtTokenProvider;
 import com.ic045.sistemaacademico.services.UsuarioService;
 
 @RestController
@@ -20,19 +20,25 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService service;
 
-    @PostMapping(path = "/")
-    public ResponseEntity<Usuario> insertUsuario(@RequestBody Usuario usuario) {
-        service.insertUsuario(usuario);
+	@Autowired
+	private JwtTokenProvider provider;
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
-    }
+	@PostMapping(path = "/")
+	public ResponseEntity<Usuario> insertUsuario(@RequestBody Usuario usuario) {
+		service.insertUsuario(usuario);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(usuario);
+	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Usuario> findById(@PathVariable Long id) {
+	public ResponseEntity<UsuarioResponse> findById(@PathVariable Long id) {
 		Usuario usuario = service.findById(id);
+		UsuarioResponse usuarioResponse = new UsuarioResponse(usuario.getId(), usuario.getCpf(), usuario.getEmail(),
+				usuario.getRole().toString(), usuario.getStatus().toString(), usuario.getNome());
 
-		return usuario != null ? ResponseEntity.ok(usuario) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(usuarioResponse);
 	}
+
 	@GetMapping("/cpf")
 	public ResponseEntity<Usuario> getUserByCpf(@RequestParam String cpf) {
 		return ResponseEntity.ok(service.findByCpf(cpf));
@@ -45,18 +51,32 @@ public class UsuarioController {
 	}
 
 	@DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
-        service.deleteUsuario(id);
+	public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+		service.deleteUsuario(id);
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody UpdateUsuarioRequest request) {
-        Usuario usuario = service.updateUsuario(id, request);
+	@PutMapping("/{id}")
+	public ResponseEntity<Usuario> updateUsuario(@PathVariable Long id, @RequestBody UpdateUsuarioRequest request) {
+		Usuario usuario = service.updateUsuario(id, request);
 
-        return ResponseEntity.status(HttpStatus.OK).body(usuario);
-    }
+		return ResponseEntity.status(HttpStatus.OK).body(usuario);
+	}
 
+	@GetMapping("/me")
+	public ResponseEntity<UsuarioResponse> getCurrentUser(@RequestHeader("Authorization") String token) {
 
+		// Ignora o "Bearer " no início do token
+		String jwtToken = token.substring(7);
+
+		DecodedJWT decodedJWT = provider.validateToken(jwtToken);
+		Long userId = Long.parseLong(decodedJWT.getSubject());
+
+		Usuario usuario = service.findById(userId);
+		UsuarioResponse usuarioResponse = new UsuarioResponse(usuario.getId(), usuario.getCpf(), usuario.getEmail(),
+				usuario.getRole().toString(), usuario.getStatus().toString(), usuario.getNome());
+
+		return ResponseEntity.ok(usuarioResponse);
+	}
 }

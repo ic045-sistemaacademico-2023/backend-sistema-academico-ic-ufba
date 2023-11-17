@@ -1,19 +1,18 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.List;
-
+import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.repositories.DisciplinaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.ic045.sistemaacademico.domain.models.Disciplina;
-import com.ic045.sistemaacademico.domain.models.Turma;
-import com.ic045.sistemaacademico.repositories.DisciplinaRepository;
+import java.util.List;
 
 @Service
 public class DisciplinaService {
@@ -38,7 +37,7 @@ public class DisciplinaService {
         if (repository.exists(Example.of(disciplina))) throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
         disciplina = CodeDisciplina(disciplina);
        try {
-           System.out.println(disciplina.toString());
+
             repository.save(disciplina);
             return true;
         }catch (IllegalArgumentException e){
@@ -86,5 +85,11 @@ public class DisciplinaService {
 
     public void deleteDisciplina(Long id) {
         repository.deleteById(id);
+    }
+    
+    public Disciplina findByCodigo(String cod) {
+    	return repository
+                .findByCodigo(cod)
+                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND_GENERIC_PROP.getMessage(), "Disciplina","codigo", cod)));
     }
 }

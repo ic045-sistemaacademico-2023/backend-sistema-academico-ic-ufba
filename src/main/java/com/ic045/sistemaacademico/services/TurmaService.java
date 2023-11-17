@@ -1,24 +1,24 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.repositories.TurmaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 
-import com.ic045.sistemaacademico.domain.models.Turma;
-import com.ic045.sistemaacademico.repositories.TurmaRepository;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TurmaService {
@@ -36,10 +36,30 @@ public class TurmaService {
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
     }
+    
+    public List<Turma> findAll(){
+    	List<Turma> turmas = repository.findAll();
+        if (turmas.isEmpty()) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turmas"));
+        }
+        return turmas;
+    }
+    
+    public List<Turma> findByDisciplinaId(Long disciplinaId){
+    	List<Turma> turmas = repository.findAllByDisciplinaId(disciplinaId);
+    	if (turmas.isEmpty()) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", disciplinaId));
+        }
+        return turmas;
+    }
+    
 
-    public List<Turma> findForSemestreData(String period) {
-        return repository
-                .findBysemestre(period).orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", "semester", period)));
+    public List<Turma> findForSemestreData(String nrsemestre) {
+    	List<Turma> turmas = repository.findAllBySemestre(nrsemestre);
+    	if(turmas.isEmpty()) {
+    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", nrsemestre));
+    	}
+        return turmas;
     }
 
     public Turma insertTurmaData(InsertTurmaRequest insertTurmaRequest) {
@@ -51,18 +71,17 @@ public class TurmaService {
                 .map(Role.Date::getCodeDate)
                 .collect(Collectors.joining(","));
 
-        disciplina.setId(insertTurmaRequest.disciplina());
-
-        if (insertTurmaRequest.professor() != null) {
-            professor.setId(insertTurmaRequest.professor());
-            turma = new Turma(disciplina, professor, data, insertTurmaRequest.horario(), insertTurmaRequest.local(), insertTurmaRequest.semestre());
-        } else {
-            turma = new Turma(disciplina, data, insertTurmaRequest.horario(), insertTurmaRequest.local(), insertTurmaRequest.semestre());
-        }
-
         try {
-            return repository.save(turma);
+        	disciplina = disciplinaService.findById(insertTurmaRequest.disciplina());
+			professor.setId(insertTurmaRequest.professor());
+			turma = new Turma(disciplina, professor, data, insertTurmaRequest.horario(), insertTurmaRequest.local(),
+					insertTurmaRequest.semestre());
+			turma.setCode(generationCode(turma));
+			return repository.save(turma);
         } catch (Exception ex) {
+        	if (insertTurmaRequest.professor() == null)
+				throw new NotCreatedException(
+						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", "null"));
             throw new NotCreatedException();
         }
     }
@@ -78,22 +97,33 @@ public class TurmaService {
     }
 
     public Turma updateTurma(Long id, UpdateTurmaRequest request) {
-        Turma turmaToUpdate = findById(id);
-        Disciplina disciplina = disciplinaService.findById(request.disciplina());
-        Professor professor = professorService.findById(request.professor());
+    	try {
+	    	Turma turmaToUpdate = findById(id);
+	        Disciplina disciplina = disciplinaService.findById(request.disciplina());
+	        Professor professor = professorService.findById(request.professor());
+	
+	        turmaToUpdate.setDisciplina(disciplina);
+	        turmaToUpdate.setProfessor(professor);
+	        turmaToUpdate.setDias(request.dias());
+	        turmaToUpdate.setHorario(request.horario());
+	        turmaToUpdate.setLocal(request.local());
+	        turmaToUpdate.setSemestre(request.semestre());
 
-        turmaToUpdate.setDisciplina(disciplina);
-        turmaToUpdate.setProfessor(professor);
-        turmaToUpdate.setDias(request.dias());
-        turmaToUpdate.setHorario(request.horario());
-        turmaToUpdate.setLocal(request.local());
-        turmaToUpdate.setSemestre(request.semestre());
-
-        try {
             return repository.save(turmaToUpdate);
         } catch (Exception ex) {
+        	if(request.disciplina() == null) 
+				throw new NotCreatedException(
+						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", "null"));
+			if(request.professor() == null)
+				throw new NotCreatedException(
+						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", "null"));
             throw new BadRequestException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id));
         }
+    }
+
+    public String generationCode(Turma turma){
+     String code = new StringBuilder().append(turma.getDisciplina().getArea()).append(repository.findFirstByOrderByIdDesc().get().getId()+1).toString();
+      return  code;
     }
 
 }

@@ -33,23 +33,38 @@ public class TurmaController {
                         .build();
     }
 
-    @GetMapping("/")
-    public ResponseEntity<List<Turma>> findForSemestre(@RequestParam String period){
-        List<Turma> turmas = service.findForSemestreData(period);
+    @GetMapping("/semestre/{nrsemestre}")
+    public ResponseEntity<List<Turma>> findForSemestre(@PathVariable String nrsemestre){
+        List<Turma> turmas = service.findForSemestreData(nrsemestre);
 
         return !turmas.isEmpty() ? ResponseEntity.ok(turmas):ResponseEntity.notFound().build();
     }
+    
+    @GetMapping("/aluno/{id}")
+    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@PathVariable Long id) {
+        List<Turma> turmas = service.findTurmasByAlunoId(id);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/all")
+    public ResponseEntity<List<Turma>> findAllTurmas() {
+        List<Turma> turmas = service.findAll();
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/disciplina/{disciplinaid}")
+    public ResponseEntity<List<Turma>> findTurmasBydisciplinaId(@PathVariable Long disciplinaid) {
+        List<Turma> turmas = service.findByDisciplinaId(disciplinaid);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
 
     @PostMapping("/")
     public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insertTurmaData(insertTurmaRequest));
-    }
-
-    @GetMapping("/aluno")
-    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@RequestParam Long id) {
-        List<Turma> turmas = service.findTurmasByAlunoId(id);
-
-        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
@@ -67,3 +82,9 @@ public class TurmaController {
     }
 
 }
+
+
+
+
+
+
