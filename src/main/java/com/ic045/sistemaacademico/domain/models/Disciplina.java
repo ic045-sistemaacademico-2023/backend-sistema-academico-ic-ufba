@@ -34,6 +34,7 @@ public class Disciplina {
 	@NonNull
 	private String nome;
 
+	@NonNull
 	private String codigo;
 
 	@NonNull

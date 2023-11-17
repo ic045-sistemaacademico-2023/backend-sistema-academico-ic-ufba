@@ -47,7 +47,7 @@ public class DisciplinaController {
 		Curso curso = new Curso();
 		curso.setId(insertDisciplina.curso());
 		Disciplina disciplina = new Disciplina(null, curso, insertDisciplina.nome(),
-				null, insertDisciplina.ementa(), insertDisciplina.preRequisitos(),
+				"", insertDisciplina.ementa(), insertDisciplina.preRequisitos(),
 				insertDisciplina.area().name(), insertDisciplina.observacao(), insertDisciplina.chTotal(), insertDisciplina.chTeorica(),
 				insertDisciplina.chPratica(), insertDisciplina.bibliografia());
 
@@ -59,7 +59,7 @@ public class DisciplinaController {
 			Curso curso = new Curso();
 			curso.setId(updatedDisciplina.curso());
 
-			Disciplina updatedDisciplinaModel = new Disciplina(null, curso, updatedDisciplina.nome(), null, updatedDisciplina.ementa(), updatedDisciplina.preRequisitos(),
+			Disciplina updatedDisciplinaModel = new Disciplina(null, curso, updatedDisciplina.nome(), "", updatedDisciplina.ementa(), updatedDisciplina.preRequisitos(),
 							updatedDisciplina.area().name(), updatedDisciplina.observacao(), updatedDisciplina.chTotal(),
 							updatedDisciplina.chTeorica(), updatedDisciplina.chPratica(), updatedDisciplina.bibliografia());
 
