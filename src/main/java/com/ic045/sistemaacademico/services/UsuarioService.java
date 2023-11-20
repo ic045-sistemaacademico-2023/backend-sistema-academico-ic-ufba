@@ -72,6 +72,10 @@ public class UsuarioService {
 
     }
 
+    public List<Usuario> getApprovedUsers() {
+        return repository.findByStatus(Role.Status.APPROVED);
+    }
+
     public List<Usuario> getWaitlist() {
         return repository.findByStatus(Role.Status.WAITING_APPROVAL);
     }
