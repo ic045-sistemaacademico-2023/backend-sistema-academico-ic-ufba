@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
 import com.ic045.sistemaacademico.controller.vos.request.LoginUsuario;
+import com.ic045.sistemaacademico.domain.models.Role;
 import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class AuthService {
 
     public String login(final LoginUsuario request) {
         Usuario usuario = usuarioService.findByCpf(request.cpf());
+
+        if (usuario.getStatus().equals(Role.Status.WAITING_APPROVAL) || usuario.getStatus().equals(Role.Status.DENIED)) {
+            throw new RuntimeException();
+        }
 
         if (!passwordEncoder.matches(request.senha(), usuario.getSenha())) {
             throw new RuntimeException();
