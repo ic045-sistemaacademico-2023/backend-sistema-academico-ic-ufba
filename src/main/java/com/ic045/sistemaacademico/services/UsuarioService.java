@@ -48,7 +48,7 @@ public class UsuarioService {
     }
 
     public Usuario insertUsuario(Usuario request) {
-        request.setStatus(Role.Status.EMAIL_CHECK);
+        request.setStatus(Role.Status.WAITING_APPROVAL);
         request.setSenha(encryptPassword(request.getSenha()));
 
         return repository.save(request);
@@ -70,6 +70,22 @@ public class UsuarioService {
 
         return repository.save(usuarioToUpdate);
 
+    }
+
+    public List<Usuario> getWaitlist() {
+        return repository.findByStatus(Role.Status.WAITING_APPROVAL);
+    }
+
+    public Usuario approveUser(Long id) {
+        Usuario usuario = findById(id);
+        usuario.setStatus(Role.Status.APPROVED);
+        return repository.save(usuario);
+    }
+
+    public Usuario denyUser(Long id) {
+        Usuario usuario = findById(id);
+        usuario.setStatus(Role.Status.DENIED);
+        return repository.save(usuario);
     }
 
     private String encryptPassword(String password) {

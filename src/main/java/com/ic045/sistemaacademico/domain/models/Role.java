@@ -8,8 +8,7 @@ public class Role {
         PROFESSOR,
         ALUNO,
     }
-    public enum Status{
-        EMAIL_CHECK,
+    public enum Status {
         WAITING_APPROVAL,
         APPROVED,
         DENIED
