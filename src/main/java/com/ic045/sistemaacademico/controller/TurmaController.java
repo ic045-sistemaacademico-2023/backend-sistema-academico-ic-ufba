@@ -60,6 +60,8 @@ public class TurmaController {
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
+
+    //@GetMapping("/{id}")
     
 
     @PostMapping("/")
