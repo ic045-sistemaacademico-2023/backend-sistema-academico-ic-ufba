@@ -19,7 +19,6 @@ CREATE TABLE `coordenadordecurso`
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -57,7 +56,6 @@ CREATE TABLE `administrador`
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -76,7 +74,6 @@ CREATE TABLE `professor`
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 

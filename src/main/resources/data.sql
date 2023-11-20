@@ -11,12 +11,12 @@ INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('477798390
 INSERT INTO `usuario` (cpf, senha, email, role, status, nome) VALUES ('76741828001', '123456', 'aluno@gmail.com', 'ALUNO', 'APPROVED', 'Aluno');
 
 -- Inserts a row into the coordenadordecurso table
-INSERT INTO `coordenadordecurso` (id_usuario, nome, email, senha)
-VALUES (2, 'Coordenador', 'coordenador1@gmail.com', '123456');
+INSERT INTO `coordenadordecurso` (id_usuario, nome, email)
+VALUES (2, 'Coordenador', 'coordenador1@gmail.com');
 
 -- Inserts a row into the professor table
-INSERT INTO `professor` (id_usuario, nome, email, senha)
-VALUES (3, 'Professor', 'professor1@gmail.com', '123456');
+INSERT INTO `professor` (id_usuario, nome, email)
+VALUES (3, 'Professor', 'professor1@gmail.com');
 
 -- Create a course named `Engenharia de Software` with semester 1 and turno `MATUTINO`
 INSERT INTO `curso` (id_coordenador, nome, semestre, turno, periodo_curriculo) VALUES (1, 'Engenharia de Software', 1, 'MATUTINO', '2012.1');

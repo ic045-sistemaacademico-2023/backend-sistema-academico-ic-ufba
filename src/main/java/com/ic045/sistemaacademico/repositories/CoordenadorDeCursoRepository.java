@@ -7,5 +7,6 @@ import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 
 @Repository
 public interface CoordenadorDeCursoRepository extends JpaRepository<CoordenadorDeCurso, Long> {
-    
+
+    CoordenadorDeCurso findByUsuarioId(Long id);
 }

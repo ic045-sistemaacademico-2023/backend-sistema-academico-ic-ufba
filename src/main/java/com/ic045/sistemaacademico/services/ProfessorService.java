@@ -29,6 +29,18 @@ public class ProfessorService {
         return turmas;
     }
 
+    public Professor insertProfessor (Professor professor) {
+    	return repository.save(professor);
+    }
+
+    public void deleteByUserId(Long id) {
+        Professor professor = repository.findByUsuarioId(id);
+
+        if (professor != null) {
+            repository.delete(professor);
+        }
+    }
+
     public List<Professor> findAllProfessors() {
         return repository.findAll();
     }

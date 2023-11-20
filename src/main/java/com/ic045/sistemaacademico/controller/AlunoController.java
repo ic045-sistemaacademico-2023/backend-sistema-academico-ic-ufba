@@ -25,7 +25,7 @@ public class AlunoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> findById(@PathVariable Long id) {
-        Aluno aluno = service.findById(id);
+        Aluno aluno = service.findByUsuarioId(id);
 
         return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
     }

@@ -15,5 +15,5 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
     boolean existsByusuarioId(Long id);
 
-
+    Aluno findByUsuarioId(Long id);
 }
