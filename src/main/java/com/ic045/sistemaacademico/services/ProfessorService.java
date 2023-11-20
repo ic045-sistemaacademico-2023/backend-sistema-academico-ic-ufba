@@ -3,6 +3,7 @@ package com.ic045.sistemaacademico.services;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,23 @@ public class ProfessorService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", id)));
     }
 
-    public List<Turma> findAllByProfessorId(Long professorId) {
-        List<Turma> turmas = repository.findAllTurmasByProfessorId(professorId);
+    public Professor findByUserId(Long id) {
+        try {
+            return repository
+                    .findByUsuarioId(id);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", id));
+        }
+    }
 
-        return turmas;
+    public List<Turma> findAllByProfessorId(Long professorId) {
+        return repository.findAllTurmasByProfessorId(professorId);
+    }
+
+    public List<Turma> findAllByUserId(Long id) {
+        Professor professor = repository.findByUsuarioId(id);
+
+        return repository.findAllTurmasByProfessorId(professor.getId());
     }
 
     public Professor insertProfessor (Professor professor) {

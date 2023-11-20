@@ -21,14 +21,14 @@ public class ProfessorController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Professor> findById(@PathVariable Long id) {
-		Professor professor = service.findById(id);
+		Professor professor = service.findByUserId(id);
 
 		return professor != null ? ResponseEntity.ok(professor) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/{id}/turmas")
 	public ResponseEntity<List<Turma>> findAllTurmasByProfessorId(@PathVariable Long id) {
-		List<Turma> turmas = service.findAllByProfessorId(id);
+		List<Turma> turmas = service.findAllByUserId(id);
 
 		return turmas != null ? ResponseEntity.ok(turmas) : ResponseEntity.notFound().build();
 	}
