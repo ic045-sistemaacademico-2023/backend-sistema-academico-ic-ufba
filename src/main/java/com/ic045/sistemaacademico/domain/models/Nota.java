@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,5 +33,6 @@ public class Nota {
     @JoinColumn(name = "id_turma",referencedColumnName = "id")
     private Turma turma;
 
+    @Column(name = "nota", nullable = false)
     private double nota;
 }
