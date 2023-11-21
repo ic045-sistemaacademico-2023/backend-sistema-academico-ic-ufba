@@ -36,6 +36,7 @@ public class Turma {
     private String dias;
     @NonNull
     private String horario;
+    @NonNull
     @Enumerated(EnumType.STRING)
     @Column(name = "sala")
     private Role.Sala sala;
