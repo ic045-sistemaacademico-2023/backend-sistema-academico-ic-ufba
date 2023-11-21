@@ -32,6 +32,4 @@ public class CoordenadorDeCurso {
 
     private String email;
 
-    private String senha;
-
 }

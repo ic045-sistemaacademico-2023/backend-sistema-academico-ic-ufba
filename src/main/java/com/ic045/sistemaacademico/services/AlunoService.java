@@ -21,6 +21,15 @@ public class AlunoService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Aluno", id)));
     }
 
+    public Aluno findByUsuarioId(Long id) {
+        try {
+            return repository
+                    .findByUsuarioId(id);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Aluno", id));
+        }
+    }
+
     public Boolean InsertAlunoData(Aluno insertAluno)  {
        try {
 
@@ -39,5 +48,13 @@ public class AlunoService {
     
     public String checkSemester(int month) {
         return month >= 6 ? "2" : "1";
+    }
+
+    public void deleteByUserId(Long id) {
+        Aluno aluno = repository.findByUsuarioId(id);
+
+        if (aluno != null) {
+            repository.delete(aluno);
+        }
     }
 }

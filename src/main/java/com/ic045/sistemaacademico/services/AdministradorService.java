@@ -20,4 +20,16 @@ public class AdministradorService {
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Administrador", id)));
     }
+
+    public Administrador insertAdmin(Administrador admin) {
+    	return repository.save(admin);
+    }
+
+    public void deleteByUserId(Long id) {
+        Administrador admin = repository.findByUsuarioId(id);
+
+        if (admin != null) {
+            repository.delete(admin);
+        }
+    }
 }

@@ -22,7 +22,19 @@ public class CoordenadorDeCursoService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Coordenador de Curso", id)));
     }
 
+    public CoordenadorDeCurso insertCoordenador(CoordenadorDeCurso coordenador) {
+    	return repository.save(coordenador);
+    }
+
     public List<CoordenadorDeCurso> findAll() {
         return repository.findAll();
+    }
+
+    public void deleteByUserId(Long id) {
+        CoordenadorDeCurso coord = repository.findByUsuarioId(id);
+
+        if (coord != null) {
+            repository.delete(coord);
+        }
     }
 }
