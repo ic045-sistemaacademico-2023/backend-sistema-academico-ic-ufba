@@ -5,8 +5,6 @@ import lombok.*;
 
 import java.util.Set;
 
-@Getter
-@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,17 +36,18 @@ public class Turma {
     private String dias;
     @NonNull
     private String horario;
-    @NonNull
-    private String local;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sala")
+    private Role.Sala sala;
     @NonNull
     private String semestre;
 
-    public Turma(@NonNull Disciplina disciplina, @NonNull Professor professor, @NonNull String dias, @NonNull String horario, @NonNull String local, @NonNull String semestre) {
+    public Turma(@NonNull Disciplina disciplina, @NonNull Professor professor, @NonNull String dias, @NonNull String horario, @NonNull Role.Sala sala, @NonNull String semestre) {
     	this.disciplina = disciplina;
     	this.professor = professor;
     	this.dias = dias;
         this.horario = horario;
-        this.local = local;
+        this.sala = sala;
         this.semestre = semestre;
     }
 }
