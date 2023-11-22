@@ -60,4 +60,8 @@ public class Disciplina {
 
 	private String bibliografia;
 
+//	private Integer faltas;
+//
+//	private Nota nota;
+
 }

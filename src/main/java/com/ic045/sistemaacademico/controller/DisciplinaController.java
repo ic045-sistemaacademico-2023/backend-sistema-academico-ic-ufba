@@ -3,6 +3,7 @@ package com.ic045.sistemaacademico.controller;
 import java.util.List;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertDisciplinaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateDisciplinaRequest;
 import com.ic045.sistemaacademico.domain.models.Curso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,6 +72,24 @@ public class DisciplinaController {
 					return ResponseEntity.notFound().build();
 			}
 	}
+
+//	@PutMapping("/{id}/notasefaltas")
+//	public ResponseEntity<Boolean> editNotasEFaltas(@PathVariable Long id, @RequestBody UpdateDisciplinaRequest updatedDisciplina) {
+//		Curso curso = new Curso();
+//		curso.setId(updatedDisciplina.curso());
+//
+//		Disciplina updatedDisciplinaModel = new Disciplina(null, curso, updatedDisciplina.nome(), "", updatedDisciplina.ementa(), updatedDisciplina.preRequisitos(),
+//						updatedDisciplina.area().name(), updatedDisciplina.observacao(), updatedDisciplina.chTotal(),
+//						updatedDisciplina.chTeorica(), updatedDisciplina.chPratica(), updatedDisciplina.bibliografia(), updatedDisciplina.faltas(), updatedDisciplina.nota());
+//
+//		boolean edited = service.editDisciplina(id, updatedDisciplinaModel);
+//
+//		if (edited) {
+//			return ResponseEntity.ok(true);
+//		} else {
+//			return ResponseEntity.notFound().build();
+//		}
+//	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteDisciplina(@PathVariable Long id) {
