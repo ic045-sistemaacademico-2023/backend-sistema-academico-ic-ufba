@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
 import com.ic045.sistemaacademico.domain.models.Disciplina;
+import com.ic045.sistemaacademico.domain.models.Nota;
 import com.ic045.sistemaacademico.domain.models.Role;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
@@ -23,6 +24,13 @@ public class DisciplinaService {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id)));
+    }
+
+    public List<Nota> obterNotasPorDisciplina(Long idDisciplina) {
+        Disciplina disciplina = repository.findById(idDisciplina)
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
+
+        return disciplina.getNotas();
     }
 
     public List<Disciplina> findAllByCursoId(Long id) {
