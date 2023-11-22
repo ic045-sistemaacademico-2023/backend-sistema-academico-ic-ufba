@@ -41,7 +41,7 @@ public class DisciplinaController {
 		return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
 	}
 
-	@GetMapping("/{id}/notas")
+	@GetMapping("/notas/{id}")
 	public ResponseEntity<List<Nota>> findNotasByDisciplina(@PathVariable Long id) {
 		List<Nota> notas = service.obterNotasPorDisciplina(id);
 		return notas != null ? ResponseEntity.ok(notas) : ResponseEntity.notFound().build();
