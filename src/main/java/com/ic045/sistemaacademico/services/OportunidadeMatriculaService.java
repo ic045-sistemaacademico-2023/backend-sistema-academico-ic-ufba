@@ -1,10 +1,12 @@
 package com.ic045.sistemaacademico.services;
 
 import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ic045.sistemaacademico.controller.vos.request.UpdateOportunidadeMatriculaRequest;
+import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.OportunidadeMatriculaRepository;
@@ -15,6 +17,9 @@ public class OportunidadeMatriculaService {
 
 	@Autowired
 	private OportunidadeMatriculaRepository repository;
+	
+	@Autowired
+	private CoordenadorDeCursoService coordenadorService;
 	
 	public OportunidadeMatricula insertOportunidadeMatriculaData(OportunidadeMatricula opMatricula) {
 		return repository.save(opMatricula);
@@ -27,6 +32,10 @@ public class OportunidadeMatriculaService {
 	
 	public OportunidadeMatricula updateOportuidadeMatricula(Long id, UpdateOportunidadeMatriculaRequest request) {
 		OportunidadeMatricula opMat = findById(id);
+		if(request.coordenador() != null) {
+			CoordenadorDeCurso coordenador = coordenadorService.findById(request.coordenador());
+			opMat.setCoordenador(coordenador);
+		}
 		opMat.setNome(request.nome());
 		opMat.setDescricao(request.descricao());
 		opMat.setDataInicial(Timestamp.valueOf(request.dataInicial()));

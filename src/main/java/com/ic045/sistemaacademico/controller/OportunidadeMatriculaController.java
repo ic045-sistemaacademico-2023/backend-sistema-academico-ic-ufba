@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ic045.sistemaacademico.controller.vos.request.DisciplinaTurmas;
 import com.ic045.sistemaacademico.controller.vos.request.InsertOportunidadeMatriculaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateOportunidadeMatriculaRequest;
+import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.OpMatriculaDisciplinaTurma;
 import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.services.CoordenadorDeCursoService;
 import com.ic045.sistemaacademico.services.DisciplinaService;
 import com.ic045.sistemaacademico.services.OpMatriculaDisciplinaTurmaService;
 import com.ic045.sistemaacademico.services.OportunidadeMatriculaService;
@@ -45,6 +47,9 @@ public class OportunidadeMatriculaController {
 	
 	@Autowired
 	private TurmaService turmaService;
+	
+	@Autowired
+	private CoordenadorDeCursoService coordenadorService;
 	
 	@Autowired
 	private OpMatriculaDisciplinaTurmaService opMatriculaDisciplinaTurmaService;
@@ -77,8 +82,9 @@ public class OportunidadeMatriculaController {
 		
 		Timestamp dataInicial = Timestamp.valueOf(request.dataInicial());
 		Timestamp dataFinal = Timestamp.valueOf(request.dataFinal());
+		CoordenadorDeCurso coordenador = coordenadorService.findById(request.coordenador());
 		OportunidadeMatricula opMatricula = new OportunidadeMatricula(request.nome(), request.descricao(), dataInicial,
-				dataFinal, request.aberta());
+				dataFinal, request.aberta(), coordenador);
 		
 		opMatricula = service.insertOportunidadeMatriculaData(opMatricula);
 		
