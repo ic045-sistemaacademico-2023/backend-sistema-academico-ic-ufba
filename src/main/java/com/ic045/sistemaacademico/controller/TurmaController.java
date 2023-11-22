@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,7 +62,11 @@ public class TurmaController {
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
     
-
+    @GetMapping("/salas")
+    public EnumSet<Role.Sala> findAllSalas() {
+        return EnumSet.allOf(Role.Sala.class);
+    }
+    
     @PostMapping("/")
     public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insertTurmaData(insertTurmaRequest));
