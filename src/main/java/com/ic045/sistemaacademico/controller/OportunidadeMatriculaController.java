@@ -2,6 +2,7 @@ package com.ic045.sistemaacademico.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ic045.sistemaacademico.controller.vos.request.DisciplinaTurmas;
 import com.ic045.sistemaacademico.controller.vos.request.InsertOportunidadeMatriculaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateOportunidadeMatriculaRequest;
+import com.ic045.sistemaacademico.controller.vos.response.DisciplinaTurmasResponse;
+import com.ic045.sistemaacademico.controller.vos.response.OportunidadeMatriculaResponse;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.OpMatriculaDisciplinaTurma;
@@ -53,6 +56,46 @@ public class OportunidadeMatriculaController {
 	
 	@Autowired
 	private OpMatriculaDisciplinaTurmaService opMatriculaDisciplinaTurmaService;
+	
+	
+	/*
+	 * Recebe uma lista de objetos OportunidadeMatricula e retorna uma lista destes objetos formatados para resposta
+	 * incluindo suas turmas e disciplinas asssociadas
+	 * --> [ {oportunidadeMatricula: OportunidadeMatricula, disciplinaTurmas: [DisciplinaTurmasResponse] }, ... ]
+	 */
+	private List<OportunidadeMatriculaResponse> buildOportunidadeMatriculaResponse(
+			List<OportunidadeMatricula> oportunidadesMatriculas) {
+		List<OportunidadeMatriculaResponse> response = new ArrayList<OportunidadeMatriculaResponse>();
+		// Para cada oportunidade de matricula, busca as disciplinas e turmas associadas
+		for (OportunidadeMatricula opMat : oportunidadesMatriculas) {
+			List<OpMatriculaDisciplinaTurma> opMatDiscTurmaList = opMatriculaDisciplinaTurmaService
+					.findByOportunidadeMatriculaId(opMat.getId());
+			Map<Disciplina, List<Turma>> disciplinasTurmas = new HashMap<Disciplina, List<Turma>>();
+			
+			if (!opMatDiscTurmaList.isEmpty()) {
+				for (OpMatriculaDisciplinaTurma opMatDiscTurma : opMatDiscTurmaList) {
+					if (disciplinasTurmas.containsKey(opMatDiscTurma.getDisciplina()))
+						disciplinasTurmas.get(opMatDiscTurma.getDisciplina()).add(opMatDiscTurma.getTurma());
+					else
+						disciplinasTurmas.put(opMatDiscTurma.getDisciplina(),
+								new ArrayList<Turma>(Arrays.asList(opMatDiscTurma.getTurma())));
+				}
+
+				// {disciplina: Disciplina, turmas: Turmas[]}
+				List<DisciplinaTurmasResponse> disciplinaTurmasReponse = new ArrayList<DisciplinaTurmasResponse>();
+				for (Disciplina disc : disciplinasTurmas.keySet()) {
+					disciplinaTurmasReponse
+							.add(new DisciplinaTurmasResponse(disc, disciplinasTurmas.get(disc)));
+				}
+
+				// [ {oportunidadeMatricula: OportunidadeMatricula, disciplinaTurmas: [DisciplinaTurmasResponse] } ]
+				response.add(new OportunidadeMatriculaResponse(opMat, disciplinaTurmasReponse));
+			}else {
+				response.add(new OportunidadeMatriculaResponse(opMat, new ArrayList<DisciplinaTurmasResponse>()));
+			}
+		}
+		return response;
+	}
 	
 	@PostMapping("/")
 	public ResponseEntity<OportunidadeMatricula> InsertOportunidade(@RequestBody InsertOportunidadeMatriculaRequest request) {
@@ -101,9 +144,24 @@ public class OportunidadeMatriculaController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<OportunidadeMatricula> findById(@PathVariable Long id){
+	public ResponseEntity<OportunidadeMatriculaResponse> findById(@PathVariable Long id){
 		OportunidadeMatricula opMatricula = service.findById(id);
-		return opMatricula != null ? ResponseEntity.ok(opMatricula) : ResponseEntity.notFound().build();
+		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(Arrays.asList(opMatricula));
+		return response.size() != 0 ? ResponseEntity.ok(response.get(0)) : ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/all")
+	public ResponseEntity<List<OportunidadeMatriculaResponse>> findAll(){
+		List<OportunidadeMatricula> oportunidadesMatriculas = service.findAll();
+		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(oportunidadesMatriculas);
+		return  ResponseEntity.ok(response);
+	}
+	
+	@GetMapping("/bycoordenadorid/{id}")
+	public ResponseEntity<List<OportunidadeMatriculaResponse>> finByCoordenadorId(@PathVariable Long id){
+		List<OportunidadeMatricula> oportunidadesMatriculas = service.findByCoordenadorId(id);
+		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(oportunidadesMatriculas);
+		return  ResponseEntity.ok(response);
 	}
 
 	@PutMapping("/{id}")

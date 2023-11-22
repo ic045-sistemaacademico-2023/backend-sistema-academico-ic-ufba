@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,14 @@ public class OportunidadeMatriculaService {
 	public void deleteOportunidadeMatricula(Long id) {
 		OportunidadeMatricula opMat = findById(id);
 		repository.delete(opMat);
+	}
+
+	public List<OportunidadeMatricula> findAll() {
+		return repository.findAll();
+	}
+
+	public List<OportunidadeMatricula> findByCoordenadorId(Long id) {
+		return repository.findByCoordenadorId(id);
 	}
 	
 	
