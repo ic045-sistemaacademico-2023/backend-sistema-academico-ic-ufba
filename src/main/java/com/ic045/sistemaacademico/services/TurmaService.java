@@ -126,4 +126,8 @@ public class TurmaService {
       return  code;
     }
 
+	public List<Turma> findTurmasDisponiveisMatricula() {
+		return repository.findTurmasDisponiveisMatricula();
+	}
+
 }

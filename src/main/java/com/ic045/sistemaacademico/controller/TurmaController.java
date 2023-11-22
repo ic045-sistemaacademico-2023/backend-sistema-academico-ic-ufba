@@ -61,6 +61,13 @@ public class TurmaController {
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
     
+    @GetMapping("/disponiveismatricula")
+    public ResponseEntity<List<Turma>> findTurmasDisponiveisMatricula() {
+        List<Turma> turmas = service.findTurmasDisponiveisMatricula();
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+    
 
     @PostMapping("/")
     public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
