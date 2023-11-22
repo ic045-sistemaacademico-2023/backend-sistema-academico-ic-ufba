@@ -16,4 +16,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     List<Turma> findAllTurmasByProfessorId(@Param("professorId") Long professorId);
 
     List<Professor> findAll();
+
+    Professor findByUsuarioId(Long id);
 }

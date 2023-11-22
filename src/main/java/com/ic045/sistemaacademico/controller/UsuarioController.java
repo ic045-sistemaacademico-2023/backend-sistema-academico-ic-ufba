@@ -79,4 +79,28 @@ public class UsuarioController {
 
 		return ResponseEntity.ok(usuarioResponse);
 	}
+
+	@GetMapping("/approved")
+	public ResponseEntity<List<Usuario>> getApprovedUsers() {
+		List<Usuario> usuarios = service.getApprovedUsers();
+		return usuarios != null ? ResponseEntity.ok(usuarios) : ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/waitlist")
+	public ResponseEntity<List<Usuario>> getWaitlist() {
+		List<Usuario> usuarios = service.getWaitlist();
+		return usuarios != null ? ResponseEntity.ok(usuarios) : ResponseEntity.notFound().build();
+	}
+
+	@PutMapping("/approve/{id}")
+	public ResponseEntity<Usuario> approveUser(@PathVariable Long id) {
+		Usuario usuario = service.approveUser(id);
+		return ResponseEntity.ok(usuario);
+	}
+
+	@PutMapping("/reprove/{id}")
+	public ResponseEntity<Usuario> reproveUser(@PathVariable Long id) {
+		Usuario usuario = service.denyUser(id);
+		return ResponseEntity.ok(usuario);
+	}
 }

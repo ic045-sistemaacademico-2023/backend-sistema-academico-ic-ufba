@@ -19,7 +19,6 @@ CREATE TABLE `coordenadordecurso`
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -57,7 +56,6 @@ CREATE TABLE `administrador`
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -76,7 +74,6 @@ CREATE TABLE `professor`
     `id_usuario` INT          NOT NULL,
     `nome`       varchar(255) NOT NULL,
     `email`      varchar(255) NOT NULL UNIQUE,
-    `senha`      varchar(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -100,7 +97,7 @@ CREATE TABLE `usuario`
     `senha`  VARCHAR(255) NOT NULL,
     `email`  VARCHAR(255) NOT NULL UNIQUE,
     `role`   ENUM('ADMIN','PROFESSOR','COORDENADOR_DE_CURSO','ALUNO') NOT NULL,
-    `status` ENUM('EMAIL_CHECK','WAITING_APPROVAL','APPROVED','DENIED') NOT NULL,
+    `status` ENUM('WAITING_APPROVAL','APPROVED','DENIED') NOT NULL,
     `nome`   VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
