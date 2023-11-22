@@ -57,6 +57,10 @@ public class OportunidadeMatriculaService {
 	public List<OportunidadeMatricula> findByCoordenadorId(Long id) {
 		return repository.findByCoordenadorId(id);
 	}
+
+	public List<OportunidadeMatricula> findByCursoId(Long id) {
+		return repository.findByCursoId(id);
+	}
 	
 	
 }

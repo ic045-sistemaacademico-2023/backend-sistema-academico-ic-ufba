@@ -164,6 +164,13 @@ public class OportunidadeMatriculaController {
 		return  ResponseEntity.ok(response);
 	}
 
+	@GetMapping("/bycursoid/{id}")
+	public ResponseEntity<List<OportunidadeMatriculaResponse>> finByCursoId(@PathVariable Long id){
+		List<OportunidadeMatricula> oportunidadesMatriculas = service.findByCursoId(id);
+		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(oportunidadesMatriculas);
+		return  ResponseEntity.ok(response);
+	}
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<OportunidadeMatricula> editOportunidadeMatricula(@PathVariable Long id,
 			@RequestBody UpdateOportunidadeMatriculaRequest request) {
