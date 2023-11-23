@@ -2,11 +2,9 @@ package com.ic045.sistemaacademico.controller;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
-import com.ic045.sistemaacademico.domain.models.Disciplina;
-import com.ic045.sistemaacademico.domain.models.Professor;
-import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.domain.models.Role.Sala;
-import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.services.AlunoService;
 import com.ic045.sistemaacademico.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +21,9 @@ import java.util.stream.Collectors;
 public class TurmaController {
     @Autowired
     private TurmaService service;
+
+    @Autowired
+    private AlunoService alunoService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Turma> findById(@PathVariable Long id) {
@@ -55,8 +56,9 @@ public class TurmaController {
     }
     
     @GetMapping("/aluno/{id}")
-    public ResponseEntity<List<Turma>> findAllTurmasByAlunoId(@PathVariable Long id) {
-        List<Turma> turmas = service.findTurmasByAlunoId(id);
+    public ResponseEntity<List<Turma>> findAllTurmasByUserId(@PathVariable Long id) {
+        Aluno aluno = alunoService.findByUsuarioId(id);
+        List<Turma> turmas = service.findTurmasByAlunoId(aluno.getId());
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
