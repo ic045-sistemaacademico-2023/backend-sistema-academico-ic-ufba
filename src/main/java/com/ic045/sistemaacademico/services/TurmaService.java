@@ -121,15 +121,16 @@ public class TurmaService {
         }
     }
 
-    public String generationCode(Turma turma){
-     String code = new StringBuilder().append(turma.getDisciplina().getArea()).append(repository.findFirstByOrderByIdDesc().get().getId()+1).toString();
-      return  code;
+    public String generationCode(Turma turma) {
+        String code = new StringBuilder().append(turma.getDisciplina().getArea()).append(repository.findFirstByOrderByIdDesc().get().getId() + 1).toString();
+        return code;
     }
-    
-
 
 	public List<Turma> findTurmasDisponiveisMatricula() {
 		return repository.findTurmasDisponiveisMatricula();
 	}
 
+    public List<Turma> findTurmasDisponiveisPorCursoId(Long cursoId) {
+        return repository.findTurmasDisponiveisPorCursoId(cursoId);
+    }
 }

@@ -104,9 +104,10 @@ CREATE TABLE `usuario`
 
 CREATE TABLE `aluno_turma`
 (
+    `id` INT NOT NULL AUTO_INCREMENT,
     `id_aluno` INT NOT NULL,
     `id_turma` INT NOT NULL,
-    PRIMARY KEY (`id_aluno`, `id_turma`)
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `oportunidade_matricula`
