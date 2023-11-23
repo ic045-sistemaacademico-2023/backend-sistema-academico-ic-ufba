@@ -99,4 +99,6 @@ public class DisciplinaService {
                 .findByCodigo(cod)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND_GENERIC_PROP.getMessage(), "Disciplina","codigo", cod)));
     }
+
+
 }

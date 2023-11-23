@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.controller;
 
+import com.ic045.sistemaacademico.controller.vos.request.UpdateNotaRequest;
 import com.ic045.sistemaacademico.domain.models.Aluno;
 import com.ic045.sistemaacademico.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,4 +63,12 @@ public class NotaController {
 
         return ResponseEntity.status(HttpStatus.OK).body(nota);
     }
+
+    @PutMapping("/{id}/disciplina/notasefaltas")
+    public ResponseEntity<Nota> updateNotaeFaltas(@PathVariable Long id, @RequestBody UpdateNotaRequest request) {
+        Nota nota = service.updateNotaeFalta(id, request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(nota);
+    }
+
 }

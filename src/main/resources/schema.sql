@@ -66,6 +66,7 @@ CREATE TABLE `nota`
     `id_turma` int            NOT NULL,
     `id_disciplina` int       NOT NULL,
     `nota`     DECIMAL(10, 2) NOT NULL,
+    `faltas` int,
     PRIMARY KEY (`id`)
 );
 
