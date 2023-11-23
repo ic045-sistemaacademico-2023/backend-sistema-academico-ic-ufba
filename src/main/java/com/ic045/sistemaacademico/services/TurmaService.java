@@ -74,7 +74,7 @@ public class TurmaService {
         try {
         	disciplina = disciplinaService.findById(insertTurmaRequest.disciplina());
 			professor.setId(insertTurmaRequest.professor());
-			turma = new Turma(disciplina, professor, data, insertTurmaRequest.horario(), insertTurmaRequest.local(),
+			turma = new Turma(disciplina, professor, data, insertTurmaRequest.horario(), insertTurmaRequest.sala(),
 					insertTurmaRequest.semestre());
 			turma.setCode(generationCode(turma));
 			return repository.save(turma);
@@ -106,7 +106,7 @@ public class TurmaService {
 	        turmaToUpdate.setProfessor(professor);
 	        turmaToUpdate.setDias(request.dias());
 	        turmaToUpdate.setHorario(request.horario());
-	        turmaToUpdate.setLocal(request.local());
+	        turmaToUpdate.setSala(request.sala());
 	        turmaToUpdate.setSemestre(request.semestre());
 
             return repository.save(turmaToUpdate);
@@ -125,6 +125,8 @@ public class TurmaService {
      String code = new StringBuilder().append(turma.getDisciplina().getArea()).append(repository.findFirstByOrderByIdDesc().get().getId()+1).toString();
       return  code;
     }
+    
+
 
 	public List<Turma> findTurmasDisponiveisMatricula() {
 		return repository.findTurmasDisponiveisMatricula();

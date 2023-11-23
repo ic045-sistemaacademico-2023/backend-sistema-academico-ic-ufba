@@ -7,7 +7,7 @@ public record InsertTurmaRequest(
         Long professor,
         Role.Date[] dias,
         String horario,
-        String local,
+        Role.Sala sala,
         String semestre
 ) {
 }
