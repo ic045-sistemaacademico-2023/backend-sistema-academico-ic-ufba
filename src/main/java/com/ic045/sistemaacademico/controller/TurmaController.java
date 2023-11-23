@@ -5,6 +5,7 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.Role.Sala;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +35,18 @@ public class TurmaController {
                         .build();
     }
 
+    @GetMapping("/{id}/sala")
+    public ResponseEntity<Sala> findSalaByIdTurma(@PathVariable Long id) {
+        Turma turma = service.findById(id);
+        Role.Sala sala = turma.getSala();
+
+        return sala != null ?
+                ResponseEntity.ok(sala) :
+                ResponseEntity
+                        .notFound()
+                        .build();
+    }
+    
     @GetMapping("/semestre/{nrsemestre}")
     public ResponseEntity<List<Turma>> findForSemestre(@PathVariable String nrsemestre){
         List<Turma> turmas = service.findForSemestreData(nrsemestre);
@@ -61,7 +75,17 @@ public class TurmaController {
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
     
-
+    @GetMapping("/disponiveismatricula")
+    public ResponseEntity<List<Turma>> findTurmasDisponiveisMatricula() {
+        List<Turma> turmas = service.findTurmasDisponiveisMatricula();
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/salas")
+    public EnumSet<Role.Sala> findAllSalas() {
+        return EnumSet.allOf(Role.Sala.class);
+    }
+    
     @PostMapping("/")
     public ResponseEntity<Turma> insertTurma(@RequestBody InsertTurmaRequest insertTurmaRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insertTurmaData(insertTurmaRequest));

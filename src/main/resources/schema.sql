@@ -85,7 +85,7 @@ CREATE TABLE `turma`
     `id_professor`  int          NOT NULL,
     `dias`          varchar(255) NOT NULL,
     `horario`       varchar(255) NOT NULL,
-    `local`         varchar(255) NOT NULL,
+    `sala`          ENUM('PAFI_101', 'PAFI_102', 'PAFI_103', 'PAFI_104', 'PAFI_105', 'PAFI_106','PAFI_107','PAFI_108','PAFI_109','PAFI_110','PAFI_111','PAFI_112','PAFI_113','PAFI_114','PAFI_115','PAFI_116','PAFI_117','PAFI_118','PAFI_119','PAFI_120','PAFI_201','PAFI_202','PAFI_203','PAFI_204','PAFI_205','PAFI_206','PAFI_207','PAFI_208','PAFI_209','PAFI_210','PAFI_211','PAFI_212','PAFI_213','PAFI_214','PAFI_215','PAFI_216','PAFI_217','PAFI_218','PAFI_219','PAFI_220','PAFI_301','PAFI_302','PAFI_303','PAFI_304','PAFI_305','PAFI_306','PAFI_307','PAFI_308','PAFI_309','PAFI_310','PAFI_311','PAFI_312','PAFI_313','PAFI_314','PAFI_315','PAFI_316','PAFI_317','PAFI_318','PAFI_319','PAFI_320') NOT NULL,
     `code`          varchar(255) NOT NULL,
     `semestre`      int          NOT NULL,
     PRIMARY KEY (`id`)
@@ -108,6 +108,30 @@ CREATE TABLE `aluno_turma`
     `id_aluno` INT NOT NULL,
     `id_turma` INT NOT NULL,
     PRIMARY KEY (`id_aluno`, `id_turma`)
+);
+
+CREATE TABLE `oportunidade_matricula`
+(
+    `id`            	INT          	NOT NULL AUTO_INCREMENT,
+    `nome`          	varchar(255) 	NOT NULL,
+    `descricao`     	varchar(1000) 	NOT NULL,
+    `data_inicial`  	TIMESTAMP    	NOT NULL,
+    `data_final`    	TIMESTAMP    	NOT NULL,
+    `aberta`        	TINYINT      	NOT NULL  DEFAULT  0,
+    `id_coordenador` 	INT				NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `id_coordenador_fk` (`id_coordenador`)
+);
+
+CREATE TABLE `opmatricula_disciplina_turma`(
+    `id`                            INT NOT NULL AUTO_INCREMENT,
+    `id_oportunidade_matricula`     INT NOT NULL,
+    `id_disciplina`                 INT NOT NULL,
+    `id_turma`                      INT NOT NULL,
+    PRIMARY KEY (`id`),
+    KEY `id_oportunidade_matricula_fk` (`id_oportunidade_matricula`),
+    KEY `id_disciplina_fk` (`id_disciplina`),
+    KEY `id_op_turma_fk` (`id_turma`)
 );
 
 ALTER TABLE `aluno`
@@ -151,3 +175,6 @@ ALTER TABLE `aluno_turma`
 
 ALTER TABLE `aluno_turma`
     ADD CONSTRAINT `id_turma_fk` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
+    
+ALTER TABLE `oportunidade_matricula`
+    ADD CONSTRAINT `id_coordenador_fk` FOREIGN KEY (`id_coordenador`) REFERENCES `coordenadordecurso` (`id`);

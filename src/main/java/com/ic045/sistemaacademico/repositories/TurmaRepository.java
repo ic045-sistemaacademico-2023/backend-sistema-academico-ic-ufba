@@ -2,6 +2,7 @@ package com.ic045.sistemaacademico.repositories;
 
 import com.ic045.sistemaacademico.domain.models.Turma;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
     List<Turma> findAll();
     List<Turma> findAllByDisciplinaId(Long disciplinaId);
     Optional<Turma> findFirstByOrderByIdDesc();
+    
+    @Query("SELECT turma FROM Turma turma INNER JOIN OpMatriculaDisciplinaTurma opMatDiscTur on turma.id = opMatDiscTur.turma.id")
+	List<Turma> findTurmasDisponiveisMatricula();
 }

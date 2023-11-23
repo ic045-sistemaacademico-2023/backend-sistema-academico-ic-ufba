@@ -26,7 +26,7 @@ INSERT INTO `disciplina` (id_curso, nome, codigo, ementa, pre_requisitos, area, 
 VALUES (1, 'Programação Orientada a Objetos', 'POOA', 'Ementa da disciplina de Programação Orientada a Objetos', 'Nenhum', 'Técnica', '', 40, 30,10, '1. MANKIW, N.Gregory; TAYLOR, Mark P.. Programação Orientada a Objetos. 6.ed., São Paulo: Cengage Learning, 2014.');
 
 -- Create a turma named `Turma 1` with discipline `Programação Orientada a Objetos` and professor `professor`
-INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, local, code, semestre) VALUES (1, 1, 'SEG, QUA', '10:00 - 12:00', 'Laboratório 1', 'Técnica1',  1);
+INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, sala, code, semestre) VALUES (1, 1, 'SEG, QUA', '10:00 - 12:00', 'PAFI_103', 'Técnica1',  1);
 
 -- Create a record in the `aluno` table to associate the student `aluno` with the `Turma 1`
 INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES (1, 4, 'Aluno', 0, '2019.2');
@@ -34,5 +34,11 @@ INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES (1
 -- Create a record in the `NOTA` table to associate the student `aluno 1` with the `Turma 1` and 'Disciplina 1'
 INSERT INTO `nota` (id_aluno, id_turma, id_disciplina, nota) VALUES (1, 1, 1, 8.2)
 
-
 INSERT INTO aluno_turma (id_aluno, id_turma) VALUES (1, 1);
+
+-- Creates a oportunidade de matricula with coordenador Coordenador
+INSERT INTO oportunidade_matricula (id, nome, descricao, data_inicial, data_final, aberta, id_coordenador) VALUES (1, 'Oportunidade A', 'Descricao da Oportunidade A', '2023-11-21 00:00:00', '2023-11-23 00:00:00', 1, 1);
+
+-- Inserts a row into opmatricula_disciplina_turma with oportunidade_matricula 1, disciplina 1, turma 1
+INSERT INTO opmatricula_disciplina_turma (id, id_oportunidade_matricula, id_disciplina, id_turma) VALUES (1, 1, 1,1);
+
