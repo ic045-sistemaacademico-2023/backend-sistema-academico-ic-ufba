@@ -62,6 +62,12 @@ public class TurmaController {
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
     
+    @GetMapping("/disponiveismatricula")
+    public ResponseEntity<List<Turma>> findTurmasDisponiveisMatricula() {
+        List<Turma> turmas = service.findTurmasDisponiveisMatricula();
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
+    }
+    
     @GetMapping("/salas")
     public EnumSet<Role.Sala> findAllSalas() {
         return EnumSet.allOf(Role.Sala.class);

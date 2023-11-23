@@ -31,5 +31,11 @@ INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, sala, code, sem
 -- Create a record in the `aluno` table to associate the student `aluno` with the `Turma 1`
 INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES (1, 4, 'Aluno', 0, '2019.2');
 
-
 INSERT INTO aluno_turma (id_aluno, id_turma) VALUES (1, 1);
+
+-- Creates a oportunidade de matricula with coordenador Coordenador
+INSERT INTO oportunidade_matricula (id, nome, descricao, data_inicial, data_final, aberta, id_coordenador) VALUES (1, 'Oportunidade A', 'Descricao da Oportunidade A', '2023-11-21 00:00:00', '2023-11-23 00:00:00', 1, 1);
+
+-- Inserts a row into opmatricula_disciplina_turma with oportunidade_matricula 1, disciplina 1, turma 1
+INSERT INTO opmatricula_disciplina_turma (id, id_oportunidade_matricula, id_disciplina, id_turma) VALUES (1, 1, 1,1);
+
