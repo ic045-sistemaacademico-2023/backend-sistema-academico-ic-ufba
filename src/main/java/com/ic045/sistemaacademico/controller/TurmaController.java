@@ -5,6 +5,7 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.Professor;
 import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.Role.Sala;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,18 @@ public class TurmaController {
                         .build();
     }
 
+    @GetMapping("/{id}/sala")
+    public ResponseEntity<Sala> findSalaByIdTurma(@PathVariable Long id) {
+        Turma turma = service.findById(id);
+        Role.Sala sala = turma.getSala();
+
+        return sala != null ?
+                ResponseEntity.ok(sala) :
+                ResponseEntity
+                        .notFound()
+                        .build();
+    }
+    
     @GetMapping("/semestre/{nrsemestre}")
     public ResponseEntity<List<Turma>> findForSemestre(@PathVariable String nrsemestre){
         List<Turma> turmas = service.findForSemestreData(nrsemestre);
