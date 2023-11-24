@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateOportunidadeMatriculaRequest;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
 import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
+import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.OportunidadeMatriculaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
@@ -60,6 +61,12 @@ public class OportunidadeMatriculaService {
 
 	public List<OportunidadeMatricula> findByCursoId(Long id) {
 		return repository.findByCursoId(id);
+	}
+
+
+	public boolean isThereAlreadyOpen(Long coordenadorId) {
+		int count = repository.countAbertaByCoordenadorId(coordenadorId);
+		return count > 0;
 	}
 	
 	

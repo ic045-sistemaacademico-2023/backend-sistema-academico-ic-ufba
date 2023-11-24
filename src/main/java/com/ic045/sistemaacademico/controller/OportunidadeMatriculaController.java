@@ -29,6 +29,7 @@ import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.OpMatriculaDisciplinaTurma;
 import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
 import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.services.CoordenadorDeCursoService;
@@ -97,8 +98,21 @@ public class OportunidadeMatriculaController {
 		return response;
 	}
 	
+	/*
+	 * Valida se existe alguma oportunidade de matrícula para o curso informado que já esteja aberta
+	 * Caso afirmativo, lança exceção que é mapeada para status 501 na resposta
+	 */
+	private void validateThereIsOportunidadeAlreadyOpen(Long coordenadorId) {
+		if(service.isThereAlreadyOpen(coordenadorId))
+			throw new NotCreatedException(
+					String.format("There is already an open enrollment opportunity for this course"));
+	}
+	
 	@PostMapping("/")
 	public ResponseEntity<OportunidadeMatricula> InsertOportunidade(@RequestBody InsertOportunidadeMatriculaRequest request) {
+		if(request.aberta())
+			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
+		
 		Map<Disciplina, List<Turma>> disciplinasTurmas = new HashMap<Disciplina, List<Turma>>();
 		
 		for (DisciplinaTurmas dts : request.disciplinaTurmas()) {
@@ -174,6 +188,8 @@ public class OportunidadeMatriculaController {
 	@PutMapping("/{id}")
 	public ResponseEntity<OportunidadeMatricula> editOportunidadeMatricula(@PathVariable Long id,
 			@RequestBody UpdateOportunidadeMatriculaRequest request) {
+		if(request.aberta())
+			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
 		OportunidadeMatricula opMat = service.updateOportuidadeMatricula(id,request);
 				return ResponseEntity.status(HttpStatus.OK).body(opMat);
 	}
