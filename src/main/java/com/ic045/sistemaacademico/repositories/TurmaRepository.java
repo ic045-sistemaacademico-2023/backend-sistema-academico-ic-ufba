@@ -25,8 +25,8 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
 	List<Turma> findTurmasDisponiveisMatricula();
 
     @Query("SELECT turma FROM Turma turma " +
-            "INNER JOIN OpMatriculaDisciplinaTurma opMatDiscTur " +
-            "ON turma.id = opMatDiscTur.turma.id " +
-            "WHERE turma.disciplina.curso.id = :cursoId")
+            "INNER JOIN OpMatriculaDisciplinaTurma opMatDiscTur ON turma.id = opMatDiscTur.turma.id " +
+            "INNER JOIN OportunidadeMatricula opMat ON opMatDiscTur.oportunidadeMatricula.id = opMat.id " +
+            "WHERE turma.disciplina.curso.id = :cursoId AND opMat.aberta = true")
     List<Turma> findTurmasDisponiveisPorCursoId(@Param("cursoId") Long cursoId);
 }
