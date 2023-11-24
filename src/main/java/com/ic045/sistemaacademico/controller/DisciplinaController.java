@@ -47,6 +47,12 @@ public class DisciplinaController {
 		return notas != null ? ResponseEntity.ok(notas) : ResponseEntity.notFound().build();
 	}
 
+	@GetMapping("/notas/faltas/{id}")
+	public ResponseEntity<List<Double>> findFaltasByDisciplinaByNotas(@PathVariable Long id) {
+		List<Double> faltas = service.obterFaltasPorNota(id);
+		return faltas != null ? ResponseEntity.ok(faltas) : ResponseEntity.notFound().build();
+	}
+
 	@PostMapping("/")
 	public ResponseEntity<Boolean> InsertDisciplina(@RequestBody InsertDisciplinaRequest insertDisciplina) {
 		Curso curso = new Curso();

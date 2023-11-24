@@ -13,6 +13,7 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +32,17 @@ public class DisciplinaService {
                 .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
 
         return disciplina.getNotas();
+    }
+
+    public List<Double> obterFaltasPorNota(Long idDisciplina){
+        Disciplina disciplina = repository.findById(idDisciplina)
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
+        List<Double> faltas = new ArrayList<>();
+        List<Nota> notas = disciplina.getNotas();
+        for (Nota nota : notas){
+            faltas.add(nota.getFaltas());
+        }
+        return faltas;
     }
 
     public List<Disciplina> findAllByCursoId(Long id) {
