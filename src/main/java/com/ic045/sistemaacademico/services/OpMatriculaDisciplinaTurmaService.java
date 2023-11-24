@@ -24,8 +24,8 @@ public class OpMatriculaDisciplinaTurmaService {
 		return repository.findByIdAndDisciplinaId(id,idDisciplina);
 	}
 	
-	public OpMatriculaDisciplinaTurma findByIdAndTurmaId(Long id, Long idTurma) {
-		return repository.findByIdAndTurmaId(id,idTurma);
+	public OpMatriculaDisciplinaTurma findByOportunidadeMatriculaIdAndDisciplinaIdAndTurmaId(Long idOpMat, Long idDisciplina, Long idTurma) {
+		return repository.findByOportunidadeMatriculaIdAndDisciplinaIdAndTurmaId(idOpMat,idDisciplina,idTurma);
 	}
 	
 	public void deleteById(Long id) {

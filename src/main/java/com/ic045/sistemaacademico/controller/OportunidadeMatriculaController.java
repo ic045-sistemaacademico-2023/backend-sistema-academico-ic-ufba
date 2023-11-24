@@ -240,9 +240,11 @@ public class OportunidadeMatriculaController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
-	@PutMapping("/removeturma/{idOpMatDisTurma}/{idTurma}")
-	public ResponseEntity<Void> removeTurma(@PathVariable Long idOpMatDisTurma, @PathVariable Long idTurma){
-		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndTurmaId(idOpMatDisTurma,idTurma);
+	@PutMapping("/removeturma/{idOpMat}/{idDisciplina}/{idTurma}")
+	public ResponseEntity<Void> removeTurma(@PathVariable Long idOpMat, @PathVariable Long idDisciplina,
+			@PathVariable Long idTurma) {
+		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService
+				.findByOportunidadeMatriculaIdAndDisciplinaIdAndTurmaId(idOpMat, idDisciplina, idTurma);
 		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
