@@ -22,3 +22,6 @@ database/
 docker-compose.yml
 application.properties
 resources/
+/bin/
+/.apt_generated/
+/.apt_generated_tests/

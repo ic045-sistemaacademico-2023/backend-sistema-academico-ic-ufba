@@ -1,6 +1,5 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.NoSuchElementException;
 import java.util.List;
 
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
@@ -37,4 +36,8 @@ public class CoordenadorDeCursoService {
             repository.delete(coord);
         }
     }
+
+	public CoordenadorDeCurso findByUsuarioId(Long id) {
+		return repository.findByUsuarioId(id);
+	}
 }

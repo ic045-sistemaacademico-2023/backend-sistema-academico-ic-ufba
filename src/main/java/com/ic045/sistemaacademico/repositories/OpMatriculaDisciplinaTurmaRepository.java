@@ -14,8 +14,9 @@ public interface OpMatriculaDisciplinaTurmaRepository extends JpaRepository<OpMa
 	@Query("SELECT opmat FROM OpMatriculaDisciplinaTurma opmat WHERE opmat.id = :id AND opmat.disciplina.id = :disciplinaId")
     public OpMatriculaDisciplinaTurma findByIdAndDisciplinaId(@Param("id") Long id, @Param("disciplinaId") Long disciplinaId);
 
-	@Query("SELECT opmat FROM OpMatriculaDisciplinaTurma opmat WHERE opmat.id = :id AND opmat.turma.id = :idTurma")
-	public OpMatriculaDisciplinaTurma findByIdAndTurmaId(Long id, Long idTurma);
+	@Query("SELECT opmat FROM OpMatriculaDisciplinaTurma opmat " +
+			"WHERE opmat.oportunidadeMatricula.id = :idOportunidadeMat AND opmat.turma.id = :idTurma AND opmat.disciplina.id = :idDisciplina")
+	public OpMatriculaDisciplinaTurma findByOportunidadeMatriculaIdAndDisciplinaIdAndTurmaId(Long idOportunidadeMat, Long idDisciplina, Long idTurma);
 	
 	@Query("SELECT opmat FROM OpMatriculaDisciplinaTurma opmat WHERE opmat.oportunidadeMatricula.id = :opMatId")
 	public List<OpMatriculaDisciplinaTurma> findByOportunidadeMatriculaId(Long opMatId);
