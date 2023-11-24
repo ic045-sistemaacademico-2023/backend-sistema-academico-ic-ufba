@@ -29,7 +29,7 @@ INSERT INTO curso (id_coordenador, nome, semestre, turno, periodo_curriculo) VAL
 (1, 'Engenharia de Software', 1, 'MATUTINO', '2012.1'),
 (1, 'Ciência da Computação', 1, 'VESPERTINO', '2023.1'),
 (2, 'Ciências Econômicas', 2, 'NOTURNO', '2023.2'),
-(2, 'Estatística', 3, 'INTEGRAL', '2023.1'),
+(2, 'Estatística', 3, 'VESPERTINO', '2023.1'),
 (3, 'Medicina', 4, 'MATUTINO', '2023.2');
 
 -- Populando a tabela disciplina
