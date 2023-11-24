@@ -134,16 +134,6 @@ CREATE TABLE `opmatricula_disciplina_turma`(
     KEY `id_op_turma_fk` (`id_turma`)
 );
 
-CREATE TABLE solicitacao_matricula (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `id_oportunidade_matricula` INT NOT NULL,
-    `id_aluno` INT NOT NULL,
-    status VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`id`),
-    FOREIGN KEY (`id_oportunidade_matricula`) REFERENCES `oportunidade_matricula` (`id`),
-    FOREIGN KEY (`id_aluno`) REFERENCES aluno (`id`)
-);
-
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk0` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
 
