@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.services;
 
+import com.ic045.sistemaacademico.controller.vos.request.UpdateNotaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -82,6 +83,24 @@ public class NotaService {
         }
 
 	}
+
+    public Nota updateNotaeFalta(Long id, UpdateNotaRequest request) {
+        Nota notaToUpdate = findById(id);
+        Aluno aluno = alunoService.findById(request.aluno());
+        Turma turma = turmaService.findById(request.turma());
+
+        notaToUpdate.setAluno(aluno);
+        notaToUpdate.setTurma(turma);
+        notaToUpdate.setNota(request.nota());
+        notaToUpdate.setFaltas(request.faltas());
+
+        try {
+            return repository.save(notaToUpdate);
+        } catch (Exception ex) {
+            throw new BadRequestException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Nota", id));
+        }
+
+    }
 
 
 

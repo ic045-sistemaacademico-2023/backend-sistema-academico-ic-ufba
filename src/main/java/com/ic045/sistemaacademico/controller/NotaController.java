@@ -1,5 +1,8 @@
 package com.ic045.sistemaacademico.controller;
 
+import com.ic045.sistemaacademico.controller.vos.request.UpdateNotaRequest;
+import com.ic045.sistemaacademico.domain.models.Aluno;
+import com.ic045.sistemaacademico.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +26,21 @@ public class NotaController {
     @Autowired
     private NotaService service;
 
+    @Autowired
+    private AlunoService alunoService;
+
     @GetMapping("/{id}")
     public ResponseEntity<Nota> findById(@PathVariable Long id) {
         Nota nota = service.findById(id);
 
         return nota != null ? ResponseEntity.ok(nota): ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}/aluno")
+    public ResponseEntity<Aluno> findAlunoByNota(@PathVariable Long id){
+        Nota nota = service.findById(id);
+        Aluno aluno = nota.getAluno();
+        return aluno != null ? ResponseEntity.ok(aluno): ResponseEntity.notFound().build();
     }
 
     @PostMapping("/")
@@ -50,4 +63,12 @@ public class NotaController {
 
         return ResponseEntity.status(HttpStatus.OK).body(nota);
     }
+
+    @PutMapping("/{id}/disciplina/notasefaltas")
+    public ResponseEntity<Nota> updateNotaeFaltas(@PathVariable Long id, @RequestBody UpdateNotaRequest request) {
+        Nota nota = service.updateNotaeFalta(id, request);
+
+        return ResponseEntity.status(HttpStatus.OK).body(nota);
+    }
+
 }

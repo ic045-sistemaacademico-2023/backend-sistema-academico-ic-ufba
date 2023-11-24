@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
 import com.ic045.sistemaacademico.domain.models.Disciplina;
+import com.ic045.sistemaacademico.domain.models.Nota;
 import com.ic045.sistemaacademico.domain.models.Role;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
@@ -12,6 +13,7 @@ import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +25,24 @@ public class DisciplinaService {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", id)));
+    }
+
+    public List<Nota> obterNotasPorDisciplina(Long idDisciplina) {
+        Disciplina disciplina = repository.findById(idDisciplina)
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
+
+        return disciplina.getNotas();
+    }
+
+    public List<Double> obterFaltasPorNota(Long idDisciplina){
+        Disciplina disciplina = repository.findById(idDisciplina)
+                .orElseThrow(() -> new NotFoundException("Disciplina não encontrada"));
+        List<Double> faltas = new ArrayList<>();
+        List<Nota> notas = disciplina.getNotas();
+        for (Nota nota : notas){
+            faltas.add(nota.getFaltas());
+        }
+        return faltas;
     }
 
     public List<Disciplina> findAllByCursoId(Long id) {
@@ -91,4 +111,6 @@ public class DisciplinaService {
                 .findByCodigo(cod)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND_GENERIC_PROP.getMessage(), "Disciplina","codigo", cod)));
     }
+
+
 }

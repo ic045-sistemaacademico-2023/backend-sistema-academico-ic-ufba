@@ -64,7 +64,9 @@ CREATE TABLE `nota`
     `id`       int            NOT NULL AUTO_INCREMENT,
     `id_aluno` int            NOT NULL,
     `id_turma` int            NOT NULL,
+    `id_disciplina` int       NOT NULL,
     `nota`     DECIMAL(10, 2) NOT NULL,
+    `faltas` int              NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -157,6 +159,9 @@ ALTER TABLE `nota`
 
 ALTER TABLE `nota`
     ADD CONSTRAINT `nota_fk1` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
+
+ALTER TABLE `nota`
+    ADD CONSTRAINT `nota_fk2` FOREIGN KEY (`id_disciplina`) REFERENCES `disciplina` (`id`);
 
 ALTER TABLE `professor`
     ADD CONSTRAINT `professor_fk0` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);

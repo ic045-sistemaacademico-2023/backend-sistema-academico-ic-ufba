@@ -35,4 +35,11 @@ public class Nota {
 
     @Column(name = "nota", nullable = false)
     private double nota;
+
+    @ManyToOne
+    @JoinColumn(name = "id_disciplina", referencedColumnName = "id")
+    private Disciplina disciplina;
+
+    @Column(name = "faltas")
+    private double faltas;
 }
