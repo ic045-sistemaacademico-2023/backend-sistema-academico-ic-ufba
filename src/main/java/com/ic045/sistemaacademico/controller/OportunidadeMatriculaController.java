@@ -20,8 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ic045.sistemaacademico.controller.vos.request.DisciplinaTurmas;
-import com.ic045.sistemaacademico.controller.vos.request.InsertOportunidadeMatriculaRequest;
-import com.ic045.sistemaacademico.controller.vos.request.UpdateOportunidadeMatriculaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.OportunidadeMatriculaRequest;
 import com.ic045.sistemaacademico.controller.vos.response.DisciplinaTurmasResponse;
 import com.ic045.sistemaacademico.controller.vos.response.OportunidadeMatriculaResponse;
 import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
@@ -99,22 +98,10 @@ public class OportunidadeMatriculaController {
 	}
 	
 	/*
-	 * Valida se existe alguma oportunidade de matrícula para o curso informado que já esteja aberta
-	 * Caso afirmativo, lança exceção que é mapeada para status 501 na resposta
+	 * Constroi um hash map das disciplinas com suas turnas a partir da requisição
 	 */
-	private void validateThereIsOportunidadeAlreadyOpen(Long coordenadorId) {
-		if(service.isThereAlreadyOpen(coordenadorId))
-			throw new NotCreatedException(
-					String.format("There is already an open enrollment opportunity for this course"));
-	}
-	
-	@PostMapping("/")
-	public ResponseEntity<OportunidadeMatricula> InsertOportunidade(@RequestBody InsertOportunidadeMatriculaRequest request) {
-		if(request.aberta())
-			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
-		
+	private Map<Disciplina, List<Turma>> mapDisciplinasTurmas(OportunidadeMatriculaRequest request){
 		Map<Disciplina, List<Turma>> disciplinasTurmas = new HashMap<Disciplina, List<Turma>>();
-		
 		for (DisciplinaTurmas dts : request.disciplinaTurmas()) {
 			try {
 				Disciplina disc = disciplinaService.findById(dts.disciplina());
@@ -136,6 +123,25 @@ public class OportunidadeMatriculaController {
 						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", dts.disciplina()));
 			}
 		}
+		return disciplinasTurmas;
+	}
+	
+	/*
+	 * Valida se existe alguma oportunidade de matrícula para o curso informado que já esteja aberta
+	 * Caso afirmativo, lança exceção que é mapeada para status 501 na resposta
+	 */
+	private void validateThereIsOportunidadeAlreadyOpen(Long coordenadorId) {
+		if(service.isThereAlreadyOpen(coordenadorId))
+			throw new NotCreatedException(
+					String.format("There is already an open enrollment opportunity for this course"));
+	}
+	
+	@PostMapping("/")
+	public ResponseEntity<OportunidadeMatricula> InsertOportunidade(@RequestBody OportunidadeMatriculaRequest request) {
+		if(request.aberta())
+			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
+		
+		Map<Disciplina, List<Turma>> disciplinasTurmas = mapDisciplinasTurmas(request);
 		
 		Timestamp dataInicial = Timestamp.valueOf(request.dataInicial());
 		Timestamp dataFinal = Timestamp.valueOf(request.dataFinal());
@@ -187,12 +193,32 @@ public class OportunidadeMatriculaController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<OportunidadeMatricula> editOportunidadeMatricula(@PathVariable Long id,
-			@RequestBody UpdateOportunidadeMatriculaRequest request) {
-		if(request.aberta())
+			@RequestBody OportunidadeMatriculaRequest request) {
+		if (request.aberta())
 			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
-		OportunidadeMatricula opMat = service.updateOportuidadeMatricula(id,request);
-				return ResponseEntity.status(HttpStatus.OK).body(opMat);
+
+		OportunidadeMatricula opMat = service.findById(id);
+
+		List<OpMatriculaDisciplinaTurma> opMatDiscTurmas = opMatriculaDisciplinaTurmaService
+				.findByOportunidadeMatriculaId(id);
+		for (OpMatriculaDisciplinaTurma opMatDiscTurma : opMatDiscTurmas)
+			opMatriculaDisciplinaTurmaService.deleteById(opMatDiscTurma.getId());
+
+		Map<Disciplina, List<Turma>> disciplinasTurmas = mapDisciplinasTurmas(request);
+		if (!disciplinasTurmas.isEmpty()) {
+			for (Map.Entry<Disciplina, List<Turma>> entry : disciplinasTurmas.entrySet()) {
+				for (Turma turma : entry.getValue()) {
+					OpMatriculaDisciplinaTurma opMatDiscTurma = new OpMatriculaDisciplinaTurma(opMat, entry.getKey(),
+							turma);
+					opMatriculaDisciplinaTurmaService.insertOpMatriculaDisciplinaTurmaData(opMatDiscTurma);
+				}
+			}
+		}
+
+		opMat = service.updateOportuidadeMatricula(id, request);
+		return ResponseEntity.status(HttpStatus.OK).body(opMat);
 	}
+	
 	
 	@PutMapping("/adddisciplinaturma/{id}")
 	public ResponseEntity<Boolean> addDisciplinaTurma(@PathVariable Long id,
