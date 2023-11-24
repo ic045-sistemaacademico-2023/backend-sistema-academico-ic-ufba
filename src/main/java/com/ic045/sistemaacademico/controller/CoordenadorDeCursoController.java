@@ -23,6 +23,13 @@ public class CoordenadorDeCursoController {
 
          return coordenadorDeCurso != null ? ResponseEntity.ok(coordenadorDeCurso): ResponseEntity.notFound().build();
     }
+    
+    @GetMapping("/byusuario/{id}")
+    public ResponseEntity<CoordenadorDeCurso> findByUsuarioId(@PathVariable Long id) {
+        CoordenadorDeCurso coordenadorDeCurso= service.findByUsuarioId(id);
+         return coordenadorDeCurso != null ? ResponseEntity.ok(coordenadorDeCurso): ResponseEntity.notFound().build();
+    }
+    
 
     @GetMapping("/all")
     public ResponseEntity<List<CoordenadorDeCurso>> getAllCoordenadoresDeCurso() {
