@@ -62,8 +62,8 @@ INSERT INTO aluno_turma (id_aluno, id_turma) VALUES
 
 -- Populando a tabela oportunidade_matricula
 INSERT INTO oportunidade_matricula (id, nome, descricao, data_inicial, data_final, aberta, id_coordenador) VALUES 
-(1, 'Oportunidade A', 'Descricao da Oportunidade A', '2023-11-21 00:00:00', '2023-11-23 00:00:00', 1, 2),
-(2, 'Oportunidade B', 'Descricao da Oportunidade B', '2022-12-01 00:00:00', '2023-12-30 00:00:00', 1, 2),
-(3, 'Oportunidade C', 'Descricao da Oportunidade C', '2020-01-10 00:00:00', '2023-12-24 00:00:00', 1, 1),
-(4, 'Oportunidade D', 'Descricao da Oportunidade D', '2017-02-20 00:00:00', '2021-02-25 00:00:00', 1, 1),
-(5, 'Oportunidade E', 'Descricao da Oportunidade E', '2014-03-30 00:00:00', '2020-04-05 00:00:00', 1, 3);
+(1, 'Oportunidade A', 'Descricao da Oportunidade A', '2023-11-21 00:00:00', '2023-12-23 00:00:00', 1, 2),
+(2, 'Oportunidade B', 'Descricao da Oportunidade B', '2022-12-01 00:00:00', '2023-12-30 00:00:00', 0, 2),
+(3, 'Oportunidade C', 'Descricao da Oportunidade C', '2020-01-10 00:00:00', '2023-12-24 00:00:00', 0, 1),
+(4, 'Oportunidade D', 'Descricao da Oportunidade D', '2017-02-20 00:00:00', '2021-02-25 00:00:00', 0, 1),
+(5, 'Oportunidade E', 'Descricao da Oportunidade E', '2014-03-30 00:00:00', '2020-04-05 00:00:00', 0, 3);
