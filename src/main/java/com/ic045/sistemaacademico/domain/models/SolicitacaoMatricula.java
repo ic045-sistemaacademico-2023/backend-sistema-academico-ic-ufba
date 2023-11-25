@@ -7,26 +7,24 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter @Setter @AllArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
 @Table(name = "solicitacao_matricula")
+@Entity
 public class SolicitacaoMatricula {
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    List<SolicitacaoTurma> solicitacoesTurmas;
-
     @ManyToOne
-    @JoinColumn(name = "id_oportunidade_matricula")
-    private OpMatriculaDisciplinaTurma oportunidadeMatricula;
-
-    @ManyToOne
-    @JoinColumn(name = "id_aluno")
     private Aluno aluno;
+
+    @ManyToOne
+    private OportunidadeMatricula oportunidadeMatricula;
+
+    @OneToMany(mappedBy = "solicitacaoMatricula")
+    private List<SolicitacaoTurma> solicitacaoTurmas;
 
     @Enumerated(EnumType.STRING)
     private Role.Status status;
-
-    // getters and setters
 }
