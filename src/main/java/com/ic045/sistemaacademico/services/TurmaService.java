@@ -130,7 +130,7 @@ public class TurmaService {
 		return repository.findTurmasDisponiveisMatricula();
 	}
 
-    public List<Turma> findTurmasDisponiveisPorCursoId(Long cursoId) {
-        return repository.findTurmasDisponiveisPorCursoId(cursoId);
+    public List<Turma> findTurmasDisponiveisPorCoordenadorId(Long cursoId) {
+        return repository.findTurmasDisponiveisPorCoordenadorId(cursoId);
     }
 }

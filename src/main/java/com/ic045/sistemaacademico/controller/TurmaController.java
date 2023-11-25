@@ -83,9 +83,9 @@ public class TurmaController {
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/disponiveis/curso/{cursoId}")
-    public ResponseEntity<List<Turma>> findTurmasDisponiveisPorCursoId(@PathVariable Long cursoId) {
-        List<Turma> turmas = service.findTurmasDisponiveisPorCursoId(cursoId);
+    @GetMapping("/disponiveis/coordenador/{coordenadorId}")
+    public ResponseEntity<List<Turma>> findTurmasDisponiveisPorCursoId(@PathVariable Long coordenadorId) {
+        List<Turma> turmas = service.findTurmasDisponiveisPorCoordenadorId(coordenadorId);
         return turmas != null ? ResponseEntity.ok(turmas) : ResponseEntity.notFound().build();
     }
     

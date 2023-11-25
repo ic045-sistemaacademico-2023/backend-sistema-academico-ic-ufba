@@ -194,10 +194,11 @@ public class OportunidadeMatriculaController {
 	@PutMapping("/{id}")
 	public ResponseEntity<OportunidadeMatricula> editOportunidadeMatricula(@PathVariable Long id,
 			@RequestBody OportunidadeMatriculaRequest request) {
-		if (request.aberta())
-			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
-
 		OportunidadeMatricula opMat = service.findById(id);
+
+		if (request.aberta() && !opMat.getAberta()) {
+			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
+		}
 
 		List<OpMatriculaDisciplinaTurma> opMatDiscTurmas = opMatriculaDisciplinaTurmaService
 				.findByOportunidadeMatriculaId(id);
