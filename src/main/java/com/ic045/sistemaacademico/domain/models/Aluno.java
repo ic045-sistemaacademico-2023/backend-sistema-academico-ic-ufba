@@ -23,7 +23,7 @@ public class Aluno {
     @JoinColumn(name = "id_usuario", referencedColumnName = "id",unique = true)
     private Usuario usuario;
     @JsonIgnore
-    @OneToMany(mappedBy = "alunos")
+    @ManyToMany(mappedBy = "alunos")
     private Set<Turma> turmas;
     @NonNull
     @ManyToOne

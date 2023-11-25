@@ -2,13 +2,11 @@ package com.ic045.sistemaacademico.services;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertTurmaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
-import com.ic045.sistemaacademico.domain.models.Disciplina;
-import com.ic045.sistemaacademico.domain.models.Professor;
-import com.ic045.sistemaacademico.domain.models.Role;
-import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
+import com.ic045.sistemaacademico.repositories.AlunoRepository;
 import com.ic045.sistemaacademico.repositories.TurmaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
@@ -18,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +29,9 @@ public class TurmaService {
 
     @Autowired
     public ProfessorService professorService;
+
+    @Autowired
+    public AlunoRepository alunoRepository;
 
     public Turma findById(Long id) {
         return repository
@@ -132,5 +134,29 @@ public class TurmaService {
 
     public List<Turma> findTurmasDisponiveisPorCursoId(Long cursoId) {
         return repository.findTurmasDisponiveisPorCursoId(cursoId);
+    }
+
+    public AlunoTurma adicionarAlunoTurma(Long turmaId, Long alunoId) {
+        Optional<Turma> turmaOptional = repository.findById(turmaId);
+        Optional<Aluno> alunoOptional = alunoRepository.findById(alunoId);
+
+        if (turmaOptional.isPresent() && alunoOptional.isPresent()) {
+            Turma turma = turmaOptional.get();
+            Aluno aluno = alunoOptional.get();
+
+            if (turma.getAlunos().contains(aluno)) {
+                throw new BadRequestException("Aluno já está matriculado na turma.");
+            }
+
+            turma.getAlunos().add(aluno);
+            aluno.getTurmas().add(turma);
+
+            repository.save(turma);
+            alunoRepository.save(aluno);
+
+            return new AlunoTurma(aluno, turma);
+        } else {
+            throw new NotFoundException("Turma ou aluno não encontrado.");
+        }
     }
 }
