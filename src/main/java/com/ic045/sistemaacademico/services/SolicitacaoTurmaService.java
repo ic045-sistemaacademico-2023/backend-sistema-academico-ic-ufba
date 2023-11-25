@@ -17,6 +17,9 @@ public class SolicitacaoTurmaService {
     @Autowired
     private SolicitacaoTurmaRepository repository;
 
+    @Autowired
+    private TurmaService turmaService;
+
     public List<SolicitacaoTurma> getAllSolicitacoesTurma() {
         return repository.findAll();
     }
@@ -36,7 +39,7 @@ public class SolicitacaoTurmaService {
 
     public void aprovarSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
         solicitacaoTurma.setStatus(Role.Status.APPROVED);
-        // Adicionar Aluno na turma
+        turmaService.adicionarAlunoTurma(solicitacaoTurma.getTurma().getId(), solicitacaoTurma.getSolicitacaoMatricula().getAluno().getId());
         repository.save(solicitacaoTurma);
     }
 
