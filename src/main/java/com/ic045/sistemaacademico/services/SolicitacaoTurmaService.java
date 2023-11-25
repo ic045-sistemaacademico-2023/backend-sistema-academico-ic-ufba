@@ -52,4 +52,9 @@ public class SolicitacaoTurmaService {
     	}
     	return solicitacoes;
     }
+
+    public List<SolicitacaoTurma> getSolicitacaoTurmasByTurmaId(Long idTurma) {
+        // Implemente a lógica para recuperar as SolicitacaoTurma de uma Turma específica
+        return repository.findByTurmaId(idTurma);
+    }
 }

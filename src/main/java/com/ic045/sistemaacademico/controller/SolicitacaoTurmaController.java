@@ -54,4 +54,10 @@ public class SolicitacaoTurmaController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/turma/{idTurma}")
+    public ResponseEntity<List<SolicitacaoTurma>> getSolicitacaoTurmasByTurmaId(@PathVariable Long idTurma) {
+        List<SolicitacaoTurma> solicitacaoTurmas = service.getSolicitacaoTurmasByTurmaId(idTurma);
+        return ResponseEntity.ok(solicitacaoTurmas);
+    }
 }

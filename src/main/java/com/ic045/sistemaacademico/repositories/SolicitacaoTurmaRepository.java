@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface SolicitacaoTurmaRepository extends JpaRepository<SolicitacaoTurma, Long> {
     List<SolicitacaoTurma> findAllBySolicitacaoMatriculaId(Long solicitacaoMatriculaId);
+    List<SolicitacaoTurma> findByTurmaId(Long idTurma);
 }
