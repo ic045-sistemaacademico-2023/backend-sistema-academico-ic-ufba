@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ic045.sistemaacademico.domain.models.Role;
 import com.ic045.sistemaacademico.domain.models.SolicitacaoTurma;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.SolicitacaoTurmaRepository;
@@ -33,5 +34,14 @@ public class SolicitacaoTurmaService {
         repository.deleteById(id);
     }
 
-    // Adicione outros métodos de serviço conforme necessário
+    public void aprovarSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
+        solicitacaoTurma.setStatus(Role.Status.APPROVED);
+        // Adicionar Aluno na turma
+        repository.save(solicitacaoTurma);
+    }
+
+    public void recusarSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
+        solicitacaoTurma.setStatus(Role.Status.DENIED);
+        repository.save(solicitacaoTurma);
+    }
 }
