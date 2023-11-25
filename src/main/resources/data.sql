@@ -42,3 +42,8 @@ INSERT INTO oportunidade_matricula (id, nome, descricao, data_inicial, data_fina
 -- Inserts a row into opmatricula_disciplina_turma with oportunidade_matricula 1, disciplina 1, turma 1
 INSERT INTO opmatricula_disciplina_turma (id, id_oportunidade_matricula, id_disciplina, id_turma) VALUES (1, 1, 1,1);
 
+-- Create a matricula request for the student `aluno` for the opportunity `Oportunidade A`
+INSERT INTO solicitacao_matricula (id_aluno, id_oportunidade_matricula, status) VALUES (1, 1, 'WAITING_APPROVAL');
+
+-- Create a turma request for the student `aluno` for the turma `Turma 1`
+INSERT INTO solicitacao_turma (id_turma, id_aluno, id_solicitacao_matricula, status) VALUES (1, 1, 1, 'WAITING_APPROVAL');

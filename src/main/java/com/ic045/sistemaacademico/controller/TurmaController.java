@@ -113,6 +113,14 @@ public class TurmaController {
         return ResponseEntity.status(HttpStatus.OK).body(turma);
     }
 
+    @PostMapping("/{turmaId}/adicionar-aluno/{alunoId}")
+    public ResponseEntity<AlunoTurma> adicionarAlunoTurma(
+            @PathVariable Long turmaId,
+            @PathVariable Long alunoId) {
+
+        AlunoTurma alunoTurma = service.adicionarAlunoTurma(turmaId, alunoId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(alunoTurma);
+    }
 }
 
 

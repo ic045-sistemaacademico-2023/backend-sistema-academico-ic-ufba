@@ -136,6 +136,28 @@ CREATE TABLE `opmatricula_disciplina_turma`(
     KEY `id_op_turma_fk` (`id_turma`)
 );
 
+CREATE TABLE `solicitacao_matricula` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `id_aluno` INT NOT NULL,
+    `id_oportunidade_matricula` INT NOT NULL,
+    `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED') NOT NULL DEFAULT 'WAITING_APPROVAL',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`),
+    FOREIGN KEY (`id_oportunidade_matricula`) REFERENCES `oportunidade_matricula` (`id`)
+);
+
+CREATE TABLE `solicitacao_turma` (
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `id_turma` INT NOT NULL,
+    `id_aluno` INT NOT NULL,
+    `id_solicitacao_matricula` INT,
+    `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED') NOT NULL DEFAULT 'WAITING_APPROVAL',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`),
+    FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`),
+    FOREIGN KEY (`id_solicitacao_matricula`) REFERENCES `solicitacao_matricula` (`id`)
+);
+
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk0` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id`);
 
