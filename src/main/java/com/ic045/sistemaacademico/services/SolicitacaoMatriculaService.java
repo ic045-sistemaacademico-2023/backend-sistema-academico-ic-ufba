@@ -18,6 +18,8 @@ public class SolicitacaoMatriculaService {
     @Autowired
     private SolicitacaoMatriculaRepository repository;
 
+    @Autowired SolicitacaoTurmaService solicitacaoTurmaService;
+
     public List<SolicitacaoMatricula> getAllSolicitacoesMatricula() {
         return repository.findAll();
     }
@@ -36,8 +38,7 @@ public class SolicitacaoMatriculaService {
     }
 
     public String verificarStatusMatricula(Long id) {
-        SolicitacaoMatricula solicitacaoMatricula = getSolicitacaoMatriculaById(id);
-        List<SolicitacaoTurma> turmas = solicitacaoMatricula.getSolicitacaoTurmas();
+        List<SolicitacaoTurma> turmas = solicitacaoTurmaService.findBySolicitacaoMatriculaId(id);
 
         for (SolicitacaoTurma turma : turmas) {
             if (turma.getStatus() == Role.Status.WAITING_APPROVAL) {

@@ -1,11 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,12 +13,15 @@ public class SolicitacaoTurma {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "id_turma")
     private Turma turma;
 
     @ManyToOne
+    @JoinColumn(name = "id_aluno")
     private Aluno aluno;
 
     @ManyToOne
+    @JoinColumn(name = "id_solicitacao_matricula")
     private SolicitacaoMatricula solicitacaoMatricula;
 
     @Enumerated(EnumType.STRING)

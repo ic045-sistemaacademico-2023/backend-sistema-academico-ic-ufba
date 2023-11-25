@@ -17,14 +17,17 @@ public class SolicitacaoMatricula {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "id_aluno")
     private Aluno aluno;
 
     @ManyToOne
+    @JoinColumn(name = "id_oportunidade_matricula")
     private OportunidadeMatricula oportunidadeMatricula;
-
-    @OneToMany(mappedBy = "solicitacaoMatricula")
-    private List<SolicitacaoTurma> solicitacaoTurmas;
 
     @Enumerated(EnumType.STRING)
     private Role.Status status;
+
+    public SolicitacaoMatricula() {
+        this.status = Role.Status.WAITING_APPROVAL;
+    }
 }

@@ -44,4 +44,12 @@ public class SolicitacaoTurmaService {
         solicitacaoTurma.setStatus(Role.Status.DENIED);
         repository.save(solicitacaoTurma);
     }
+
+    public List<SolicitacaoTurma> findBySolicitacaoMatriculaId(Long solicitacaoMatriculaId){
+    	List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(solicitacaoMatriculaId);
+    	if(solicitacoes.isEmpty()) {
+    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", solicitacaoMatriculaId));
+    	}
+    	return solicitacoes;
+    }
 }
