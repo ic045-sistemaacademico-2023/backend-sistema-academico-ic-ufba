@@ -42,11 +42,11 @@ INSERT INTO disciplina (id_curso, nome, codigo, ementa, pre_requisitos, area, ob
 
 -- Populando a tabela turma
 INSERT INTO turma (id_disciplina, id_professor, dias, horario, sala, code, semestre) VALUES 
-(1, 3, 'SEG/QUA', '10:00-12:00/10:00-12:00', 'PAFI_103', 'T1', 1),
-(2, 3, 'TER/QUI', '14:00-16:00/14:00-16:00', 'PAFI_104', 'T2', 1),
-(3, 2, 'SEG/SEX', '18:00-20:00/18:00-20:00', 'PAFI_105', 'T3', 2),
-(4, 1, 'QUA/QUI', '08:00-10:00/09:00-11:00', 'PAFI_106', 'T4', 3),
-(5, 1, 'TER/QUI', '16:00-18:00/16:00-18:00', 'PAFI_107', 'T5', 4);
+(1, 3, 'SEG,QUA', '10:00-12:00/10:00-12:00', 'PAFI_103', 'T1', 1),
+(2, 3, 'TER,QUI', '14:00-16:00/14:00-16:00', 'PAFI_104', 'T2', 1),
+(3, 2, 'SEG,SEX', '18:00-20:00/18:00-20:00', 'PAFI_105', 'T3', 2),
+(4, 1, 'QUA,QUI', '08:00-10:00/09:00-11:00', 'PAFI_106', 'T4', 3),
+(5, 1, 'TER,QUI', '16:00-18:00/16:00-18:00', 'PAFI_107', 'T5', 4);
 
 -- Populando a tabela aluno
 INSERT INTO aluno (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES 
