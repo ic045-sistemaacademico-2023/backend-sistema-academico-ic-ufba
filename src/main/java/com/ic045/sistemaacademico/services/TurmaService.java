@@ -7,6 +7,7 @@ import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.AlunoRepository;
+import com.ic045.sistemaacademico.repositories.NotaRepository;
 import com.ic045.sistemaacademico.repositories.TurmaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +34,9 @@ public class TurmaService {
 
     @Autowired
     public AlunoRepository alunoRepository;
+
+    @Autowired
+    public NotaRepository notaRepository;
 
     public Turma findById(Long id) {
         return repository
