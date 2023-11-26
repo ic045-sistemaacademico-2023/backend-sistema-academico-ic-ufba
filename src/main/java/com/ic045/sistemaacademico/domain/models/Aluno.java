@@ -19,9 +19,13 @@ public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "id_solicitacao_matricula")
+    private SolicitacaoMatricula solicitacaoMatricula;
+
     @NonNull
     @OneToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id",unique = true)
+    @JoinColumn(name = "id_usuario", referencedColumnName = "id", unique = true)
     private Usuario usuario;
 
     @JsonIgnore
@@ -31,7 +35,6 @@ public class Aluno {
     @OneToMany(mappedBy = "aluno")
     private Set<Nota> notas;
 
-    @NonNull
     @ManyToOne
     @JoinColumn(name = "id_curso", referencedColumnName = "id")
     private Curso curso;

@@ -1,7 +1,9 @@
 package com.ic045.sistemaacademico.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.ic045.sistemaacademico.domain.models.Turma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,8 +31,31 @@ public class SolicitacaoTurmaService {
                 String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id)));
     }
 
+    public List<SolicitacaoTurma> getSolicitacaoTurmaBySolicitacaoMatriculaId(Long id) {
+        List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(id);
+        
+        if(solicitacoes.isEmpty()) {
+        	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id));
+        }
+        return solicitacoes;
+    }
+
+    public SolicitacaoTurma getSolicitacaoTurmaByTurmaIdAndAlunoId(Long turmaId, Long alunoId) {
+        SolicitacaoTurma solicitacaoTurma = repository.findByTurmaIdAndAlunoId(turmaId, alunoId);
+
+        if(solicitacaoTurma == null) {
+        	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", turmaId, alunoId));
+        }
+
+        return solicitacaoTurma;
+    }
+
     public SolicitacaoTurma saveSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
         return repository.save(solicitacaoTurma);
+    }
+
+    public void deleteAllTurmas(Long id) {
+        repository.deleteAllBySolicitacaoMatriculaId(id);
     }
 
     public void deleteSolicitacaoTurma(Long id) {
@@ -57,7 +82,14 @@ public class SolicitacaoTurmaService {
     }
 
     public List<SolicitacaoTurma> getSolicitacaoTurmasByTurmaId(Long idTurma) {
-        // Implemente a lógica para recuperar as SolicitacaoTurma de uma Turma específica
         return repository.findByTurmaId(idTurma);
+    }
+
+    public List<Turma> getTurmasByAlunoId(Long alunoId){
+    	List<SolicitacaoTurma> solicitacoes = repository.findAllByAlunoId(alunoId);
+    	if(solicitacoes.isEmpty()) {
+    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", alunoId));
+    	}
+    	return solicitacoes.stream().map(SolicitacaoTurma::getTurma).collect(Collectors.toList());
     }
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 @Table(name = "solicitacao_turma")
 public class SolicitacaoTurma {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -26,4 +27,15 @@ public class SolicitacaoTurma {
 
     @Enumerated(EnumType.STRING)
     private Role.Status status;
+
+    public SolicitacaoTurma( SolicitacaoMatricula solicitacaoMatricula, Turma turma, Aluno aluno ) {
+        this.solicitacaoMatricula = solicitacaoMatricula;
+        this.turma = turma;
+        this.aluno = aluno;
+        this.status = Role.Status.WAITING_APPROVAL;
+    }
+
+    public SolicitacaoTurma() {
+        
+    }
 }
