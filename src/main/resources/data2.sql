@@ -1,16 +1,16 @@
 -- Tabela usuario
 INSERT INTO usuario (cpf, senha, email, role, status, nome) VALUES 
-('07332976099', '123456', 'admin@gmail.com', 'ADMIN', 'APPROVED', 'Admin'),
-('16672579001', 'abcd', 'coordenador@gmail.com', 'COORDENADOR_DE_CURSO', 'APPROVED', 'Coordenador'),
-('47779839001', '123456', 'professor@gmail.com', 'PROFESSOR', 'APPROVED', 'Professor'),
-('76741828001', 'abcd', 'aluno@gmail.com', 'ALUNO', 'APPROVED', 'Aluno'),
-('12345678901', '1234', 'ic01@gmail.com', 'ALUNO', 'APPROVED', 'Usuario 1'),
-('23456789012', 'abcd', 'ic02@gmail.com', 'PROFESSOR', 'APPROVED', 'Usuario 2'),
-('34567890123', '123456', 'ic03@gmail.com', 'ADMIN', 'APPROVED', 'Usuario 3'),
-('45678901234', 'abcd', 'ic04@gmail.com', 'COORDENADOR_DE_CURSO', 'APPROVED', 'Usuario 4'),
-('45678945789', 'abcd', 'ic05@gmail.com', 'COORDENADOR_DE_CURSO', 'APPROVED', 'Usuario 5'),
-('56789012345', '123456', 'ic06@gmail.com', 'PROFESSOR', 'APPROVED', 'Usuario 6'),
-('12345678201', '1234', 'ic07@gmail.com', 'ALUNO', 'APPROVED', 'Usuario 7');
+('28847111048', '123456', 'admin@gmail.com', 'ADMIN', 'APPROVED', 'Admin'),
+('04789598004', 'abcd', 'coordenador@gmail.com', 'COORDENADOR_DE_CURSO', 'APPROVED', 'Coordenador'),
+('98487868053', '123456', 'professor@gmail.com', 'PROFESSOR', 'APPROVED', 'Professor'),
+('82687661074', 'abcd', 'aluno@gmail.com', 'ALUNO', 'APPROVED', 'Aluno'),
+('80557215056', '1234', 'ic01@gmail.com', 'ALUNO', 'APPROVED', 'Usuario 1'),
+('88592030072', 'abcd', 'ic02@gmail.com', 'PROFESSOR', 'APPROVED', 'Usuario 2'),
+('46546858045', '123456', 'ic03@gmail.com', 'ADMIN', 'APPROVED', 'Usuario 3'),
+('28578714067', 'abcd', 'ic04@gmail.com', 'COORDENADOR_DE_CURSO', 'APPROVED', 'Usuario 4'),
+('38933023011', 'abcd', 'ic05@gmail.com', 'COORDENADOR_DE_CURSO', 'APPROVED', 'Usuario 5'),
+('32283735092', '123456', 'ic06@gmail.com', 'PROFESSOR', 'APPROVED', 'Usuario 6'),
+('03352167060', '1234', 'ic07@gmail.com', 'ALUNO', 'APPROVED', 'Usuario 7');
 
 -- Tabela coordenadordecurso
 INSERT INTO coordenadordecurso (id_usuario, nome, email) VALUES 
