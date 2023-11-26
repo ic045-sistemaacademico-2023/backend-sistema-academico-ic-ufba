@@ -47,7 +47,7 @@ public class NotaController {
     public ResponseEntity<Nota> insertNota(@RequestBody InsertNotaRequest insertNotaRequest){
     	if(insertNotaRequest.nota() == null)
     		return ResponseEntity.badRequest().build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.insertNotaData(insertNotaRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.insertNotaEFaltas(insertNotaRequest));
     }
 
     @DeleteMapping("/{id}")

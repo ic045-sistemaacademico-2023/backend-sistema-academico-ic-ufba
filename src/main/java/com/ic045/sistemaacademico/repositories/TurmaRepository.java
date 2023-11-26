@@ -20,7 +20,7 @@ public interface TurmaRepository extends JpaRepository<Turma, Long> {
     List<Turma> findAll();
     List<Turma> findAllByDisciplinaId(Long disciplinaId);
     Optional<Turma> findFirstByOrderByIdDesc();
-    
+
     @Query("SELECT turma FROM Turma turma "
     		+ "INNER JOIN OpMatriculaDisciplinaTurma opMatDiscTur on turma.id = opMatDiscTur.turma.id "
     		+ "INNER JOIN OportunidadeMatricula opMat on opMatDiscTur.oportunidadeMatricula.id  = opMat.id "

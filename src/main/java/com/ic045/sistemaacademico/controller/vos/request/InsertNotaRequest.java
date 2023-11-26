@@ -3,7 +3,9 @@ package com.ic045.sistemaacademico.controller.vos.request;
 public record InsertNotaRequest(
         Long aluno,
         Long turma,
-        Double nota
+        Long disciplina,
+        Double nota,
+        Long faltas
 ) {
 
 
