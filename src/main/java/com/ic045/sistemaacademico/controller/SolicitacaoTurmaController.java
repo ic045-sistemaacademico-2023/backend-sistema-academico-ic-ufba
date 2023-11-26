@@ -28,6 +28,11 @@ public class SolicitacaoTurmaController {
         return service.getSolicitacaoTurmaById(id);
     }
 
+    @GetMapping("solicitacao-matricula/{id}")
+    public List<SolicitacaoTurma> getSolicitacaoTurmaBySolicitacaoMatriculaId(@PathVariable Long id) {
+        return service.getSolicitacaoTurmaBySolicitacaoMatriculaId(id);
+    }
+
     @PostMapping
     public SolicitacaoTurma saveSolicitacaoTurma(@RequestBody SolicitacaoTurma solicitacaoTurma) {
         return service.saveSolicitacaoTurma(solicitacaoTurma);
@@ -47,11 +52,27 @@ public class SolicitacaoTurmaController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/aprovar/turma/{turmaId}/aluno/{alunoId}")
+    public ResponseEntity<Void> aprovarSolicitacaoTurma(@PathVariable Long turmaId, @PathVariable Long alunoId) {
+        SolicitacaoTurma solicitacaoTurma = service.getSolicitacaoTurmaByTurmaIdAndAlunoId(turmaId, alunoId);
+        service.aprovarSolicitacaoTurma(solicitacaoTurma);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PutMapping("/recusar/{id}")
     public ResponseEntity<Void> recusarSolicitacaoTurma(@PathVariable Long id) {
         SolicitacaoTurma solicitacaoTurma = service.getSolicitacaoTurmaById(id);
 
         service.recusarSolicitacaoTurma(solicitacaoTurma);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/recusar/turma/{turmaId}/aluno/{alunoId}")
+    public ResponseEntity<Void> recusarSolicitacaoTurma(@PathVariable Long turmaId, @PathVariable Long alunoId) {
+        SolicitacaoTurma solicitacaoTurma = service.getSolicitacaoTurmaByTurmaIdAndAlunoId(turmaId, alunoId);
+        service.aprovarSolicitacaoTurma(solicitacaoTurma);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

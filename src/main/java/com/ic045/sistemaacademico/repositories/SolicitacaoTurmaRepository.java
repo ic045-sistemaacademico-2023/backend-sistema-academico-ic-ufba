@@ -13,4 +13,5 @@ public interface SolicitacaoTurmaRepository extends JpaRepository<SolicitacaoTur
     void deleteAllBySolicitacaoMatriculaId(Long id);
 
     List<SolicitacaoTurma> findAllByAlunoId(Long alunoId);
+    SolicitacaoTurma findByTurmaIdAndAlunoId(Long turmaId, Long alunoId);
 }

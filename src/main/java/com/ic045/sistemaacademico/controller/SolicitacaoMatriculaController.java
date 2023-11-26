@@ -32,6 +32,11 @@ public class SolicitacaoMatriculaController {
         return service.getSolicitacaoMatriculaById(id);
     }
 
+    @GetMapping("coordenador/{id}")
+    public List<SolicitacaoMatricula> getSolicitacaoMatriculaByCoordenadorId(@PathVariable Long id) {
+        return service.getSolicitacaoMatriculaByCoordenadorId(id);
+    }
+
     @PostMapping
     public SolicitacaoMatricula saveSolicitacaoMatricula(@RequestBody InsertSolicitacaoMatriculaRequest request) {
         return service.saveSolicitacaoMatricula(request);

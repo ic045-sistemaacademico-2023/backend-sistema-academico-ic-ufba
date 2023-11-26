@@ -31,6 +31,25 @@ public class SolicitacaoTurmaService {
                 String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id)));
     }
 
+    public List<SolicitacaoTurma> getSolicitacaoTurmaBySolicitacaoMatriculaId(Long id) {
+        List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(id);
+        
+        if(solicitacoes.isEmpty()) {
+        	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id));
+        }
+        return solicitacoes;
+    }
+
+    public SolicitacaoTurma getSolicitacaoTurmaByTurmaIdAndAlunoId(Long turmaId, Long alunoId) {
+        SolicitacaoTurma solicitacaoTurma = repository.findByTurmaIdAndAlunoId(turmaId, alunoId);
+
+        if(solicitacaoTurma == null) {
+        	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", turmaId, alunoId));
+        }
+
+        return solicitacaoTurma;
+    }
+
     public SolicitacaoTurma saveSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
         return repository.save(solicitacaoTurma);
     }

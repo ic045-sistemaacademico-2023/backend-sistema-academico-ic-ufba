@@ -12,6 +12,7 @@ import com.ic045.sistemaacademico.repositories.SolicitacaoMatriculaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SolicitacaoMatriculaService {
@@ -35,6 +36,12 @@ public class SolicitacaoMatriculaService {
     public SolicitacaoMatricula getSolicitacaoMatriculaById(Long id) {
         return repository.findById(id).orElseThrow(() -> new NotFoundException(
                 String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Matrícula", id)));
+    }
+
+    public List<SolicitacaoMatricula> getSolicitacaoMatriculaByCoordenadorId(Long id) {
+        return repository.findAll().stream()
+                .filter(solicitacaoMatricula -> Objects.equals(solicitacaoMatricula.getOportunidadeMatricula().getCoordenador().getId(), id))
+                .toList();
     }
 
     public SolicitacaoMatricula saveSolicitacaoMatricula(InsertSolicitacaoMatriculaRequest request) {
