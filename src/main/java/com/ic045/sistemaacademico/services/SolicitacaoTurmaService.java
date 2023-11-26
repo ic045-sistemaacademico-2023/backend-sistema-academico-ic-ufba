@@ -3,7 +3,9 @@ package com.ic045.sistemaacademico.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ic045.sistemaacademico.domain.models.SolicitacaoMatricula;
 import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.repositories.SolicitacaoMatriculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class SolicitacaoTurmaService {
     @Autowired
     private TurmaService turmaService;
 
+    @Autowired
+    private SolicitacaoMatriculaRepository solicitacaoMatriculaRepository;
+
     public List<SolicitacaoTurma> getAllSolicitacoesTurma() {
         return repository.findAll();
     }
@@ -33,7 +38,7 @@ public class SolicitacaoTurmaService {
 
     public List<SolicitacaoTurma> getSolicitacaoTurmaBySolicitacaoMatriculaId(Long id) {
         List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(id);
-        
+
         if(solicitacoes.isEmpty()) {
         	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id));
         }
@@ -65,6 +70,29 @@ public class SolicitacaoTurmaService {
     public void aprovarSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
         solicitacaoTurma.setStatus(Role.Status.APPROVED);
         turmaService.adicionarAlunoTurma(solicitacaoTurma.getTurma().getId(), solicitacaoTurma.getSolicitacaoMatricula().getAluno().getId());
+
+        SolicitacaoMatricula solicitacaoMatricula = solicitacaoTurma.getSolicitacaoMatricula();
+
+        int qndSolicitacoesAprovadas = (int) solicitacaoMatricula.getSolicitacoesTurma().stream()
+                .filter(solicitacao -> solicitacao.getStatus() == Role.Status.APPROVED)
+                .count();
+
+        int qndSolicitacoesRecusadas = (int) solicitacaoMatricula.getSolicitacoesTurma().stream()
+                .filter(solicitacao -> solicitacao.getStatus() == Role.Status.DENIED)
+                .count();
+
+        int qndSolicitacaoTurmas = solicitacaoMatricula.getSolicitacoesTurma().size();
+
+        if (qndSolicitacoesAprovadas == qndSolicitacaoTurmas) {
+            solicitacaoMatricula.setStatus(Role.Status.APPROVED);
+        } else if (qndSolicitacoesRecusadas == qndSolicitacaoTurmas) {
+            solicitacaoMatricula.setStatus(Role.Status.DENIED);
+        } else {
+            solicitacaoMatricula.setStatus(Role.Status.FINISHED);
+        }
+
+        solicitacaoMatriculaRepository.save(solicitacaoMatricula);
+
         repository.save(solicitacaoTurma);
     }
 

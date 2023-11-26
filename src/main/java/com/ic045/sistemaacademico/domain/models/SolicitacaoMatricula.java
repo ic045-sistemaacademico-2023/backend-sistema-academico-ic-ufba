@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,10 @@ public class SolicitacaoMatricula {
     @ManyToOne
     @JoinColumn(name = "id_oportunidade_matricula")
     private OportunidadeMatricula oportunidadeMatricula;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "solicitacaoMatricula")
+    private List<SolicitacaoTurma> solicitacoesTurma;
 
     @Enumerated(EnumType.STRING)
     private Role.Status status;

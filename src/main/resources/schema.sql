@@ -141,7 +141,7 @@ CREATE TABLE `solicitacao_matricula` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `id_aluno` INT NOT NULL UNIQUE,
     `id_oportunidade_matricula` INT NOT NULL,
-    `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED') NOT NULL DEFAULT 'WAITING_APPROVAL',
+    `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED', 'FINISHED') NOT NULL DEFAULT 'WAITING_APPROVAL',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`),
     FOREIGN KEY (`id_oportunidade_matricula`) REFERENCES `oportunidade_matricula` (`id`)
@@ -152,7 +152,7 @@ CREATE TABLE `solicitacao_turma` (
     `id_turma` INT NOT NULL,
     `id_aluno` INT NOT NULL,
     `id_solicitacao_matricula` INT,
-    `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED') NOT NULL DEFAULT 'WAITING_APPROVAL',
+    `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED', 'FINISHED') NOT NULL DEFAULT 'WAITING_APPROVAL',
     PRIMARY KEY (`id`),
     FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`),
     FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`),

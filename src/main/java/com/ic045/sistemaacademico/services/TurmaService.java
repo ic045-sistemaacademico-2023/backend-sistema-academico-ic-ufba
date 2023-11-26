@@ -149,8 +149,6 @@ public class TurmaService {
             Turma turma = turmaOptional.get();
             Aluno aluno = alunoOptional.get();
 
-            System.out.println(turma.getId().toString() + aluno.getId().toString());
-
             if (turma.getAlunos().contains(aluno)) {
                 throw new BadRequestException("Aluno já está matriculado na turma.");
             }

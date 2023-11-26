@@ -74,7 +74,8 @@ public class Role {
     public enum Status {
         WAITING_APPROVAL,
         APPROVED,
-        DENIED
+        DENIED,
+		FINISHED,
     }
     public enum Shift{
         MATUTINO,
