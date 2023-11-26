@@ -43,7 +43,7 @@ public class TurmaService {
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Turma", id)));
     }
-    
+
     public List<Turma> findAll(){
     	List<Turma> turmas = repository.findAll();
         if (turmas.isEmpty()) {
@@ -51,7 +51,7 @@ public class TurmaService {
         }
         return turmas;
     }
-    
+
     public List<Turma> findByDisciplinaId(Long disciplinaId){
     	List<Turma> turmas = repository.findAllByDisciplinaId(disciplinaId);
     	if (turmas.isEmpty()) {
@@ -59,7 +59,7 @@ public class TurmaService {
         }
         return turmas;
     }
-    
+
 
     public List<Turma> findForSemestreData(String nrsemestre) {
     	List<Turma> turmas = repository.findAllBySemestre(nrsemestre);
@@ -108,7 +108,7 @@ public class TurmaService {
 	    	Turma turmaToUpdate = findById(id);
 	        Disciplina disciplina = disciplinaService.findById(request.disciplina());
 	        Professor professor = professorService.findById(request.professor());
-	
+
 	        turmaToUpdate.setDisciplina(disciplina);
 	        turmaToUpdate.setProfessor(professor);
 	        turmaToUpdate.setDias(request.dias());
@@ -118,7 +118,7 @@ public class TurmaService {
 
             return repository.save(turmaToUpdate);
         } catch (Exception ex) {
-        	if(request.disciplina() == null) 
+        	if(request.disciplina() == null)
 				throw new NotCreatedException(
 						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", "null"));
 			if(request.professor() == null)
@@ -155,6 +155,12 @@ public class TurmaService {
 
             turma.getAlunos().add(aluno);
             aluno.getTurmas().add(turma);
+
+            Nota nota = new Nota();
+            nota.setAluno(aluno);
+            nota.setTurma(turma);
+            nota.setDisciplina(turma.getDisciplina());
+            notaRepository.save(nota);
 
             repository.save(turma);
             alunoRepository.save(aluno);
