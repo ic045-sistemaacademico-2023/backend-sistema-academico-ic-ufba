@@ -89,7 +89,7 @@ public class NotaService {
 
 	}
 
-    public Nota updateNotaeFalta(Long id, UpdateNotaRequest request) {
+    public Nota updateNotasEFaltas(Long id, UpdateNotaRequest request) {
         Nota notaToUpdate = findById(id);
         Aluno aluno = alunoService.findById(request.aluno());
         Turma turma = turmaService.findById(request.turma());

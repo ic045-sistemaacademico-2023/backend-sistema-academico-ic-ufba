@@ -64,9 +64,9 @@ public class NotaController {
         return ResponseEntity.status(HttpStatus.OK).body(nota);
     }
 
-    @PutMapping("/{id}/disciplina/notasefaltas")
-    public ResponseEntity<Nota> updateNotaeFaltas(@PathVariable Long id, @RequestBody UpdateNotaRequest request) {
-        Nota nota = service.updateNotaeFalta(id, request);
+    @PutMapping("/{id}/notas-e-faltas")
+    public ResponseEntity<Nota> updateNotasEFaltas(@PathVariable Long id, @RequestBody UpdateNotaRequest request) {
+        Nota nota = service.updateNotasEFaltas(id, request);
 
         return ResponseEntity.status(HttpStatus.OK).body(nota);
     }
