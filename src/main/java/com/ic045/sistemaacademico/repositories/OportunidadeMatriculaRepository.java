@@ -18,5 +18,7 @@ public interface OportunidadeMatriculaRepository extends JpaRepository<Oportunid
 	
 	@Query("SELECT COUNT (opmat.id) FROM OportunidadeMatricula opmat WHERE opmat.coordenador.id = :coordenadorId AND opmat.aberta = true")
 	int countAbertaByCoordenadorId(Long coordenadorId);
-    
+
+	@Query("SELECT opmat FROM OportunidadeMatricula opmat WHERE opmat.coordenador.id = :id AND opmat.aberta = true")
+	OportunidadeMatricula findByCoordenadorIdAndAberta(Long id);
 }

@@ -14,9 +14,10 @@ import java.util.List;
 @Entity
 public class SolicitacaoMatricula {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "id_aluno")
     private Aluno aluno;
 
@@ -27,7 +28,13 @@ public class SolicitacaoMatricula {
     @Enumerated(EnumType.STRING)
     private Role.Status status;
 
-    public SolicitacaoMatricula() {
+    public SolicitacaoMatricula( Aluno aluno, OportunidadeMatricula oportunidadeMatricula ) {
+        this.aluno = aluno;
+        this.oportunidadeMatricula = oportunidadeMatricula;
         this.status = Role.Status.WAITING_APPROVAL;
+    }
+
+    public SolicitacaoMatricula() {
+
     }
 }

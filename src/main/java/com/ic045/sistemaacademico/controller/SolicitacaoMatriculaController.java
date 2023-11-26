@@ -2,6 +2,10 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertSolicitacaoMatriculaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateSolicitacaoMatriculaRequest;
+import com.ic045.sistemaacademico.domain.models.Aluno;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +33,13 @@ public class SolicitacaoMatriculaController {
     }
 
     @PostMapping
-    public SolicitacaoMatricula saveSolicitacaoMatricula(@RequestBody SolicitacaoMatricula solicitacaoMatricula) {
-        return service.saveSolicitacaoMatricula(solicitacaoMatricula);
+    public SolicitacaoMatricula saveSolicitacaoMatricula(@RequestBody InsertSolicitacaoMatriculaRequest request) {
+        return service.saveSolicitacaoMatricula(request);
+    }
+
+    @PutMapping("/{id}")
+    public SolicitacaoMatricula updateSolicitacaoMatricula(@PathVariable Long id, @RequestBody UpdateSolicitacaoMatriculaRequest request) {
+        return service.updateSolicitacaoMatricula(id, request);
     }
 
     @DeleteMapping("/{id}")

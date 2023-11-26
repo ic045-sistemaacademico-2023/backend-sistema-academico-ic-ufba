@@ -1,7 +1,9 @@
 package com.ic045.sistemaacademico.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.ic045.sistemaacademico.domain.models.Turma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,10 @@ public class SolicitacaoTurmaService {
         return repository.save(solicitacaoTurma);
     }
 
+    public void deleteAllTurmas(Long id) {
+        repository.deleteAllBySolicitacaoMatriculaId(id);
+    }
+
     public void deleteSolicitacaoTurma(Long id) {
         repository.deleteById(id);
     }
@@ -57,7 +63,14 @@ public class SolicitacaoTurmaService {
     }
 
     public List<SolicitacaoTurma> getSolicitacaoTurmasByTurmaId(Long idTurma) {
-        // Implemente a lógica para recuperar as SolicitacaoTurma de uma Turma específica
         return repository.findByTurmaId(idTurma);
+    }
+
+    public List<Turma> getTurmasByAlunoId(Long alunoId){
+    	List<SolicitacaoTurma> solicitacoes = repository.findAllByAlunoId(alunoId);
+    	if(solicitacoes.isEmpty()) {
+    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", alunoId));
+    	}
+    	return solicitacoes.stream().map(SolicitacaoTurma::getTurma).collect(Collectors.toList());
     }
 }

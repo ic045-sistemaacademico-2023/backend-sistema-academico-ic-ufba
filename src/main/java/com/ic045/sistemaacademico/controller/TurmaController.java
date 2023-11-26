@@ -5,6 +5,7 @@ import com.ic045.sistemaacademico.controller.vos.request.UpdateTurmaRequest;
 import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.domain.models.Role.Sala;
 import com.ic045.sistemaacademico.services.AlunoService;
+import com.ic045.sistemaacademico.services.SolicitacaoTurmaService;
 import com.ic045.sistemaacademico.services.TurmaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,9 @@ public class TurmaController {
 
     @Autowired
     private AlunoService alunoService;
+
+    @Autowired
+    private SolicitacaoTurmaService solicitacaoTurmaService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Turma> findById(@PathVariable Long id) {
@@ -120,6 +124,13 @@ public class TurmaController {
 
         AlunoTurma alunoTurma = service.adicionarAlunoTurma(turmaId, alunoId);
         return ResponseEntity.status(HttpStatus.CREATED).body(alunoTurma);
+    }
+
+    @GetMapping("/comprovante-solicitacao-matricula/{alunoId}")
+    public ResponseEntity<List<Turma>> findTurmasByAlunoId(@PathVariable Long alunoId) {
+        List<Turma> turmas = solicitacaoTurmaService.getTurmasByAlunoId(alunoId);
+
+        return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }
 }
 

@@ -10,6 +10,7 @@ CREATE TABLE `aluno`
     `nome`       varchar(255) NOT NULL,
     `cr` DOUBLE NOT NULL DEFAULT 0,
     `periodo_ingresso`       varchar(255) NOT NULL,
+    `id_solicitacao_matricula` INT UNIQUE,
     PRIMARY KEY (`id`)
 );
 
@@ -138,7 +139,7 @@ CREATE TABLE `opmatricula_disciplina_turma`(
 
 CREATE TABLE `solicitacao_matricula` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `id_aluno` INT NOT NULL,
+    `id_aluno` INT NOT NULL UNIQUE,
     `id_oportunidade_matricula` INT NOT NULL,
     `status` ENUM('WAITING_APPROVAL', 'APPROVED', 'DENIED') NOT NULL DEFAULT 'WAITING_APPROVAL',
     PRIMARY KEY (`id`),
@@ -163,6 +164,9 @@ ALTER TABLE `aluno`
 
 ALTER TABLE `aluno`
     ADD CONSTRAINT `aluno_fk2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+
+ALTER TABLE `aluno`
+    ADD CONSTRAINT `aluno_fk3` FOREIGN KEY (`id_solicitacao_matricula`) REFERENCES `solicitacao_matricula` (`id`);
 
 ALTER TABLE `coordenadordecurso`
     ADD CONSTRAINT `coordenadordecurso_fk0` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
