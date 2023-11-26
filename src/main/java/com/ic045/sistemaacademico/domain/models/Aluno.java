@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -29,8 +30,13 @@ public class Aluno {
     private Usuario usuario;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "alunos")
-    private Set<Turma> turmas;
+    @ManyToMany
+    @JoinTable(
+            name = "aluno_turma",
+            joinColumns = @JoinColumn(name = "id_aluno"),
+            inverseJoinColumns = @JoinColumn(name = "id_turma")
+    )
+    private Set<Turma> turmas = new HashSet<>();
 
     @OneToMany(mappedBy = "aluno")
     private Set<Nota> notas;

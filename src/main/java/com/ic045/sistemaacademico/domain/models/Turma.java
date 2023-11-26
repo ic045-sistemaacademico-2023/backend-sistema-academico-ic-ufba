@@ -3,6 +3,7 @@ package com.ic045.sistemaacademico.domain.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,31 +16,34 @@ public class Turma {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NonNull
     private String code;
+
     @NonNull
     @ManyToOne
     @JoinColumn(name = "id_disciplina", referencedColumnName = "id")
     private Disciplina disciplina;
+
     @NonNull
     @ManyToOne
     @JoinColumn(name = "id_professor", referencedColumnName = "id")
     private Professor professor;
 
-    @ManyToMany
-    @JoinTable(
-        name = "aluno_turma",
-        joinColumns = @JoinColumn(name = "id_aluno"),
-        inverseJoinColumns = @JoinColumn(name = "id_turma"))
-    private Set<Aluno> alunos;
+    @ManyToMany(mappedBy = "turmas")
+    private Set<Aluno> alunos = new HashSet<>();
+
     @NonNull
     private String dias;
+
     @NonNull
     private String horario;
+
     @NonNull
     @Enumerated(EnumType.STRING)
     @Column(name = "sala")
     private Role.Sala sala;
+
     @NonNull
     private String semestre;
 

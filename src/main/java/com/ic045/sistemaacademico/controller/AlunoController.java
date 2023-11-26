@@ -50,7 +50,8 @@ public class AlunoController {
         if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
-        Aluno aluno = new Aluno(user,curso, InsertAluno.nome());
+        Aluno aluno = new Aluno(user, InsertAluno.nome());
+        aluno.setCurso(curso);
         aluno.setCr(0);
         aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
