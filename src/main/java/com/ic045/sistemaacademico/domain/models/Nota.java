@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.domain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,10 +26,12 @@ public class Nota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_aluno",referencedColumnName = "id")
     private Aluno aluno;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_turma",referencedColumnName = "id")
     private Turma turma;

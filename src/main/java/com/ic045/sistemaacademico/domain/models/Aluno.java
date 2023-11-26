@@ -32,7 +32,9 @@ public class Aluno {
     @ManyToMany(mappedBy = "alunos")
     private Set<Turma> turmas;
 
-    @NonNull
+    @OneToMany(mappedBy = "aluno")
+    private Set<Nota> notas;
+
     @ManyToOne
     @JoinColumn(name = "id_curso", referencedColumnName = "id")
     private Curso curso;

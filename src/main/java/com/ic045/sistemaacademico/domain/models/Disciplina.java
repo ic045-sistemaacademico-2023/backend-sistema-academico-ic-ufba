@@ -61,8 +61,4 @@ public class Disciplina {
 	@JsonIgnore
 	private List<Nota> notas = new ArrayList<>();
 
-//	private Integer faltas;
-//
-//	private Nota nota;
-
 }
