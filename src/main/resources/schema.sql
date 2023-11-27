@@ -122,8 +122,7 @@ CREATE TABLE `oportunidade_matricula`
     `data_final`    	TIMESTAMP    	NOT NULL,
     `aberta`        	TINYINT      	NOT NULL  DEFAULT  0,
     `id_coordenador` 	INT				NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `id_coordenador_fk` (`id_coordenador`)
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `opmatricula_disciplina_turma`(
@@ -131,10 +130,7 @@ CREATE TABLE `opmatricula_disciplina_turma`(
     `id_oportunidade_matricula`     INT NOT NULL,
     `id_disciplina`                 INT NOT NULL,
     `id_turma`                      INT NOT NULL,
-    PRIMARY KEY (`id`),
-    KEY `id_oportunidade_matricula_fk` (`id_oportunidade_matricula`),
-    KEY `id_disciplina_fk` (`id_disciplina`),
-    KEY `id_op_turma_fk` (`id_turma`)
+    PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `solicitacao_matricula` (
@@ -203,6 +199,15 @@ ALTER TABLE `aluno_turma`
 
 ALTER TABLE `aluno_turma`
     ADD CONSTRAINT `id_turma_fk` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
-    
+
 ALTER TABLE `oportunidade_matricula`
     ADD CONSTRAINT `id_coordenador_fk` FOREIGN KEY (`id_coordenador`) REFERENCES `coordenadordecurso` (`id`);
+
+ALTER TABLE `opmatricula_disciplina_turma`
+    ADD CONSTRAINT `id_oportunidade_matricula_fk` FOREIGN KEY (`id_oportunidade_matricula`)  REFERENCES `coordenadordecurso` (`id`);
+
+ALTER TABLE `opmatricula_disciplina_turma`
+    ADD CONSTRAINT `id_disciplina_fk` FOREIGN KEY (`id_disciplina`)  REFERENCES `coordenadordecurso` (`id`);
+
+ALTER TABLE `opmatricula_disciplina_turma`
+    ADD CONSTRAINT `id_op_turma_fk` FOREIGN KEY (`id_turma`) REFERENCES `coordenadordecurso` (`id`);
