@@ -43,18 +43,6 @@ public class AlunoController {
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/{id}/notas")
-    public ResponseEntity<Set<AlunoTurma>> findNotas(@PathVariable Long id) {
-        Aluno aluno = service.findById(id);
-        Set<Turma> turmas = aluno.getTurmas();
-        Set<AlunoTurma> alunoTurmas = new HashSet<>();
-        for (Turma turma : turmas) {
-            Nota nota = notaService.findByAlunoAndTurma(aluno, turma);
-            alunoTurmas.add(new AlunoTurma(aluno, turma, nota.getNota(), nota.getFaltas()));
-        }
-        return ResponseEntity.ok(alunoTurmas);
-    }
-
     @PostMapping("/")
     public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
         Usuario user = new Usuario();
