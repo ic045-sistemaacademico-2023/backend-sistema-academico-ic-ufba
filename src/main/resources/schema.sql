@@ -204,10 +204,10 @@ ALTER TABLE `oportunidade_matricula`
     ADD CONSTRAINT `id_coordenador_fk` FOREIGN KEY (`id_coordenador`) REFERENCES `coordenadordecurso` (`id`);
 
 ALTER TABLE `opmatricula_disciplina_turma`
-    ADD CONSTRAINT `id_oportunidade_matricula_fk` FOREIGN KEY (`id_oportunidade_matricula`)  REFERENCES `coordenadordecurso` (`id`);
+    ADD CONSTRAINT `id_oportunidade_matricula_fk` FOREIGN KEY (`id_oportunidade_matricula`)  REFERENCES `oportunidade_matricula` (`id`);
 
 ALTER TABLE `opmatricula_disciplina_turma`
-    ADD CONSTRAINT `id_disciplina_fk` FOREIGN KEY (`id_disciplina`)  REFERENCES `coordenadordecurso` (`id`);
+    ADD CONSTRAINT `id_disciplina_fk` FOREIGN KEY (`id_disciplina`)  REFERENCES `disciplina` (`id`);
 
 ALTER TABLE `opmatricula_disciplina_turma`
-    ADD CONSTRAINT `id_op_turma_fk` FOREIGN KEY (`id_turma`) REFERENCES `coordenadordecurso` (`id`);
+    ADD CONSTRAINT `id_op_turma_fk` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`id`);
