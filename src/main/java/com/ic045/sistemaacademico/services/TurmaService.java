@@ -170,4 +170,8 @@ public class TurmaService {
             throw new NotFoundException("Turma ou aluno não encontrado.");
         }
     }
+
+	public List<Turma> findAllByCursoId(Long id) {
+		return repository.findAllByCursoId(id);
+	}
 }
