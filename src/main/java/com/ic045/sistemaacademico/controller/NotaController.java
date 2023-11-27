@@ -19,6 +19,8 @@ import com.ic045.sistemaacademico.controller.vos.request.InsertNotaRequest;
 import com.ic045.sistemaacademico.domain.models.Nota;
 import com.ic045.sistemaacademico.services.NotaService;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/nota")
@@ -41,6 +43,11 @@ public class NotaController {
         Nota nota = service.findById(id);
         Aluno aluno = nota.getAluno();
         return aluno != null ? ResponseEntity.ok(aluno): ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/aluno/{id}")
+    public List<Nota> findByAlunoId(@PathVariable Long id){
+    	return service.findByAlunoId(id);
     }
 
     @PostMapping("/")

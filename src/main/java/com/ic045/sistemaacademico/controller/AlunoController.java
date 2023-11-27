@@ -4,6 +4,7 @@ import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
 import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
+import com.ic045.sistemaacademico.services.NotaService;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 
@@ -23,6 +24,9 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
 
+    @Autowired
+    private NotaService notaService;
+
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> findById(@PathVariable Long id) {
         Aluno aluno = service.findByUsuarioId(id);
@@ -30,8 +34,6 @@ public class AlunoController {
         return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
     }
 
-
-    /*Qual é a função desse metodo*/
     @GetMapping("/{id}/disciplinas/ativas")
     public ResponseEntity<Set<Disciplina>> findDisciplinas(@PathVariable Long id) {
         Aluno aluno = service.findById(id);
@@ -41,7 +43,17 @@ public class AlunoController {
         return disciplinas != null ? ResponseEntity.ok(disciplinas) : ResponseEntity.notFound().build();
     }
 
-
+    @GetMapping("/{id}/notas")
+    public ResponseEntity<Set<AlunoTurma>> findNotas(@PathVariable Long id) {
+        Aluno aluno = service.findById(id);
+        Set<Turma> turmas = aluno.getTurmas();
+        Set<AlunoTurma> alunoTurmas = new HashSet<>();
+        for (Turma turma : turmas) {
+            Nota nota = notaService.findByAlunoAndTurma(aluno, turma);
+            alunoTurmas.add(new AlunoTurma(aluno, turma, nota.getNota(), nota.getFaltas()));
+        }
+        return ResponseEntity.ok(alunoTurmas);
+    }
 
     @PostMapping("/")
     public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
