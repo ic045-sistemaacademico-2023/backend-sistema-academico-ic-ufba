@@ -87,7 +87,7 @@ public class SolicitacaoTurmaService {
             solicitacaoMatricula.setStatus(Role.Status.APPROVED);
         } else if (qndSolicitacoesRecusadas == qndSolicitacaoTurmas) {
             solicitacaoMatricula.setStatus(Role.Status.DENIED);
-        } else {
+        } else if (qndSolicitacoesRecusadas + qndSolicitacoesAprovadas == qndSolicitacaoTurmas) {
             solicitacaoMatricula.setStatus(Role.Status.FINISHED);
         }
 

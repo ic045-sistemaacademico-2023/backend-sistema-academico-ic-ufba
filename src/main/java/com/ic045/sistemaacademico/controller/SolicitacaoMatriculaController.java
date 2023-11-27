@@ -32,9 +32,14 @@ public class SolicitacaoMatriculaController {
         return service.getSolicitacaoMatriculaById(id);
     }
 
-    @GetMapping("coordenador/{id}")
+    @GetMapping("/coordenador/{id}")
     public List<SolicitacaoMatricula> getSolicitacaoMatriculaByCoordenadorId(@PathVariable Long id) {
         return service.getSolicitacaoMatriculaByCoordenadorId(id);
+    }
+
+    @GetMapping("/aluno/{id}")
+    public SolicitacaoMatricula getSolicitacaoMatriculaByAlunoId(@PathVariable Long id) {
+        return service.getSolicitacaoMatriculaByAlunoId(id);
     }
 
     @PostMapping

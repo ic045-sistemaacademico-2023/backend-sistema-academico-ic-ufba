@@ -72,7 +72,7 @@ public class SolicitacaoTurmaController {
     @PutMapping("/recusar/turma/{turmaId}/aluno/{alunoId}")
     public ResponseEntity<Void> recusarSolicitacaoTurma(@PathVariable Long turmaId, @PathVariable Long alunoId) {
         SolicitacaoTurma solicitacaoTurma = service.getSolicitacaoTurmaByTurmaIdAndAlunoId(turmaId, alunoId);
-        service.aprovarSolicitacaoTurma(solicitacaoTurma);
+        service.recusarSolicitacaoTurma(solicitacaoTurma);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
