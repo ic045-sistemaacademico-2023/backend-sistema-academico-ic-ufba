@@ -127,8 +127,8 @@ public class TurmaController {
     }
 
     @GetMapping("/comprovante-solicitacao-matricula/{alunoId}")
-    public ResponseEntity<List<Turma>> findTurmasByAlunoId(@PathVariable Long alunoId) {
-        List<Turma> turmas = solicitacaoTurmaService.getTurmasByAlunoId(alunoId);
+    public ResponseEntity<List<SolicitacaoTurma>> findTurmasByAlunoId(@PathVariable Long alunoId) {
+        List<SolicitacaoTurma> turmas = solicitacaoTurmaService.getTurmasByAlunoId(alunoId);
 
         return turmas != null ? ResponseEntity.ok(turmas): ResponseEntity.notFound().build();
     }

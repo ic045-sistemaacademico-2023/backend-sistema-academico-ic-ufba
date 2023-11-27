@@ -1,5 +1,6 @@
 package com.ic045.sistemaacademico.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,11 +114,11 @@ public class SolicitacaoTurmaService {
         return repository.findByTurmaId(idTurma);
     }
 
-    public List<Turma> getTurmasByAlunoId(Long alunoId){
+    public List<SolicitacaoTurma> getTurmasByAlunoId(Long alunoId){
     	List<SolicitacaoTurma> solicitacoes = repository.findAllByAlunoId(alunoId);
     	if(solicitacoes.isEmpty()) {
     		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", alunoId));
     	}
-    	return solicitacoes.stream().map(SolicitacaoTurma::getTurma).collect(Collectors.toList());
+    	return new ArrayList<>(solicitacoes);
     }
 }
