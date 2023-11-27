@@ -34,6 +34,13 @@ public class CursoController {
 
 		return curso != null ? ResponseEntity.ok(curso) : ResponseEntity.notFound().build();
 	}
+	
+	@GetMapping("/bycoordenador/{id}")
+	public ResponseEntity<Curso> findByCoordenadorId(@PathVariable Long id) {
+		Curso curso = service.findByCoordenadorId(id);
+		return curso != null ? ResponseEntity.ok(curso) : ResponseEntity.notFound().build();
+	}
+
 
 	@PostMapping("/")
 	public ResponseEntity<?> InsertCurso(@RequestBody InsertCursoRequest ICS) {

@@ -39,6 +39,10 @@ public class CursoService {
 		return repository.findById(id).orElseThrow(
 				() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Curso", id)));
 	}
+	
+	public Curso findByCoordenadorId(Long id) {
+		return repository.findByCoordenadorDeCursoId(id);
+	}
 
 	public void deleteCurso(Long id) {
 		Curso curso = findById(id);
