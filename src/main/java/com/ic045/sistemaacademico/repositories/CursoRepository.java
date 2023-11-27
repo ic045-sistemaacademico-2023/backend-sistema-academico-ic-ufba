@@ -7,7 +7,5 @@ import com.ic045.sistemaacademico.domain.models.Curso;
 
 @Repository
 public interface CursoRepository extends JpaRepository<Curso, Long> {
-
-	Curso findByCoordenadorDeCursoId(Long id);
     
 }
