@@ -47,6 +47,10 @@ public class SolicitacaoMatriculaService {
     public SolicitacaoMatricula getSolicitacaoMatriculaByAlunoId(Long id) {
         return repository.findByAlunoId(id);
     }
+    
+    public SolicitacaoMatricula getSolicitacaoMatriculaByAlunoIdAndOportunidadeId(Long alunoId, Long oportunidadeId) {
+        return repository.findByAlunoIdAndOportunidadeMatriculaId(alunoId, oportunidadeId);
+    }
 
     public SolicitacaoMatricula saveSolicitacaoMatricula(InsertSolicitacaoMatriculaRequest request) {
         Aluno aluno = alunoService.findById(request.aluno());
