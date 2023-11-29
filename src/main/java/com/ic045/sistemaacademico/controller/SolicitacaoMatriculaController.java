@@ -92,10 +92,14 @@ public class SolicitacaoMatriculaController {
 	@PostMapping("/matricular/{alunoId}/{oportunidadeId}/{turmaId}")
 	public ResponseEntity<SolicitacaoMatricula> matricularAluno(@PathVariable Long alunoId, @PathVariable Long oportunidadeId,
 			@PathVariable Long turmaId) {
+		OportunidadeMatricula oportunidadeMatricula =  oportunidadeMatriculaService.findById(oportunidadeId);
+		if(!oportunidadeMatricula.getAberta()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		
 		SolicitacaoMatricula solicitacaoMatricula = service.getSolicitacaoMatriculaByAlunoIdAndOportunidadeId(alunoId, oportunidadeId);
 		Aluno aluno = alunoService.findById(alunoId);
 		Turma turma = turmaService.findById(turmaId);
-		OportunidadeMatricula oportunidadeMatricula =  oportunidadeMatriculaService.findById(oportunidadeId);
 		InsertSolicitacaoMatriculaRequest insertRequest = new InsertSolicitacaoMatriculaRequest(alunoId, new Long[]{turmaId});
 		SolicitacaoTurma solicitacaoTurma;
 		
