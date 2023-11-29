@@ -93,6 +93,7 @@ public class SolicitacaoMatriculaController {
 	public ResponseEntity<SolicitacaoMatricula> matricularAluno(@PathVariable Long alunoId, @PathVariable Long oportunidadeId,
 			@PathVariable Long turmaId) {
 		OportunidadeMatricula oportunidadeMatricula =  oportunidadeMatriculaService.findById(oportunidadeId);
+		
 		if(!oportunidadeMatricula.getAberta()) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
@@ -101,10 +102,11 @@ public class SolicitacaoMatriculaController {
 		Aluno aluno = alunoService.findById(alunoId);
 		Turma turma = turmaService.findById(turmaId);
 		InsertSolicitacaoMatriculaRequest insertRequest = new InsertSolicitacaoMatriculaRequest(alunoId, new Long[]{turmaId});
-		SolicitacaoTurma solicitacaoTurma;
 		
-		if(solicitacaoMatricula == null) {
+		if(solicitacaoMatricula == null) {//Cria solicitação de matrícula e de turma e a aprova 
 			solicitacaoMatricula = service.saveSolicitacaoMatricula(insertRequest);
+			solicitacaoTurmaService.aprovarSolicitacaoTurma(solicitacaoMatricula.getSolicitacoesTurma()
+					.get(solicitacaoMatricula.getSolicitacoesTurma().size() - 1));
 		}else {
 			try { //se já existe uma solicitação do aluno para turma pendente, aprova imediatamente
 				List<SolicitacaoTurma> solicitacoesTurma = solicitacaoTurmaService.findBySolicitacaoMatriculaId(solicitacaoMatricula.getId());
@@ -115,15 +117,17 @@ public class SolicitacaoMatriculaController {
 						return ResponseEntity.status(HttpStatus.OK).body(solicitacaoMatricula);
 					}
 				}
+				//se não existe, insere nova solicitação de turma na solicitação de matricula e a parova
+				SolicitacaoTurma novaSolicitacaoTurma = new SolicitacaoTurma(solicitacaoMatricula,turma,aluno);
+				novaSolicitacaoTurma = solicitacaoTurmaService.saveSolicitacaoTurma(novaSolicitacaoTurma);
+				solicitacoesTurma.add(novaSolicitacaoTurma);
+				solicitacaoMatricula.setSolicitacoesTurma(solicitacoesTurma);
+				solicitacaoTurmaService.aprovarSolicitacaoTurma(solicitacaoMatricula.getSolicitacoesTurma()
+						.get(solicitacaoMatricula.getSolicitacoesTurma().size() - 1));
 			}catch(NotFoundException e) {
 			}
 		}
-		//Cria solicitação de turma e a aprova 
-		solicitacaoTurma = new SolicitacaoTurma(solicitacaoMatricula,turma,aluno);
-		solicitacaoTurma = solicitacaoTurmaService.saveSolicitacaoTurma(solicitacaoTurma);
-		solicitacaoTurmaService.aprovarSolicitacaoTurma(solicitacaoTurma);
 		
-		solicitacaoMatricula = service.getSolicitacaoMatriculaById(solicitacaoMatricula.getId());
 		return ResponseEntity.status(HttpStatus.OK).body(solicitacaoMatricula);
 	}
 }

@@ -1,18 +1,26 @@
 package com.ic045.sistemaacademico.services;
 
-import com.ic045.sistemaacademico.controller.vos.request.InsertSolicitacaoMatriculaRequest;
-import com.ic045.sistemaacademico.controller.vos.request.UpdateSolicitacaoMatriculaRequest;
-import com.ic045.sistemaacademico.domain.models.*;
-import jakarta.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertSolicitacaoMatriculaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateSolicitacaoMatriculaRequest;
+import com.ic045.sistemaacademico.domain.models.Aluno;
+import com.ic045.sistemaacademico.domain.models.CoordenadorDeCurso;
+import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
+import com.ic045.sistemaacademico.domain.models.Role;
+import com.ic045.sistemaacademico.domain.models.SolicitacaoMatricula;
+import com.ic045.sistemaacademico.domain.models.SolicitacaoTurma;
+import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.SolicitacaoMatriculaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
-import java.util.List;
-import java.util.Objects;
+import jakarta.transaction.Transactional;
 
 @Service
 public class SolicitacaoMatriculaService {
@@ -60,14 +68,17 @@ public class SolicitacaoMatriculaService {
         SolicitacaoMatricula solicitacaoMatricula = new SolicitacaoMatricula(aluno, oportunidadeMatricula);
         SolicitacaoMatricula response = repository.save(solicitacaoMatricula);
 
+        List<SolicitacaoTurma> solicitacoesTurmas = new ArrayList<SolicitacaoTurma>();
         for (Long idTurma : request.turmas()) {
             Turma turma = new Turma();
             turma.setId(idTurma);
 
             SolicitacaoTurma solicitacaoTurma = new SolicitacaoTurma(solicitacaoMatricula, turma, aluno);
-            solicitacaoTurmaService.saveSolicitacaoTurma(solicitacaoTurma);
+            solicitacaoTurma = solicitacaoTurmaService.saveSolicitacaoTurma(solicitacaoTurma);
+            solicitacoesTurmas.add(solicitacaoTurma);
         }
-
+        
+        response.setSolicitacoesTurma(solicitacoesTurmas);
         return response;
     }
 
@@ -102,4 +113,8 @@ public class SolicitacaoMatriculaService {
 
         return "FINALIZADA";
     }
+
+	public SolicitacaoMatricula saveSolicitacaoMatricula(SolicitacaoMatricula solicitacaoMatricula) {
+		return repository.save(solicitacaoMatricula);
+	}
 }
