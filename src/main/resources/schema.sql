@@ -10,6 +10,7 @@ CREATE TABLE `aluno`
     `nome`       varchar(255) NOT NULL,
     `cr` DOUBLE NOT NULL DEFAULT 0,
     `periodo_ingresso`       varchar(255) NOT NULL,
+    `numero_matricula`         varchar(11) NOT NULL UNIQUE,
     `id_solicitacao_matricula` INT UNIQUE,
     PRIMARY KEY (`id`)
 );

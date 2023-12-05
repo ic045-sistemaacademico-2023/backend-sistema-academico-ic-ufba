@@ -5,6 +5,7 @@ import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
 import com.ic045.sistemaacademico.services.NotaService;
+import com.ic045.sistemaacademico.services.UsuarioService;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 
@@ -23,6 +24,9 @@ import java.util.Set;
 public class AlunoController {
     @Autowired
     private AlunoService service;
+    
+    @Autowired
+    private UsuarioService user_service;
 
     @Autowired
     private NotaService notaService;
@@ -48,12 +52,13 @@ public class AlunoController {
         Usuario user = new Usuario();
         Curso curso = new Curso();
         if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
-        user.setId(InsertAluno.usuario());
+        user = user_service.findById(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user, InsertAluno.nome());
         aluno.setCurso(curso);
         aluno.setCr(0);
         aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
+        aluno.setNumero_matricula(service.registrationNumber(user.getCpf(), LocalDateTime.now()));
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
     }
 

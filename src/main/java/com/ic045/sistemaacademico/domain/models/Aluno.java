@@ -54,4 +54,7 @@ public class Aluno {
 
     @Column(name = "periodo_ingresso")
     private String periodo_ingresso;
+    
+    @Column(name = "numero_matricula")
+    private String numero_matricula;
 }
