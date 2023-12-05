@@ -3,6 +3,9 @@ package com.ic045.sistemaacademico.services;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
@@ -57,4 +60,8 @@ public class AlunoService {
             repository.delete(aluno);
         }
     }
+
+	public List<Aluno> findByCursoId(Long cursoId) {
+		return repository.findByCursoId(cursoId);
+	}
 }
