@@ -1,9 +1,6 @@
 package com.ic045.sistemaacademico.services;
 
 import java.util.List;
-import java.util.NoSuchElementException;
-
-import com.ic045.sistemaacademico.domain.models.Usuario;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +18,8 @@ public class ProfessorService {
     public Professor findById(Long id) {
         return repository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", id)));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Professor", id)));
     }
 
     public Professor findByUserId(Long id) {
@@ -43,8 +41,8 @@ public class ProfessorService {
         return repository.findAllTurmasByProfessorId(professor.getId());
     }
 
-    public Professor insertProfessor (Professor professor) {
-    	return repository.save(professor);
+    public Professor insertProfessor(Professor professor) {
+        return repository.save(professor);
     }
 
     public void deleteByUserId(Long id) {

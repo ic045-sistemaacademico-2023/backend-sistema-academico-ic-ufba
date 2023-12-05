@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertSolicitacaoMatriculaRequest;
 import com.ic045.sistemaacademico.controller.vos.request.UpdateSolicitacaoMatriculaRequest;
-import com.ic045.sistemaacademico.domain.models.Aluno;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ic045.sistemaacademico.domain.models.SolicitacaoMatricula;
 import com.ic045.sistemaacademico.services.SolicitacaoMatriculaService;
-
 
 @RestController
 @RequestMapping("/solicitacao-matricula")
@@ -48,7 +45,8 @@ public class SolicitacaoMatriculaController {
     }
 
     @PutMapping("/{id}")
-    public SolicitacaoMatricula updateSolicitacaoMatricula(@PathVariable Long id, @RequestBody UpdateSolicitacaoMatriculaRequest request) {
+    public SolicitacaoMatricula updateSolicitacaoMatricula(@PathVariable Long id,
+            @RequestBody UpdateSolicitacaoMatriculaRequest request) {
         return service.updateSolicitacaoMatricula(id, request);
     }
 

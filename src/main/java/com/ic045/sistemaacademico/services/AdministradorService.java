@@ -1,7 +1,5 @@
 package com.ic045.sistemaacademico.services;
 
-import java.util.NoSuchElementException;
-
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +16,12 @@ public class AdministradorService {
     public Administrador findById(Long id) {
         return repository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Administrador", id)));
+                .orElseThrow(() -> new NotFoundException(
+                        String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Administrador", id)));
     }
 
     public Administrador insertAdmin(Administrador admin) {
-    	return repository.save(admin);
+        return repository.save(admin);
     }
 
     public void deleteByUserId(Long id) {
