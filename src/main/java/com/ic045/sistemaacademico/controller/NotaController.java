@@ -1,8 +1,8 @@
 package com.ic045.sistemaacademico.controller;
 
-import com.ic045.sistemaacademico.controller.vos.request.UpdateNotaRequest;
-import com.ic045.sistemaacademico.domain.models.Aluno;
-import com.ic045.sistemaacademico.services.AlunoService;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ic045.sistemaacademico.controller.vos.request.InsertNotaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateNotaRequest;
+import com.ic045.sistemaacademico.domain.models.Aluno;
 import com.ic045.sistemaacademico.domain.models.Nota;
+import com.ic045.sistemaacademico.domain.models.Turma;
+import com.ic045.sistemaacademico.services.AlunoService;
 import com.ic045.sistemaacademico.services.NotaService;
-
-import java.util.List;
+import com.ic045.sistemaacademico.services.TurmaService;
 
 
 @RestController
@@ -30,6 +33,9 @@ public class NotaController {
 
     @Autowired
     private AlunoService alunoService;
+    
+    @Autowired
+    private TurmaService turmaService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Nota> findById(@PathVariable Long id) {
@@ -77,5 +83,39 @@ public class NotaController {
 
         return ResponseEntity.status(HttpStatus.OK).body(nota);
     }
+    
+    /*
+     * Envio de e-mail de notas
+     */
+    
+    private String buildStudentGradeEmail(Aluno aluno, Turma turma, Nota nota) {
+    	String emailBody= String.format("%s, sua nota em %s foi %.2f com %.2f faltas.", aluno.getNome(),
+				turma.getDisciplina().getNome(), nota.getNota(), nota.getFaltas());
+    	return emailBody;
+    }
+    
+    @PostMapping("/enviar/aluno/{alunoId}/{turmaId}")
+    public ResponseEntity<String> enviarNotaAluno(@PathVariable Long alunoId, @PathVariable Long turmaId){
+    	Aluno aluno = alunoService.findById(alunoId);
+    	Turma turma = turmaService.findById(turmaId);
+    	Nota nota = service.findByAlunoAndTurma(aluno, turma);
+		String emailBody = buildStudentGradeEmail(aluno, turma, nota);
+		return ResponseEntity.status(HttpStatus.OK).body(emailBody);
+		//return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    
+    @PostMapping("/enviar/turma/{turmaId}")
+    public ResponseEntity<List<String>> enviarNotasAlunosTurma(@PathVariable Long turmaId){
+    	Turma turma = turmaService.findById(turmaId);
+    	Nota nota;
+    	List<String> emailBodies = new ArrayList<String>();
+    	for(Aluno aluno : turma.getAlunos()) {
+    		nota = service.findByAlunoAndTurma(aluno, turma);
+    		emailBodies.add(buildStudentGradeEmail(aluno, turma, nota));
+    	}
+    	return ResponseEntity.status(HttpStatus.OK).body(emailBodies);
+		//return ResponseEntity.status(HttpStatus.OK).build();;
+    }
+    
 
 }
