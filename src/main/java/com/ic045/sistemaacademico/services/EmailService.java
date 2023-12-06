@@ -15,7 +15,7 @@ import java.io.IOException;
 @Service
 public class EmailService {
 
-    @Value("${spring.mail.username}")
+    @Value("${spring.mail.password}")
     private String sendGridApiKey;
 
     public void sendEmail(String to, String subject, String body){
