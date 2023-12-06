@@ -25,8 +25,6 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
     
-    @Autowired
-    private UsuarioService user_service;
 
     @Autowired
     private NotaService notaService;
@@ -52,13 +50,13 @@ public class AlunoController {
         Usuario user = new Usuario();
         Curso curso = new Curso();
         if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
-        user = user_service.findById(InsertAluno.usuario());
+        user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user, InsertAluno.nome());
         aluno.setCurso(curso);
         aluno.setCr(0);
         aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
-        aluno.setNumero_matricula(service.registrationNumber(user.getCpf(), LocalDateTime.now()));
+        aluno.setNumero_matricula(service.registrationNumber(LocalDateTime.now()));
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
     }
 

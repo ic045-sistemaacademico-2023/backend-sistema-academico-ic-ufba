@@ -6,6 +6,7 @@ import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 
 import java.time.LocalDateTime;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
@@ -49,9 +50,11 @@ public class AlunoService {
        }
     }
 
-	public String registrationNumber(String cpf, LocalDateTime now) {
+	public String registrationNumber(LocalDateTime now) {
+		Random aleatorio = new Random();
+		int value = aleatorio.nextInt(100001, 1000000);
 		String ano = DateConverter.getAnoPontoSemestre(now);
-		String numero_matricula = ano.substring(0, 4).concat(ano.substring(5, 6)).concat(cpf.substring(9,11).concat(cpf.substring(0, 2).concat(cpf.substring(4, 6))));
+		String numero_matricula = ano.substring(0, 4).concat(ano.substring(5, 6)).concat(Integer.toString(value));
 		return numero_matricula;
 		
 	}
