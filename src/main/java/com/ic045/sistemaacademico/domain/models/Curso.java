@@ -39,10 +39,10 @@ public class Curso {
 	private String nome;
 
 	@NonNull
-	private int semestre;
+	private Integer semestre;
 
 	@Column(name = "periodo_curriculo")
-    private String periodo_curriculo;
+	private String periodo_curriculo;
 
 	@Enumerated(EnumType.STRING)
 	@NonNull

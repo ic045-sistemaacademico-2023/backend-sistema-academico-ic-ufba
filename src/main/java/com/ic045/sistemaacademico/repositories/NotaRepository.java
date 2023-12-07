@@ -7,10 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ic045.sistemaacademico.domain.models.Nota;
 
-import java.util.Set;
+import java.util.List;
 
 @Repository
 public interface NotaRepository extends JpaRepository<Nota, Long> {
-    Set<Nota> findByAlunoAndTurma(Aluno aluno, Turma turma);
+    Nota findByAlunoAndTurma(Aluno aluno, Turma turma);
+    List<Nota> findByAlunoId(Long id);
     
 }

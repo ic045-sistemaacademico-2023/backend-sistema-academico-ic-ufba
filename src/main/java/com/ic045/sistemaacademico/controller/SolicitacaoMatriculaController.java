@@ -2,6 +2,8 @@ package com.ic045.sistemaacademico.controller;
 
 import java.util.List;
 
+import com.ic045.sistemaacademico.controller.vos.request.InsertSolicitacaoMatriculaRequest;
+import com.ic045.sistemaacademico.controller.vos.request.UpdateSolicitacaoMatriculaRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +29,6 @@ import com.ic045.sistemaacademico.services.OportunidadeMatriculaService;
 import com.ic045.sistemaacademico.services.SolicitacaoMatriculaService;
 import com.ic045.sistemaacademico.services.SolicitacaoTurmaService;
 import com.ic045.sistemaacademico.services.TurmaService;
-
 
 @RestController
 @RequestMapping("/solicitacao-matricula")
@@ -74,7 +75,8 @@ public class SolicitacaoMatriculaController {
     }
 
     @PutMapping("/{id}")
-    public SolicitacaoMatricula updateSolicitacaoMatricula(@PathVariable Long id, @RequestBody UpdateSolicitacaoMatriculaRequest request) {
+    public SolicitacaoMatricula updateSolicitacaoMatricula(@PathVariable Long id,
+            @RequestBody UpdateSolicitacaoMatriculaRequest request) {
         return service.updateSolicitacaoMatricula(id, request);
     }
 

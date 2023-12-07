@@ -2,7 +2,6 @@ package com.ic045.sistemaacademico.controller;
 
 import com.ic045.sistemaacademico.controller.vos.request.UpdateNotaRequest;
 import com.ic045.sistemaacademico.domain.models.Aluno;
-import com.ic045.sistemaacademico.services.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +18,7 @@ import com.ic045.sistemaacademico.controller.vos.request.InsertNotaRequest;
 import com.ic045.sistemaacademico.domain.models.Nota;
 import com.ic045.sistemaacademico.services.NotaService;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/nota")
@@ -26,27 +26,29 @@ public class NotaController {
     @Autowired
     private NotaService service;
 
-    @Autowired
-    private AlunoService alunoService;
-
     @GetMapping("/{id}")
     public ResponseEntity<Nota> findById(@PathVariable Long id) {
         Nota nota = service.findById(id);
 
-        return nota != null ? ResponseEntity.ok(nota): ResponseEntity.notFound().build();
+        return nota != null ? ResponseEntity.ok(nota) : ResponseEntity.notFound().build();
     }
 
     @GetMapping("/{id}/aluno")
-    public ResponseEntity<Aluno> findAlunoByNota(@PathVariable Long id){
+    public ResponseEntity<Aluno> findAlunoByNota(@PathVariable Long id) {
         Nota nota = service.findById(id);
         Aluno aluno = nota.getAluno();
-        return aluno != null ? ResponseEntity.ok(aluno): ResponseEntity.notFound().build();
+        return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/aluno/{id}")
+    public List<Nota> findByAlunoId(@PathVariable Long id) {
+        return service.findByAlunoId(id);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Nota> insertNota(@RequestBody InsertNotaRequest insertNotaRequest){
-    	if(insertNotaRequest.nota() == null)
-    		return ResponseEntity.badRequest().build();
+    public ResponseEntity<Nota> insertNota(@RequestBody InsertNotaRequest insertNotaRequest) {
+        if (insertNotaRequest.nota() == null)
+            return ResponseEntity.badRequest().build();
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insertNotaEFaltas(insertNotaRequest));
     }
 

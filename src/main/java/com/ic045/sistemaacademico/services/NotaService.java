@@ -15,6 +15,8 @@ import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.repositories.NotaRepository;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
+import java.util.List;
+
 @Service
 public class NotaService {
     @Autowired
@@ -32,6 +34,9 @@ public class NotaService {
                 .orElseThrow(() -> new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Nota", id)));
     }
 
+    public List<Nota> findByAlunoId(Long id){
+    	return repository.findByAlunoId(id);
+    }
 
     public Nota insertNotaEFaltas(InsertNotaRequest insertNotaRequest) {
 
@@ -88,6 +93,10 @@ public class NotaService {
         }
 
 	}
+
+    public Nota findByAlunoAndTurma(Aluno aluno, Turma turma) {
+        return repository.findByAlunoAndTurma(aluno, turma);
+    }
 
     public Nota updateNotasEFaltas(Long id, UpdateNotaRequest request) {
         Nota notaToUpdate = findById(id);
