@@ -1,6 +1,7 @@
 package com.ic045.sistemaacademico.exception;
 
 import com.ic045.sistemaacademico.exception.custom.BadRequestException;
+import com.ic045.sistemaacademico.exception.custom.EmailException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(buildErrorResponse(HttpStatus.BAD_REQUEST, ex));
+    }
+    
+    @ExceptionHandler(value = { EmailException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<Object> handleException(EmailException ex) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex));
     }
 
     private static ErrorResponse buildErrorResponse(final HttpStatus status, final RuntimeException ex) {

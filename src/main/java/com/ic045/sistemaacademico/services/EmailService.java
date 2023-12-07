@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
+import com.ic045.sistemaacademico.exception.custom.EmailException;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -37,18 +39,11 @@ public class EmailService {
 
             Response response = sg.api(request);
             
-			/*
-			 * Para debug
-			 System.out.println(response.getStatusCode());
-			 System.out.println(response.getBody());
-			 System.out.println(response.getHeaders());
-			 */
-            
             if(response.getStatusCode() == 202)
             	return true;
             
         } catch (IOException ex) {
-            ex.printStackTrace();
+           throw new EmailException(ErrorMessages.EMAIL_NOT_SENT.getMessage());
         }
 		return false;
     }
