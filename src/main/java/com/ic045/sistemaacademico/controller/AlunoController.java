@@ -56,7 +56,7 @@ public class AlunoController {
         aluno.setCurso(curso);
         aluno.setCr(0);
         aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
-        aluno.setNumero_matricula(service.registrationNumber(LocalDateTime.now()));
+        aluno.setNumeroMatricula(service.registrationNumber(LocalDateTime.now()));
         return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
     }
 

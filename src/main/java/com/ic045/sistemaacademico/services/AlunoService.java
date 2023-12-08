@@ -41,6 +41,12 @@ public class AlunoService {
            if (repository.existsByusuarioId(insertAluno.getUsuario().getId())) {
                 throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
            }
+           
+           if (repository.existsBynumeroMatricula(insertAluno.getNumeroMatricula())) {
+               insertAluno.setNumeroMatricula(registrationNumber(LocalDateTime.now()));
+               InsertAlunoData(insertAluno);
+          }
+           
             repository.save(insertAluno);
             return true;
        }catch (IllegalArgumentException e){
