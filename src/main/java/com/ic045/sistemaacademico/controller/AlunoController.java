@@ -21,6 +21,7 @@ import java.util.Set;
 public class AlunoController {
     @Autowired
     private AlunoService service;
+    
 
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> findById(@PathVariable Long id) {
@@ -50,6 +51,7 @@ public class AlunoController {
         aluno.setCurso(curso);
         aluno.setCr(0);
         aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
+        aluno.setNumeroMatricula(service.registrationNumber(LocalDateTime.now()));
         return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
     }
 
