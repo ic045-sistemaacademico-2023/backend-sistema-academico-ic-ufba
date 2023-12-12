@@ -21,15 +21,17 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtSecurityFilter securityFilter) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, JwtSecurityFilter securityFilter)
+            throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                    // auth.requestMatchers(HttpMethod.GET, "user/{id}", "", "").hasRole("ADMIN"); // TO DO: filtrar por Role as rotas
-                    auth.anyRequest().permitAll(); // Regra geral de permissão
+                    // auth.requestMatchers(HttpMethod.GET, "user/{id}", "", "").hasRole("ADMIN");
+                    // // TO DO: filtrar por Role as rotas
+                    auth.anyRequest().permitAll();
                 })
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Há uma cadeia de filtros depois desse
+                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }

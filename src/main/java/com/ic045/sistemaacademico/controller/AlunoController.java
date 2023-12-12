@@ -4,8 +4,6 @@ import com.ic045.sistemaacademico.controller.vos.request.InsertAlunoRequest;
 import com.ic045.sistemaacademico.domain.models.*;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.services.AlunoService;
-import com.ic045.sistemaacademico.services.NotaService;
-import com.ic045.sistemaacademico.services.UsuarioService;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -25,9 +22,6 @@ public class AlunoController {
     @Autowired
     private AlunoService service;
     
-
-    @Autowired
-    private NotaService notaService;
 
     @GetMapping("/{id}")
     public ResponseEntity<Aluno> findById(@PathVariable Long id) {
@@ -46,10 +40,11 @@ public class AlunoController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno){
+    public ResponseEntity<Boolean> InsertAluno(@RequestBody InsertAlunoRequest InsertAluno) {
         Usuario user = new Usuario();
         Curso curso = new Curso();
-        if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null) throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
+        if (InsertAluno.usuario() == null || InsertAluno.curso() == null || InsertAluno.nome() == null)
+            throw new NotCreatedException(ErrorMessages.DATA_NULL.getMessage());
         user.setId(InsertAluno.usuario());
         curso.setId(InsertAluno.curso());
         Aluno aluno = new Aluno(user, InsertAluno.nome());
@@ -57,7 +52,7 @@ public class AlunoController {
         aluno.setCr(0);
         aluno.setPeriodo_ingresso(DateConverter.getAnoPontoSemestre(LocalDateTime.now()));
         aluno.setNumeroMatricula(service.registrationNumber(LocalDateTime.now()));
-        return  ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.InsertAlunoData(aluno));
     }
 
 }
