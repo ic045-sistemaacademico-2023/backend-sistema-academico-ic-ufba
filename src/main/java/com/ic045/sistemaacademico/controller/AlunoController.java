@@ -29,6 +29,12 @@ public class AlunoController {
 
         return aluno != null ? ResponseEntity.ok(aluno) : ResponseEntity.notFound().build();
     }
+    
+    @GetMapping("/bycurso/{cursoId}")
+    public ResponseEntity<List<Aluno>> findByCursoId(@PathVariable Long cursoId) {
+    	List<Aluno> alunos = service.findByCursoId(cursoId);
+        return alunos != null ? ResponseEntity.ok(alunos) : ResponseEntity.notFound().build();
+    }
 
     @GetMapping("/{id}/disciplinas/ativas")
     public ResponseEntity<Set<Disciplina>> findDisciplinas(@PathVariable Long id) {

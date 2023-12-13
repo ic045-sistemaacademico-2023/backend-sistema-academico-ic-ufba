@@ -3,8 +3,9 @@ package com.ic045.sistemaacademico.services;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
-import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 
+import java.util.List;
+import com.ic045.sistemaacademico.utils.helpers.DateConverter;
 import java.time.LocalDateTime;
 import java.util.Random;
 
@@ -76,4 +77,8 @@ public class AlunoService {
             repository.delete(aluno);
         }
     }
+
+	public List<Aluno> findByCursoId(Long cursoId) {
+		return repository.findByCursoId(cursoId);
+	}
 }
