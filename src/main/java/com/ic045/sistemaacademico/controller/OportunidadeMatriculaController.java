@@ -29,7 +29,6 @@ import com.ic045.sistemaacademico.domain.models.Disciplina;
 import com.ic045.sistemaacademico.domain.models.OpMatriculaDisciplinaTurma;
 import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
 import com.ic045.sistemaacademico.domain.models.Turma;
-import com.ic045.sistemaacademico.exception.custom.BadRequestException;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
@@ -37,30 +36,31 @@ import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 @RestController
 @RequestMapping("/oportunidade")
 public class OportunidadeMatriculaController {
-	
+
 	@Autowired
-	private OportunidadeMatriculaService service;	
-	
+	private OportunidadeMatriculaService service;
+
 	@Autowired
 	private DisciplinaService disciplinaService;
-	
+
 	@Autowired
 	private TurmaService turmaService;
-	
+
 	@Autowired
 	private CoordenadorDeCursoService coordenadorService;
-	
+
 	@Autowired
 	private OpMatriculaDisciplinaTurmaService opMatriculaDisciplinaTurmaService;
 
 	@Autowired
 	private EmailService emailService;
 	
-	
 	/*
-	 * Recebe uma lista de objetos OportunidadeMatricula e retorna uma lista destes objetos formatados para resposta
+	 * Recebe uma lista de objetos OportunidadeMatricula e retorna uma lista destes
+	 * objetos formatados para resposta
 	 * incluindo suas turmas e disciplinas asssociadas
-	 * --> [ {oportunidadeMatricula: OportunidadeMatricula, disciplinaTurmas: [DisciplinaTurmasResponse] }, ... ]
+	 * --> [ {oportunidadeMatricula: OportunidadeMatricula, disciplinaTurmas:
+	 * [DisciplinaTurmasResponse] }, ... ]
 	 */
 	private List<OportunidadeMatriculaResponse> buildOportunidadeMatriculaResponse(
 			List<OportunidadeMatricula> oportunidadesMatriculas) {
@@ -70,7 +70,7 @@ public class OportunidadeMatriculaController {
 			List<OpMatriculaDisciplinaTurma> opMatDiscTurmaList = opMatriculaDisciplinaTurmaService
 					.findByOportunidadeMatriculaId(opMat.getId());
 			Map<Disciplina, List<Turma>> disciplinasTurmas = new HashMap<Disciplina, List<Turma>>();
-			
+
 			if (!opMatDiscTurmaList.isEmpty()) {
 				for (OpMatriculaDisciplinaTurma opMatDiscTurma : opMatDiscTurmaList) {
 					if (disciplinasTurmas.containsKey(opMatDiscTurma.getDisciplina()))
@@ -87,25 +87,26 @@ public class OportunidadeMatriculaController {
 							.add(new DisciplinaTurmasResponse(disc, disciplinasTurmas.get(disc)));
 				}
 
-				// [ {oportunidadeMatricula: OportunidadeMatricula, disciplinaTurmas: [DisciplinaTurmasResponse] } ]
+				// [ {oportunidadeMatricula: OportunidadeMatricula, disciplinaTurmas:
+				// [DisciplinaTurmasResponse] } ]
 				response.add(new OportunidadeMatriculaResponse(opMat, disciplinaTurmasReponse));
-			}else {
+			} else {
 				response.add(new OportunidadeMatriculaResponse(opMat, new ArrayList<DisciplinaTurmasResponse>()));
 			}
 		}
 		return response;
 	}
-	
+
 	/*
 	 * Constroi um hash map das disciplinas com suas turnas a partir da requisição
 	 */
-	private Map<Disciplina, List<Turma>> mapDisciplinasTurmas(OportunidadeMatriculaRequest request){
+	private Map<Disciplina, List<Turma>> mapDisciplinasTurmas(OportunidadeMatriculaRequest request) {
 		Map<Disciplina, List<Turma>> disciplinasTurmas = new HashMap<Disciplina, List<Turma>>();
 		for (DisciplinaTurmas dts : request.disciplinaTurmas()) {
 			try {
 				Disciplina disc = disciplinaService.findById(dts.disciplina());
 				ArrayList<Turma> turmasDaDisciplina = new ArrayList<Turma>();
-				
+
 				for (Long turmaId : dts.turmas()) {
 					try {
 						Turma turma = turmaService.findById(turmaId);
@@ -116,7 +117,7 @@ public class OportunidadeMatriculaController {
 					}
 				}
 				disciplinasTurmas.put(disc, turmasDaDisciplina);
-				
+
 			} catch (NotFoundException e) {
 				throw new NotCreatedException(
 						String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Disciplina", dts.disciplina()));
@@ -124,72 +125,74 @@ public class OportunidadeMatriculaController {
 		}
 		return disciplinasTurmas;
 	}
-	
+
 	/*
-	 * Valida se existe alguma oportunidade de matrícula para o curso informado que já esteja aberta
+	 * Valida se existe alguma oportunidade de matrícula para o curso informado que
+	 * já esteja aberta
 	 * Caso afirmativo, lança exceção que é mapeada para status 501 na resposta
 	 */
 	private void validateThereIsOportunidadeAlreadyOpen(Long coordenadorId) {
-		if(service.isThereAlreadyOpen(coordenadorId))
+		if (service.isThereAlreadyOpen(coordenadorId))
 			throw new NotCreatedException(
 					String.format("There is already an open enrollment opportunity for this course"));
 	}
-	
+
 	@PostMapping("/")
 	public ResponseEntity<OportunidadeMatricula> InsertOportunidade(@RequestBody OportunidadeMatriculaRequest request) {
-		if(request.aberta())
+		if (request.aberta())
 			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
-		
+
 		Map<Disciplina, List<Turma>> disciplinasTurmas = mapDisciplinasTurmas(request);
-		
+
 		Timestamp dataInicial = Timestamp.valueOf(request.dataInicial());
 		Timestamp dataFinal = Timestamp.valueOf(request.dataFinal());
 		CoordenadorDeCurso coordenador = coordenadorService.findById(request.coordenador());
 		OportunidadeMatricula opMatricula = new OportunidadeMatricula(request.nome(), request.descricao(), dataInicial,
 				dataFinal, request.aberta(), coordenador);
-		
+
 		opMatricula = service.insertOportunidadeMatriculaData(opMatricula);
-		
-		if(!disciplinasTurmas.isEmpty()) {
-			for(Map.Entry<Disciplina, List<Turma>> entry : disciplinasTurmas.entrySet()) {
-				for(Turma turma : entry.getValue()) {
-					OpMatriculaDisciplinaTurma opMatDiscTurma = new OpMatriculaDisciplinaTurma(opMatricula,entry.getKey(),turma);
+
+		if (!disciplinasTurmas.isEmpty()) {
+			for (Map.Entry<Disciplina, List<Turma>> entry : disciplinasTurmas.entrySet()) {
+				for (Turma turma : entry.getValue()) {
+					OpMatriculaDisciplinaTurma opMatDiscTurma = new OpMatriculaDisciplinaTurma(opMatricula,
+							entry.getKey(), turma);
 					opMatriculaDisciplinaTurmaService.insertOpMatriculaDisciplinaTurmaData(opMatDiscTurma);
 				}
 			}
 		}
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(opMatricula);
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<OportunidadeMatriculaResponse> findById(@PathVariable Long id){
+	public ResponseEntity<OportunidadeMatriculaResponse> findById(@PathVariable Long id) {
 		OportunidadeMatricula opMatricula = service.findById(id);
 		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(Arrays.asList(opMatricula));
 		return response.size() != 0 ? ResponseEntity.ok(response.get(0)) : ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<OportunidadeMatriculaResponse>> findAll(){
+	public ResponseEntity<List<OportunidadeMatriculaResponse>> findAll() {
 		List<OportunidadeMatricula> oportunidadesMatriculas = service.findAll();
 		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(oportunidadesMatriculas);
-		return  ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
-	
+
 	@GetMapping("/bycoordenadorid/{id}")
-	public ResponseEntity<List<OportunidadeMatriculaResponse>> finByCoordenadorId(@PathVariable Long id){
+	public ResponseEntity<List<OportunidadeMatriculaResponse>> finByCoordenadorId(@PathVariable Long id) {
 		List<OportunidadeMatricula> oportunidadesMatriculas = service.findByCoordenadorId(id);
 		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(oportunidadesMatriculas);
-		return  ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("/bycursoid/{id}")
-	public ResponseEntity<List<OportunidadeMatriculaResponse>> finByCursoId(@PathVariable Long id){
+	public ResponseEntity<List<OportunidadeMatriculaResponse>> finByCursoId(@PathVariable Long id) {
 		List<OportunidadeMatricula> oportunidadesMatriculas = service.findByCursoId(id);
 		List<OportunidadeMatriculaResponse> response = buildOportunidadeMatriculaResponse(oportunidadesMatriculas);
-		return  ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
-	
+
 	@PutMapping("/{id}")
 	public ResponseEntity<OportunidadeMatricula> editOportunidadeMatricula(@PathVariable Long id,
 			@RequestBody OportunidadeMatriculaRequest request) {
@@ -223,28 +226,28 @@ public class OportunidadeMatriculaController {
 		opMat = service.updateOportuidadeMatricula(id, request);
 		return ResponseEntity.status(HttpStatus.OK).body(opMat);
 	}
-	
-	
+
 	@PutMapping("/adddisciplinaturma/{id}")
 	public ResponseEntity<Boolean> addDisciplinaTurma(@PathVariable Long id,
 			@RequestBody DisciplinaTurmas request) {
 		OportunidadeMatricula opMatricula = service.findById(id);
 		Disciplina disc = disciplinaService.findById(request.disciplina());
-		for(Long turmaId : request.turmas()) {
+		for (Long turmaId : request.turmas()) {
 			Turma turma = turmaService.findById(turmaId);
-			OpMatriculaDisciplinaTurma opMatDiscTurma = new OpMatriculaDisciplinaTurma(opMatricula,disc,turma);
+			OpMatriculaDisciplinaTurma opMatDiscTurma = new OpMatriculaDisciplinaTurma(opMatricula, disc, turma);
 			opMatriculaDisciplinaTurmaService.insertOpMatriculaDisciplinaTurmaData(opMatDiscTurma);
 		}
 		return ResponseEntity.ok(true);
 	}
-	
+
 	@PutMapping("/removedisciplina/{idOpMatDisTurma}/{idDisciplina}")
-	public ResponseEntity<Void> removeDisciplina(@PathVariable Long idOpMatDisTurma, @PathVariable Long idDisciplina){
-		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService.findByIdAndDisciplinaId(idOpMatDisTurma,idDisciplina);
+	public ResponseEntity<Void> removeDisciplina(@PathVariable Long idOpMatDisTurma, @PathVariable Long idDisciplina) {
+		OpMatriculaDisciplinaTurma opMatDisTur = opMatriculaDisciplinaTurmaService
+				.findByIdAndDisciplinaId(idOpMatDisTurma, idDisciplina);
 		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
-	
+
 	@PutMapping("/removeturma/{idOpMat}/{idDisciplina}/{idTurma}")
 	public ResponseEntity<Void> removeTurma(@PathVariable Long idOpMat, @PathVariable Long idDisciplina,
 			@PathVariable Long idTurma) {
@@ -253,16 +256,16 @@ public class OportunidadeMatriculaController {
 		opMatriculaDisciplinaTurmaService.deleteById(opMatDisTur.getId());
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
-	
+
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deleteOportunidadeMatricula(@PathVariable Long id){
+	public ResponseEntity<Void> deleteOportunidadeMatricula(@PathVariable Long id) {
 		List<OpMatriculaDisciplinaTurma> opMats = opMatriculaDisciplinaTurmaService.findByOportunidadeMatriculaId(id);
-		
-		for(OpMatriculaDisciplinaTurma omdt : opMats) 
+
+		for (OpMatriculaDisciplinaTurma omdt : opMats)
 			opMatriculaDisciplinaTurmaService.deleteById(omdt.getId());
-		
+
 		service.deleteOportunidadeMatricula(id);
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
-	
+
 }

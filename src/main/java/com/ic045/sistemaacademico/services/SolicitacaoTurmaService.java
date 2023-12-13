@@ -2,10 +2,8 @@ package com.ic045.sistemaacademico.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.ic045.sistemaacademico.domain.models.SolicitacaoMatricula;
-import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.repositories.SolicitacaoMatriculaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +38,9 @@ public class SolicitacaoTurmaService {
     public List<SolicitacaoTurma> getSolicitacaoTurmaBySolicitacaoMatriculaId(Long id) {
         List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(id);
 
-        if(solicitacoes.isEmpty()) {
-        	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id));
+        if (solicitacoes.isEmpty()) {
+            throw new NotFoundException(
+                    String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", id));
         }
         return solicitacoes;
     }
@@ -49,8 +48,9 @@ public class SolicitacaoTurmaService {
     public SolicitacaoTurma getSolicitacaoTurmaByTurmaIdAndAlunoId(Long turmaId, Long alunoId) {
         SolicitacaoTurma solicitacaoTurma = repository.findByTurmaIdAndAlunoId(turmaId, alunoId);
 
-        if(solicitacaoTurma == null) {
-        	throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", turmaId, alunoId));
+        if (solicitacaoTurma == null) {
+            throw new NotFoundException(
+                    String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", turmaId, alunoId));
         }
 
         return solicitacaoTurma;
@@ -70,7 +70,8 @@ public class SolicitacaoTurmaService {
 
     public void aprovarSolicitacaoTurma(SolicitacaoTurma solicitacaoTurma) {
         solicitacaoTurma.setStatus(Role.Status.APPROVED);
-        turmaService.adicionarAlunoTurma(solicitacaoTurma.getTurma().getId(), solicitacaoTurma.getSolicitacaoMatricula().getAluno().getId());
+        turmaService.adicionarAlunoTurma(solicitacaoTurma.getTurma().getId(),
+                solicitacaoTurma.getSolicitacaoMatricula().getAluno().getId());
 
         SolicitacaoMatricula solicitacaoMatricula = solicitacaoTurma.getSolicitacaoMatricula();
 
@@ -102,23 +103,25 @@ public class SolicitacaoTurmaService {
         repository.save(solicitacaoTurma);
     }
 
-    public List<SolicitacaoTurma> findBySolicitacaoMatriculaId(Long solicitacaoMatriculaId){
-    	List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(solicitacaoMatriculaId);
-    	if(solicitacoes.isEmpty()) {
-    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", solicitacaoMatriculaId));
-    	}
-    	return solicitacoes;
+    public List<SolicitacaoTurma> findBySolicitacaoMatriculaId(Long solicitacaoMatriculaId) {
+        List<SolicitacaoTurma> solicitacoes = repository.findAllBySolicitacaoMatriculaId(solicitacaoMatriculaId);
+        if (solicitacoes.isEmpty()) {
+            throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma",
+                    solicitacaoMatriculaId));
+        }
+        return solicitacoes;
     }
 
     public List<SolicitacaoTurma> getSolicitacaoTurmasByTurmaId(Long idTurma) {
         return repository.findByTurmaId(idTurma);
     }
 
-    public List<SolicitacaoTurma> getTurmasByAlunoId(Long alunoId){
-    	List<SolicitacaoTurma> solicitacoes = repository.findAllByAlunoId(alunoId);
-    	if(solicitacoes.isEmpty()) {
-    		throw new NotFoundException(String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", alunoId));
-    	}
-    	return new ArrayList<>(solicitacoes);
+    public List<SolicitacaoTurma> getTurmasByAlunoId(Long alunoId) {
+        List<SolicitacaoTurma> solicitacoes = repository.findAllByAlunoId(alunoId);
+        if (solicitacoes.isEmpty()) {
+            throw new NotFoundException(
+                    String.format(ErrorMessages.OBJECT_NOT_FOUND.getMessage(), "Solicitação Turma", alunoId));
+        }
+        return new ArrayList<>(solicitacoes);
     }
 }

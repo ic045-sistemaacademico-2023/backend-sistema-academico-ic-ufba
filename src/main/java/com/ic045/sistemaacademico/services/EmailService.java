@@ -1,5 +1,7 @@
 package com.ic045.sistemaacademico.services;
 
+import com.ic045.sistemaacademico.exception.custom.EmailException;
+import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -15,12 +17,13 @@ import java.io.IOException;
 @Service
 public class EmailService {
 
-    @Value("${spring.mail.host}")
-    private String sendGridApiKey;
-
-    @Value("${spring.mail.username}")
-    private String sendGridFromEmail;
-
+	
+	@Value("${spring.mail.host}")
+	private String sendGridApiKey;
+	
+	@Value("${spring.mail.username}")
+	private String sendGridFromEmail;
+	 
 
     public boolean sendEmail(String to, String subject, String body){
         Email from = new Email(sendGridFromEmail);
@@ -35,20 +38,13 @@ public class EmailService {
             request.setBody(mail.build());
 
             Response response = sg.api(request);
-
-			/*
-			 * Para debug
-			 System.out.println(response.getStatusCode());
-			 System.out.println(response.getBody());
-			 System.out.println(response.getHeaders());
-			 */
-
+            
             if(response.getStatusCode() == 202)
-                return true;
-
+            	return true;
+            
         } catch (IOException ex) {
-            ex.printStackTrace();
+           throw new EmailException(ErrorMessages.EMAIL_NOT_SENT.getMessage());
         }
-        return false;
+		return false;
     }
 }

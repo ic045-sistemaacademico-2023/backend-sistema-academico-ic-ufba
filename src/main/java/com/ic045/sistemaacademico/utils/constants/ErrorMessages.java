@@ -8,7 +8,8 @@ public enum ErrorMessages {
     NOT_CREATED("Existing data"),
     DATA_NULL("Null data found"),
     COULD_NOT_UPDATE("The %s with id %s - Couldn't be updated"),
-    OBJECT_NOT_FOUND_GENERIC_PROP("The %s with %s: %s – Couldn't be found");
+    OBJECT_NOT_FOUND_GENERIC_PROP("The %s with %s: %s – Couldn't be found"),
+	EMAIL_NOT_SENT("It was not possible to send the email");
     private final String message;
 
     ErrorMessages(String message) {

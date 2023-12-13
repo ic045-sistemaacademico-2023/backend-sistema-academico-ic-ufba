@@ -3,6 +3,12 @@ package com.ic045.sistemaacademico.services;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
+
+import java.util.List;
+import com.ic045.sistemaacademico.utils.helpers.DateConverter;
+import java.time.LocalDateTime;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
@@ -36,6 +42,12 @@ public class AlunoService {
            if (repository.existsByusuarioId(insertAluno.getUsuario().getId())) {
                 throw new NotCreatedException(ErrorMessages.NOT_CREATED.getMessage());
            }
+           
+           if (repository.existsBynumeroMatricula(insertAluno.getNumeroMatricula())) {
+               insertAluno.setNumeroMatricula(registrationNumber(LocalDateTime.now()));
+               InsertAlunoData(insertAluno);
+          }
+           
             repository.save(insertAluno);
             return true;
        }catch (IllegalArgumentException e){
@@ -45,6 +57,14 @@ public class AlunoService {
        }
     }
 
+	public String registrationNumber(LocalDateTime now) {
+		Random aleatorio = new Random();
+		int value = aleatorio.nextInt(100001, 1000000);
+		String ano = DateConverter.getAnoPontoSemestre(now);
+		String numero_matricula = ano.substring(0, 4).concat(ano.substring(5, 6)).concat(Integer.toString(value));
+		return numero_matricula;
+		
+	}
     
     public String checkSemester(int month) {
         return month >= 6 ? "2" : "1";
@@ -57,4 +77,8 @@ public class AlunoService {
             repository.delete(aluno);
         }
     }
+
+	public List<Aluno> findByCursoId(Long cursoId) {
+		return repository.findByCursoId(cursoId);
+	}
 }
