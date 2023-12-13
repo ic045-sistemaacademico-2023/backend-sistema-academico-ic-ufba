@@ -11,6 +11,8 @@ import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
 @Repository
 public interface OportunidadeMatriculaRepository extends JpaRepository<OportunidadeMatricula, Long>{
 
+	List<OportunidadeMatricula> findAll();
+
 	List<OportunidadeMatricula> findByCoordenadorId(Long id);
 
 	@Query("SELECT opmat FROM OportunidadeMatricula opmat INNER JOIN CoordenadorDeCurso coord on coord.id = opmat.coordenador.id INNER JOIN Curso c on c.coordenadorDeCurso.id = coord.id WHERE c.id = :id")

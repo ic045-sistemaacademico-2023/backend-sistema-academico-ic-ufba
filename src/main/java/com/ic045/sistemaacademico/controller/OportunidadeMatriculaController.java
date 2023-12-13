@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ic045.sistemaacademico.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +31,6 @@ import com.ic045.sistemaacademico.domain.models.OportunidadeMatricula;
 import com.ic045.sistemaacademico.domain.models.Turma;
 import com.ic045.sistemaacademico.exception.custom.NotCreatedException;
 import com.ic045.sistemaacademico.exception.custom.NotFoundException;
-import com.ic045.sistemaacademico.services.CoordenadorDeCursoService;
-import com.ic045.sistemaacademico.services.DisciplinaService;
-import com.ic045.sistemaacademico.services.OpMatriculaDisciplinaTurmaService;
-import com.ic045.sistemaacademico.services.OportunidadeMatriculaService;
-import com.ic045.sistemaacademico.services.TurmaService;
 import com.ic045.sistemaacademico.utils.constants.ErrorMessages;
 
 @RestController
@@ -56,6 +52,9 @@ public class OportunidadeMatriculaController {
 	@Autowired
 	private OpMatriculaDisciplinaTurmaService opMatriculaDisciplinaTurmaService;
 
+	@Autowired
+	private EmailService emailService;
+	
 	/*
 	 * Recebe uma lista de objetos OportunidadeMatricula e retorna uma lista destes
 	 * objetos formatados para resposta
@@ -202,6 +201,11 @@ public class OportunidadeMatriculaController {
 		if (request.aberta() && !opMat.getAberta()) {
 			validateThereIsOportunidadeAlreadyOpen(request.coordenador());
 		}
+
+		if(!request.aberta() && opMat.getAberta()){
+			emailService.sendEmail(opMat.getCoordenador().getEmail(), "Oportunidade fechada", "A oportunidade para a matrícula na disciplina " + opMat.getNome() + " foi fechada");
+		}
+
 
 		List<OpMatriculaDisciplinaTurma> opMatDiscTurmas = opMatriculaDisciplinaTurmaService
 				.findByOportunidadeMatriculaId(id);
