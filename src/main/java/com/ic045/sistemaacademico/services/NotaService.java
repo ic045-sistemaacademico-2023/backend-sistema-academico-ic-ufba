@@ -95,7 +95,7 @@ public class NotaService {
 	}
 
     public Nota findByAlunoAndTurma(Aluno aluno, Turma turma) {
-        return repository.findByAlunoAndTurma(aluno, turma);
+        return repository.findByAlunoIdAndTurmaId(aluno.getId(), turma.getId());
     }
 
     public Nota updateNotasEFaltas(Long id, UpdateNotaRequest request) {
