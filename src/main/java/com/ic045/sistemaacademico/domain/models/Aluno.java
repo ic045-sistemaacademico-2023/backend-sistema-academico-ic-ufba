@@ -54,4 +54,7 @@ public class Aluno {
 
     @Column(name = "periodo_ingresso")
     private String periodo_ingresso;
+    
+    @Column(name = "numero_matricula", unique = true)
+    private String numeroMatricula;
 }

@@ -9,6 +9,8 @@ import com.ic045.sistemaacademico.domain.models.Aluno;
 public interface AlunoRepository extends JpaRepository<Aluno, Long> {
 
     boolean existsByusuarioId(Long id);
+    
+    boolean existsBynumeroMatricula(String numeroMatricula);
 
     Aluno findByUsuarioId(Long id);
 

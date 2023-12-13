@@ -29,7 +29,7 @@ VALUES (1, 'Programação Orientada a Objetos', 'POOA', 'Ementa da disciplina de
 INSERT INTO `turma` (id_disciplina, id_professor, dias, horario, sala, code, semestre) VALUES (1, 1, 'SEG, QUA', '10:00 - 12:00', 'PAFI_103', 'Técnica1',  1);
 
 -- Create a record in the `aluno` table to associate the student `aluno` with the `Turma 1`
-INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso) VALUES (1, 4, 'Aluno', 0, '2019.2');
+INSERT INTO `aluno` (id_curso, id_usuario, nome, cr, periodo_ingresso, numero_matricula) VALUES (1, 4, 'Aluno', 0, '2019.2', '20192017618');
 
 -- Create a record in the `NOTA` table to associate the student `aluno 1` with the `Turma 1` and 'Disciplina 1'
 INSERT INTO `nota` (id_aluno, id_turma, id_disciplina, nota, faltas) VALUES (1, 1, 1, 8.2, 3);
